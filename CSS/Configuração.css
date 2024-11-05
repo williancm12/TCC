@@ -1,0 +1,143 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    height: 100vh;
+    background-color: #f0f0f0;
+}
+
+/* Barra lateral */
+.sidebar {
+    width: 250px;
+    color: white;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Container do perfil */
+.profile-container {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.profile-picture {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.profile-container h3 {
+    margin-top: 10px;
+    font-size: 1.2em;
+}
+
+/* Estilizando botões */
+.sidebar-buttons {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.sidebar-buttons button {
+    border: none;
+    padding: 10px;
+    margin: 5px 0;
+    text-align: left;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 100%;
+    border-radius: 5px;
+}
+
+.sidebar-buttons button:hover {
+    background-color: #b77ce1;
+}
+
+/* Conteúdo principal */
+.main-content {
+    flex-grow: 1;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.main-content h1 {
+    font-size: 2em;
+    margin-bottom: 20px;
+}
+
+#search {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+}
+
+/* Opções de configuração/ajuda */
+.config-option {
+    margin-bottom: 15px;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: white;
+}
+
+/*.config-option:hover {
+    border-color: #0b075b;
+}
+*/
+.config-option h3 {
+    margin: 0;
+    font-size: 1.2em;
+}
+
+.config-option p {
+    margin: 5px 0;
+    font-size: 0.9em;
+    color: #000000;
+}
+
+
+/* claro */
+body.light-theme {
+    background-color: #ffffff; 
+    color: #000000; 
+}
+
+.sidebar.light-theme {
+    background-color: #3e3aa5;
+}
+
+.sidebar-buttons button.light-theme {
+    background-color: #b110dd91;
+    color: white;
+}
+
+.main-content h1.light-theme, .main-content h3.light-theme, .main-content p.light-theme {
+    color: #000000; 
+}
+
+/* escuro */
+body.dark-theme {
+    background-color: #000000; 
+    color: #ffffff; 
+}
+
+.sidebar.dark-theme {
+    background-color: #282828; 
+}
+
+.sidebar-buttons button.dark-theme {
+    background-color: #333333; 
+    color: #b77ce1; 
+}
+
+.main-content h1.dark-theme, .main-content h3.dark-theme, .main-content p.dark-theme {
+    color: #b77ce1; 
+}

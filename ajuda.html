@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Minha Conta</title>
+  <link rel="stylesheet" href="CSS/ajuda.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Informações da Conta</h1>
+    <form id="accountForm">
+      <label for="name">Nome:</label>
+      <input type="text" id="name" value="João Silva" disabled>
+      
+      <label for="email">Email:</label>
+      <input type="email" id="email" value="joao.silva@email.com" disabled>
+
+      <label for="password">Senha:</label>
+      <input type="password" id="password" value="********" disabled>
+
+      <div class="buttons">
+        <button type="button" id="editBtn">Editar</button>
+        <button type="submit" id="saveBtn" disabled>Salvar</button>
+      </div>
+    </form>
+  </div>
+  <script src="js/ajuda.js"></script>
+</body>
+</html>

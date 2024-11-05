@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Política de Privacidade</title>
+    <link rel="stylesheet" href="CSS/Política de Privacidade.css">
+</head>
+<body>
+
+    <div class="privacy-container">
+        <h1>Política de Privacidade</h1>
+
+        <p>Esta Política de Privacidade descreve como suas informações pessoais são coletadas, usadas e compartilhadas quando você visita ou faz uma compra no nosso site/aplicativo ("Serviço").</p>
+
+        <h2>1. Informações que coletamos</h2>
+        <p>Quando você visita o nosso Serviço, nós coletamos automaticamente certas informações sobre o seu dispositivo, incluindo informações sobre o seu navegador, endereço de IP, fuso horário e alguns dos cookies instalados em seu dispositivo. Além disso, conforme você navega pelo site, coletamos informações sobre as páginas individuais que você visualiza, quais sites ou termos de busca o redirecionaram para o site e informações sobre como você interage com o site.</p>
+
+        <h3>1.1 Informações pessoais que você nos fornece</h3>
+        <p>Além disso, coletamos as informações que você nos fornece diretamente, como seu nome, endereço de e-mail e qualquer outra informação que você nos envie através de formulários de contato ou cadastro.</p>
+
+        <h2>2. Como usamos suas informações?</h2>
+        <p>Utilizamos as informações que coletamos para:</p>
+        <ul>
+            <li>Fornecer e melhorar o nosso Serviço;</li>
+            <li>Entender como nossos usuários utilizam o site e fazer melhorias baseadas nesse feedback;</li>
+            <li>Processar pedidos e pagamentos;</li>
+            <li>Enviar comunicações por e-mail ou mensagens, quando aplicável.</li>
+        </ul>
+
+        <h2>3. Compartilhamento de suas informações pessoais</h2>
+        <p>Nós não vendemos, trocamos ou alugamos informações pessoais dos usuários a terceiros. No entanto, podemos compartilhar suas informações para cumprir leis aplicáveis, responder a intimações, ou proteger nossos direitos.</p>
+
+        <h2>4. Segurança de dados</h2>
+        <p>Tomamos medidas apropriadas para proteger suas informações pessoais contra perda, uso indevido, acesso não autorizado, divulgação ou destruição.</p>
+
+        <h2>5. Seus direitos</h2>
+        <p>Você tem o direito de acessar, corrigir ou excluir suas informações pessoais. Se desejar exercer esses direitos, entre em contato conosco.</p>
+
+        <h2>6. Alterações a esta política</h2>
+        <p>Reservamo-nos o direito de atualizar esta Política de Privacidade periodicamente para refletir mudanças em nossas práticas. Recomendamos que você reveja esta política regularmente.</p>
+
+        <h2>7. Contato</h2>
+        <p>Para mais informações sobre nossa política de privacidade, entre em contato conosco pelo e-mail: contato@exemplo.com</p>
+
+        <button onclick="openPage('Configuração.html')"class="back-button">Voltar</button>
+    </div>
+
+    <script>
+        function openPage(pageUrl) {
+    window.location.href = pageUrl;
+}
+
+document.addEventListener("DOMContentLoaded", function() {
+    const savedTheme = localStorage.getItem("theme") || "light";
+    document.body.classList.add(savedTheme + "-theme");
+    updateThemeClasses(savedTheme);
+    
+    function updateThemeClasses(theme) {
+        document.querySelectorAll("h1, h2, h3, p, .privacy-container, .back-button").forEach(el => {
+            el.classList.remove("light-theme", "dark-theme");
+            el.classList.add(theme + "-theme");
+        });
+    }
+});
+
+    </script>
+
+</body>
+</html>
