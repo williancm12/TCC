@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notificação</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="shortcut icon" type="image/x-icon" href="./Image/Captura de tela 2025-02-12 094009.png">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            transition: background 0.3s;
+            flex-direction: column;
+            overflow: hidden;
+        }
+        .conversation-container {
+            width: 100%;
+            max-width: 500px; /* Limita a largura dos cards */
+            height: 80%; /* Tamanho fixo para a área das mensagens */
+            overflow-y: auto; /* Permite rolar somente as mensagens */
+            margin-bottom: 60px; /* Espaço para os botões fixos */
+            padding: 20px;
+            padding-bottom: 80px; /* Adiciona espaço inferior */
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* Centraliza os cards */
+            gap: 10px;
+        }
+        .card {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+            width: 100%;
+            max-width: 400px; /* Reduz o tamanho máximo do card */
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            font-size: 14px; /* Diminui o tamanho da fonte */
+        }
+        .message {
+            background: #f9f9f9;
+            padding: 10px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            width: 100%;
+        }
+        .timestamp {
+            font-size: 0.8rem;
+            color: #aaa;
+            margin-top: 5px;
+        }
+        .delete-btn {
+            background: #e74c3c;
+            color: white;
+            padding: 8px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        .delete-btn:hover {
+            background: #c0392b;
+        }
+        .controls {
+            position: fixed;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+        }
+        .control-btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .back-btn {
+            background: #555;
+            color: white;
+        }
+        .theme-btn {
+            background: #007bff;
+            color: white;
+        }
+        .delete-all-btn {
+            background: #e74c3c;
+            color: white;
+        }
+        .delete-all-btn:hover {
+            background: #c0392b;
+        } 
+.conversation-container {
+    width: 100%;
+    max-width: 500px;
+    height: 80%;
+    overflow-y: scroll; 
+    margin-bottom: 60px;
+    padding: 20px;
+    padding-bottom: 80px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.conversation-container::-webkit-scrollbar {
+    display: none;
+}
+
+    </style>
+</head>
+<body>
+    <div class="conversation-container" id="conversation">
+    </div>
+
+    <div class="controls">
+        <button class="control-btn back-btn" onclick="window.history.back()">Voltar</button>
+        <button class="control-btn theme-btn" onclick="toggleTheme()">Mudar Tema</button>
+        <button class="control-btn delete-all-btn" onclick="deleteAllMessages()">Excluir Todas</button>
+    </div>
+
+    <script src="js/api-notificação.js"></script>
+</body>
+</html>

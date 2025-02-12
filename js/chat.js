@@ -2,7 +2,7 @@ const apiKey = 'LA-b213b0a62dda429faaf87b60023209f589ed507340b44cf0bb283f89ba1dc
 
 async function sendMessageToChatGPT(message) {
   try {
-    const response = await fetch('https://api.llama-api.com', {
+    const response = await fetch('https://api.llama-api.com/v1/chat/completions', { 
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -16,8 +16,9 @@ async function sendMessageToChatGPT(message) {
     });
 
     if (!response.ok) {
-      const errorMessage = await response.text();  // Mostra a resposta completa do erro
-      throw new Error(`Erro na comunicação com a API: ${errorMessage}`);
+      const errorMessage = await response.json();
+      console.error("Erro na API:", errorMessage);
+      throw new Error(`Erro na comunicação com a API: ${errorMessage.error || "Desconhecido"}`);
     }
 
     const data = await response.json();
@@ -30,22 +31,26 @@ async function sendMessageToChatGPT(message) {
 
 document.getElementById('btn-submit').addEventListener('click', async () => {
   const messageInput = document.getElementById('message-input');
-  const userMessage = messageInput.value;
+  const userMessage = messageInput.value.trim();
   if (!userMessage) return;
 
-  // Adiciona a mensagem do usuário ao histórico
   const history = document.getElementById('history');
+  const status = document.getElementById('status');
+  const button = document.getElementById('btn-submit');
+
   history.innerHTML += `<p><strong>Você:</strong> ${userMessage}</p>`;
   messageInput.value = '';
 
-  // Exibe um indicador de carregamento
-  const status = document.getElementById('status');
+
   status.textContent = 'Pensando...';
+  button.disabled = true;
 
-  // Envia a mensagem para o ChatGPT e exibe a resposta
   const botMessage = await sendMessageToChatGPT(userMessage);
-  history.innerHTML += `<p><strong>ChatGPT:</strong> ${botMessage}</p>`;
 
-  // Limpa o indicador de carregamento
+
+  history.innerHTML += `<p><strong>ChatGPT:</strong> ${botMessage}</p>`;
+  history.scrollTop = history.scrollHeight; 
+
   status.textContent = '';
+  button.disabled = false;
 });

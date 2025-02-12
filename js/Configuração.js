@@ -39,3 +39,26 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
 });
+
+
+       // Função para exibir a imagem de perfil temporária e salvar no localStorage
+       function previewImage(event) {
+        const reader = new FileReader();
+        reader.onload = function(){
+            const output = document.getElementById('profile-img');
+            const imageData = reader.result;
+
+            // Atualiza a imagem de perfil e salva no localStorage
+            output.src = imageData;
+            localStorage.setItem('profileImage', imageData);
+        };
+        reader.readAsDataURL(event.target.files[0]);
+    }
+
+    // Carregar a imagem de perfil salva no localStorage ao carregar a página
+    window.onload = function() {
+        const savedImage = localStorage.getItem('profileImage');
+        if (savedImage) {
+            document.getElementById('profile-img').src = savedImage;
+        }
+    };

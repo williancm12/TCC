@@ -70,3 +70,11 @@ document.getElementById('open_btn').addEventListener('click', function () {
 
 const newTheme = savedTheme === "light" ? "dark" : "light";
 localStorage.setItem("theme", newTheme);
+
+  // Carregar a imagem de perfil salva no localStorage
+  window.onload = function() {
+    const savedImage = localStorage.getItem('profileImage');
+    if (savedImage) {
+        document.getElementById('user_avatar').src = savedImage;
+    }
+};
