@@ -40,16 +40,18 @@ main {
 }
 
 .map-container {
+    position: relative;
     width: 100%;
-    height: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 #map {
     width: 100%;
-    height: 100%;
+    height: 90vh;
 }
 
 #sidebar_content {
@@ -186,24 +188,17 @@ main {
 }
 
 #getLocationBtn {
-    position: fixed;
-    top: 20px;
-    right: 10px; /* Mudar para o lado direito */
+    position: absolute;
+    top: 10px;
+    right: 10px;
     z-index: 1000;
-    background-color: #4f46e5; /* Cor de fundo */
-    color: #ffffff;  /* Cor do texto */
-    border: none;
     padding: 10px 20px;
+    background: #5842e3;
+    color: white;
+    border: none;
     border-radius: 8px;
     cursor: pointer;
-    font-size: 14px;
-    font-weight: 500;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    width:  25%; /* Garante que o botão não ocupe 100% da tela */
-    display: inline-flex; /* Garante que o botão se ajuste ao conteúdo */
-    align-items: center;
-    justify-content: center;
-    transition: background-color 0.3s ease, transform 0.3s ease;
+    font-size: 16px;
 }
 
 #getLocationBtn:hover {

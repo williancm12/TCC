@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pesquisar Linha de Ônibus - Curitiba</title>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDzn_bdYS1y5XGLd2gK4Xiu03uLXY6h8G4&libraries=places"></script>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            overflow: hidden; 
+        }
+
+        #top-bar {
+            position: absolute;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: rgba(255, 255, 255, 0.8); 
+            padding: 10px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            z-index: 1000;      
+        }
+
+        h2 {
+            margin-bottom: 10px;
+        }
+
+        input {
+            padding: 10px;
+            width: 250px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            padding: 10px;
+            cursor: pointer;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            margin-left: 5px;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        #map {
+            flex-grow: 1;
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="top-bar">
+        <h2>Pesquisar Linha de Ônibus - Curitiba</h2>
+        <input type="text" id="linha" placeholder="Digite o nome ou número da linha">
+        <button onclick="buscarRota()">Buscar</button>
+    </div>
+
+    <div id="map"></div>
+
+    <script>
+        let map, directionsService, directionsRenderer;
+        let linhasOnibus = [];
+
+        function initMap() {
+            map = new google.maps.Map(document.getElementById("map"), {
+                center: { lat: -25.4284, lng: -49.2733 },
+                zoom: 12,
+            });
+
+            directionsService = new google.maps.DirectionsService();
+            directionsRenderer = new google.maps.DirectionsRenderer();
+            directionsRenderer.setMap(map);
+
+            fetch("linhas.json")
+                .then(response => response.json())
+                .then(data => {
+                    linhasOnibus = data;
+                })
+                .catch(error => console.error("Erro ao carregar linhas:", error));
+        }
+
+        function buscarRota() {
+            const linhaDigitada = document.getElementById("linha").value.trim();
+            if (!linhaDigitada) {
+                alert("Por favor, digite o nome ou número da linha de ônibus.");
+                return;
+            }
+
+            const linhaEncontrada = linhasOnibus.find(linha =>
+                linha.numero === linhaDigitada || linha.nome.toLowerCase().includes(linhaDigitada.toLowerCase())
+            );
+
+            if (!linhaEncontrada) {
+                alert("Linha de ônibus não encontrada.");
+                return;
+            }
+
+            const request = {
+                origin: linhaEncontrada.origem,
+                destination: linhaEncontrada.destino,
+                travelMode: "TRANSIT",
+                transitOptions: { modes: ["BUS"] }
+            };
+
+            directionsService.route(request, (result, status) => {
+                if (status === "OK") {
+                    directionsRenderer.setDirections(result);
+                } else {
+                    alert("Erro ao buscar a rota. Tente novamente.");
+                }
+            });
+        }
+
+        window.onload = initMap;
+    </script> 
+    
+</body>
+</html>

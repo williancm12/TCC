@@ -1,0 +1,1468 @@
+[
+  {
+      "numero": "702",
+      "nome": "CAIUÁ/CACHOEIRA",
+      "origem": "Term.Cachoeira, Curitiba, Brasil",
+      "destino": "Term.Caiuá, Curitiba, Brasil",
+      "tarifa_dinheiro": 6.00,
+      "tarifa_cartao": 5.50,
+      "pontos_base": [
+          "Term.Cachoeira",
+          "Term.Guadalupe",
+          "Pç. 19 Dezembro",
+          "Term.Caiuá (Ctba)"
+      ],
+      "municipios_atendidos": ["Alm. Tamandaré"],
+      "operadora": "Tamandaré",
+      "categoria": "Linha Direta (Ligeirinho)"
+  },
+  {
+      "numero": "206",
+      "nome": "BARREIRINHA/SÃO JOSÉ",
+      "origem": "Term.Barreirinha, Curitiba, Brasil",
+      "destino": "Term.Central, Curitiba, Brasil",
+      "tarifa_dinheiro": 6.00,
+      "tarifa_cartao": 5.50,
+      "pontos_base": [
+          "Term.Barreirinha",
+          "Term.Guadalupe",
+          "Term.Hauer",
+          "Term.Carmo",
+          "Term.Boqueirão",
+          "Term.Central"
+      ],
+      "municipios_atendidos": ["São José dos Pinhais"],
+      "operadora": "São José",
+      "categoria": "Linha Direta (Ligeirinho)"
+  },
+    {
+        "numero": "304",
+        "nome": "PINHAIS/COMPRIDO",
+        "origem": "Term.Umbara, Curitiba, Brasil",
+        "destino": "Praça Tiradentes, Curitiba, Brasil",
+        "tarifa_dinheiro": 6.00,
+        "tarifa_cartao": 5.50,
+        "pontos_base": [
+            "Term.Umbara",
+            "Camp.Siqueira",
+            "C.Comprido",
+            "Pç.Tiradentes"
+        ],
+        "municipios_atendidos": ["Pinhais"],
+        "operadora": "Expresso Azul",
+        "categoria": "Linha Direta (Ligeirinho)"
+    },
+    {
+        "numero": "607",
+        "nome": "COLOMBO/CIC",
+        "origem": "Term.Maracanã, Colombo, Brasil",
+        "destino": "Term.CIC, Curitiba, Brasil",
+        "tarifa_dinheiro": 6.00,
+        "tarifa_cartao": 5.50,
+        "pontos_base": [
+            "Term.Maracanã",
+            "Cabral",
+            "R.Barca",
+            "CIC",
+            "Pç.Tiradentes",
+            "R.Barbosa"
+        ],
+        "municipios_atendidos": ["Colombo"],
+        "operadora": "Santo Ângelo",
+        "categoria": "Linha Direta (Ligeirinho)"
+    },
+    {
+        "numero": "A07",
+        "nome": "TAMANDARÉ/CABRAL",
+        "origem": "Term.Cabral, Curitiba, Brasil",
+        "destino": "Term.Tamandaré, Tamandaré, Brasil",
+        "tarifa_dinheiro": 6.00,
+        "tarifa_cartao": 5.50,
+        "pontos_base": [
+            "Term.Cabral",
+            "Estação Ahú",
+            "Term.Tamandaré"
+        ],
+        "municipios_atendidos": ["Alm.Tamandaré"],
+        "operadora": "Tamandaré",
+        "categoria": "Linha Direta (Ligeirinho)"
+    },
+    {
+        "numero": "A06",
+        "nome": "MAD.CTBA/TAMANDARÉ",
+        "origem": "R.Pe.João Moreira Garcez, Curitiba, Brasil",
+        "destino": "Term.Cachoeira, Curitiba, Brasil",
+        "tarifa_dinheiro": 6.00,
+        "tarifa_cartao": 5.50,
+        "pontos_base": [
+            "R.Pe.João Moreira Garcez (Ctba)",
+            "Term.Cachoeira"
+        ],
+        "municipios_atendidos": ["Alm.Tamandaré"],
+        "operadora": "Tamandaré",
+        "categoria": "Metropolitano"
+    },
+    {
+        "numero": "607",
+        "nome": "COLOMBO/CIC",
+        "origem": "Term.Maracanã, Colombo, Brasil",
+        "destino": "Term.CIC, Curitiba, Brasil",
+        "tarifa_dinheiro": 6.00,
+        "tarifa_cartao": 5.50,
+        "pontos_base": [
+            "Term.Maracanã",
+            "Cabral",
+            "R.Barca",
+            "CIC",
+            "Pç.Tiradentes",
+            "R.Barbosa"
+        ],
+        "municipios_atendidos": ["Colombo"],
+        "operadora": "Santo Ângelo",
+        "categoria": "Linha Direta (Ligeirinho)"
+    },
+    {
+        "numero": "A07",
+        "nome": "TAMANDARÉ/CABRAL",
+        "origem": "Term.Cabral, Curitiba, Brasil",
+        "destino": "Term.Tamandaré, Tamandaré, Curitiba, Brasil",
+        "tarifa_dinheiro": 6.00,
+        "tarifa_cartao": 5.50,
+        "pontos_base": [
+            "Term.Cabral",
+            "Estação Ahú",
+            "Term.Tamandaré"
+        ],
+        "municipios_atendidos": ["Alm.Tamandaré"],
+        "operadora": "Tamandaré",
+        "categoria": "Linha Direta (Ligeirinho)"
+    },
+    {
+        "numero": "A06",
+        "nome": "MAD.CTBA/TAMANDARÉ",
+        "origem": "R.Pe.João Moreira Garcez, Curitiba, Brasil",
+        "destino": "Term.Cachoeira, Curitiba, Brasil",
+        "tarifa_dinheiro": 6.00,
+        "tarifa_cartao": 5.50,
+        "pontos_base": [
+            "R.Pe.João Moreira Garcez (Ctba)",
+            "Term.Cachoeira"
+        ],
+        "municipios_atendidos": ["Alm.Tamandaré"],
+        "operadora": "Tamandaré",
+        "categoria": "Metropolitano"
+    },
+    {
+        "numero": "A05",
+        "nome": "TAMANDARÉ (MINÉRIOS/PRAÇA 19)",
+        "origem": "Praça Rui Barbosa, Curitiba, Brasil",
+        "destino": "Term.Tamandaré, Tamandaré, Brasil",
+        "tarifa_dinheiro": 6.00,
+        "tarifa_cartao": 5.50,
+        "pontos_base": [
+            "Praça 19 de Dezembro",
+            "Term.Tamandaré"
+        ],
+        "municipios_atendidos": ["Alm.Tamandaré"],
+        "operadora": "Viação do Sul",
+        "categoria": "Troncal"
+    },
+    {
+        "numero": "A11",
+        "nome": "SAN FRANCISCO",
+        "origem": "Term.Tamandaré, Tamandaré, Brasil",
+        "destino": "Term.Cachoeira, Curitiba, Brasil",
+        "tarifa_dinheiro": 6.00,
+        "tarifa_cartao": 5.50,
+        "pontos_base": [
+            "Term.Tamandaré",
+            "Term.Cachoeira"
+        ],
+        "municipios_atendidos": ["Alm.Tamandaré"],
+        "operadora": "Tamandaré",
+        "categoria": "Alimentador"
+    },
+    {
+        "numero": "A14",
+        "nome": "MONTE SANTO/VA SÃO JORGE",
+        "origem": "Term.Cachoeira, Curitiba, Brasil",
+        "destino": "Term.Cachoeira, Curitiba, Brasil",
+        "tarifa_dinheiro": 6.00,
+        "tarifa_cartao": 5.50,
+        "pontos_base": [
+            "Term.Cachoeira"
+        ],
+        "municipios_atendidos": ["Alm.Tamandaré"],
+        "operadora": "Tamandaré",
+        "categoria": "Alimentador"
+    },
+    {
+        "numero": "A17",
+        "nome": "CIRCULAR SÃO JORGE",
+        "origem": "Term.Cachoeira, Curitiba, Brasil",
+        "destino": "Term.Cachoeira, Curitiba, Brasil",
+        "tarifa_dinheiro": 6.00,
+        "tarifa_cartao": 5.50,
+        "pontos_base": [
+            "Term.Cachoeira"
+        ],
+        "municipios_atendidos": ["Alm.Tamandaré"],
+        "operadora": "Tamandaré",
+        "categoria": "Alimentador"
+    },
+    {
+        "numero": "A31",
+        "nome": "JD.GRAZIELA",
+        "origem": "Term.Barreirinha, Curitiba, Brasil",
+        "destino": "Term.Barreirinha, Curitiba, Brasil",
+        "tarifa_dinheiro": 6.00,
+        "tarifa_cartao": 5.50,
+        "pontos_base": [
+            "Term.Barreirinha"
+        ],
+        "municipios_atendidos": ["Alm.Tamandaré"],
+        "operadora": "Tamandaré",
+        "categoria": "Alimentador"
+    },
+    {
+        "numero": "B03",
+        "nome": "GUARATUBA/ALTO DA XV (via T. MARACANÃ)",
+        "origem": "Term.Guaratuba, Colombo, Brasil",
+        "destino": "Term.Maracanã, Colombo, Brasil",
+        "tarifa_dinheiro": 6.00,
+        "tarifa_cartao": 5.50,
+        "pontos_base": [
+            "Term.Guaratuba",
+            "Term.Maracanã",
+            "Alto da XV"
+        ],
+        "municipios_atendidos": ["Colombo"],
+        "operadora": "Santo Ângelo",
+        "categoria": "Troncal"
+    },
+    {
+        "numero": "B17",
+        "nome": "STA.HELENA",
+        "origem": "Term.Maracanã, Colombo, Brasil",
+        "destino": "Term.Guaratuba, Colombo, Brasil",
+        "tarifa_dinheiro": 6.00,
+        "tarifa_cartao": 5.50,
+        "pontos_base": [
+            "Term.Maracanã",
+            "Term.Guaratuba"
+        ],
+        "municipios_atendidos": ["Colombo"],
+        "operadora": "Santo Ângelo",
+        "categoria": "Alimentador"
+    },
+    {
+      "numero": "S02",
+      "nome": "ROÇA GRANDE/ESTAÇÃO ATUBA",
+      "origem": "Term.Roça Grande, Colombo, Brasil",
+      "destino": "Estação Atuba, Curitiba, Brasil",
+      "tarifa_dinheiro": 6.00,
+      "tarifa_cartao": 5.50,
+      "pontos_base": [
+          "Term.Roça Grande",
+          "Estação Atuba"
+      ],
+      "municipios_atendidos": ["Colombo"],
+      "operadora": "Colombo",
+      "categoria": "Integração"
+  },
+  {
+      "numero": "S11",
+      "nome": "ROÇA GRANDE/GUARATUBA",
+      "origem": "Term.Roça Grande, Colombo, Brasil",
+      "destino": "Term.Guaratuba, Colombo, Brasil",
+      "tarifa_dinheiro": 6.00,
+      "tarifa_cartao": 5.50,
+      "pontos_base": [
+          "Term.Roça Grande",
+          "Term.Guaratuba"
+      ],
+      "municipios_atendidos": ["Colombo"],
+      "operadora": "Colombo",
+      "categoria": "Alimentador"
+  },
+  {
+      "numero": "S12",
+      "nome": "PARQUE EMBU",
+      "origem": "Term.Roça Grande, Colombo, Brasil",
+      "destino": "Parque Embu, Colombo, Brasil",
+      "tarifa_dinheiro": 6.00,
+      "tarifa_cartao": 5.50,
+      "pontos_base": [
+          "Term.Roça Grande"
+      ],
+      "municipios_atendidos": ["Colombo"],
+      "operadora": "Colombo",
+      "categoria": "Alimentador"
+  },
+  {
+      "numero": "S13",
+      "nome": "PARQUE EMBU/CÉSAR AUGUSTO",
+      "origem": "Term.Roça Grande, Colombo, Brasil",
+      "destino": "César Augusto, Colombo, Brasil",
+      "tarifa_dinheiro": 6.00,
+      "tarifa_cartao": 5.50,
+      "pontos_base": [
+          "Term.Roça Grande"
+      ],
+      "municipios_atendidos": ["Colombo"],
+      "operadora": "Colombo",
+      "categoria": "Alimentador"
+  },
+  {
+      "numero": "S14",
+      "nome": "ANA ROSA/ROÇA GRANDE",
+      "origem": "Term.Roça Grande, Colombo, Brasil",
+      "destino": "Ana Rosa, Colombo, Brasil",
+      "tarifa_dinheiro": 6.00,
+      "tarifa_cartao": 5.50,
+      "pontos_base": [
+          "Term.Roça Grande"
+      ],
+      "municipios_atendidos": ["Colombo"],
+      "operadora": "Colombo",
+      "categoria": "Alimentador"
+  },
+  {
+      "numero": "S15",
+      "nome": "SANTA TEREZA",
+      "origem": "Term.Roça Grande, Colombo, Brasil",
+      "destino": "Santa Tereza, Colombo, Brasil",
+      "tarifa_dinheiro": 6.00,
+      "tarifa_cartao": 5.50,
+      "pontos_base": [
+          "Term.Roça Grande"
+      ],
+      "municipios_atendidos": ["Colombo"],
+      "operadora": "Colombo",
+      "categoria": "Alimentador"
+  },
+  {
+      "numero": "S16",
+      "nome": "GUARACI (VIA SÃO GABRIEL)",
+      "origem": "Sede de Colombo, Colombo, Brasil",
+      "destino": "Term.Roça Grande, Colombo, Brasil",
+      "tarifa_dinheiro": 6.00,
+      "tarifa_cartao": 5.50,
+      "pontos_base": [
+          "Sede de Colombo",
+          "Term.Roça Grande"
+      ],
+      "municipios_atendidos": ["Colombo"],
+      "operadora": "Colombo",
+      "categoria": "Alimentador"
+  },
+  {
+    "numero": "P32",
+    "nome": "TERRA BOA/CAMPO MAGRO",
+    "origem": "Sede Campo Magro",
+    "destino": "Campo Magro",
+    "tarifa_dinheiro": 7.00,
+    "tarifa_cartao": 6.50,
+    "pontos_base": [
+        "Sede Campo Magro"
+    ],
+    "municipios_atendidos": ["Campo Magro"],
+    "operadora": "São Braz",
+    "categoria": "Linha Local"
+},
+{
+    "numero": "P59",
+    "nome": "BOM PASTOR via JD.PIONEIRO",
+    "origem": "Term.Santa Felicidade",
+    "destino": "Campo Magro",
+    "tarifa_dinheiro": 6.00,
+    "tarifa_cartao": 5.50,
+    "pontos_base": [
+        "Term.Santa Felicidade"
+    ],
+    "municipios_atendidos": ["Campo Magro"],
+    "operadora": "São Braz",
+    "categoria": "Integração"
+},
+{
+    "numero": "R11",
+    "nome": "CONTENDA/ARAUCÁRIA",
+    "origem": "Term.Araucária",
+    "destino": "Sede de Contenda",
+    "tarifa_dinheiro": 6.00,
+    "tarifa_cartao": 5.50,
+    "pontos_base": [
+        "Term.Araucária",
+        "Sede de Contenda"
+    ],
+    "municipios_atendidos": ["Araucária", "Contenda"],
+    "operadora": "Araucária",
+    "categoria": "Intercidades Integrado"
+},
+{
+    "numero": "R71",
+    "nome": "CTBA/CONTENDA",
+    "origem": "Praça Rui Barbosa (Ctba.)",
+    "destino": "Sede de Contenda",
+    "tarifa_dinheiro": 7.50,
+    "tarifa_cartao": 6.50,
+    "pontos_base": [
+        "Praça Rui Barbosa (Ctba.)",
+        "Sede de Contenda"
+    ],
+    "municipios_atendidos": ["Araucária", "Contenda"],
+    "operadora": "Araucária",
+    "categoria": "Convencional"
+},
+{
+    "numero": "R99",
+    "nome": "CONEXÃO CONTENDA",
+    "origem": "Sede Contenda, Curitiba, Brasil",
+    "destino": "Catanduvas do Sul / Pepe, Curitiba, Brasil",
+    "tarifa_dinheiro": 6.00,
+    "tarifa_cartao": 5.50,
+    "pontos_base": [
+        "Sede Contenda",
+        "Catanduvas do Sul",
+        "Pepe"
+    ],
+    "municipios_atendidos": ["Contenda"],
+    "operadora": "Araucária",
+    "categoria": "Alimentador"
+},
+{
+  "numero": "S01",
+  "nome": "ROÇA GRANDE/GUADALUPE",
+  "origem": "Term.Roça Grande, Curitiba, Brasil",
+  "destino": "Guadalupe, Curitiba, Brasil",
+  "tarifa_dinheiro": 6.00,
+  "tarifa_cartao": 5.50,
+  "pontos_base": [
+      "Term.Roça Grande",
+      "Guadalupe"
+  ],
+  "municipios_atendidos": ["Colombo"],
+  "operadora": "Colombo",
+  "categoria": "Troncal"
+},
+  {
+      "numero": "S31",
+      "nome": "ROÇA GRANDE/STA.CÂNDIDA",
+      "origem": "Term.Roça Grande, Curitiba, Brasil",
+      "destino": "Sta. Cândida, Colombo, Brasil",
+      "tarifa_dinheiro": 6.00,
+      "tarifa_cartao": 5.50,
+      "pontos_base": [
+          "Term.Roça Grande",
+          "Sta. Cândida"
+      ],
+      "municipios_atendidos": ["Colombo"],
+      "operadora": "Colombo",
+      "categoria": "Integração"
+  },
+  {
+      "numero": "S59",
+      "nome": "CIRCULAR SANTA FÉ/T.ROÇA GRANDE",
+      "origem": "Term.Roça Grande, Curitiba, Brasil",
+      "destino": "Santa Fé,Curitiba, Brasil",
+      "tarifa_dinheiro": 6.00,
+      "tarifa_cartao": 5.50,
+      "pontos_base": [
+          "Term.Roça Grande",
+          "Santa Fé"
+      ],
+      "municipios_atendidos": ["Colombo"],
+      "operadora": "Colombo",
+      "categoria": "Alimentador"
+  },
+  {
+      "numero": "S89",
+      "nome": "SÃO SEBASTIÃO/GUADALUPE (via SÃO GABRIEL)",
+      "origem": "Term.Guadalupe, Curitiba, Brasil",
+      "destino": "São Sebastião, Curitiba, Brasil",
+      "tarifa_dinheiro": 6.00,
+      "tarifa_cartao": 5.50,
+      "pontos_base": [
+          "Term.Guadalupe",
+          "São Sebastião"
+      ],
+      "municipios_atendidos": ["Colombo"],
+      "operadora": "Colombo",
+      "categoria": "Convencional"
+  },
+  {
+      "numero": "Y96",
+      "nome": "FAZENDA/S.JOSÉ DOS PINHAIS",
+      "origem": "Term.Fazenda Rio Grande, Curitiba, Brasil",
+      "destino": "Leblon/São José, Curitiba, Brasil",
+      "tarifa_dinheiro": 6.00,
+      "tarifa_cartao": 5.50,
+      "pontos_base": [
+          "Term.Fazenda Rio Grande",
+          "Leblon",
+          "São José"
+      ],
+      "municipios_atendidos": ["São José dos Pinhais"],
+      "operadora": "Leblon/São José",
+      "categoria": "Alimentador"
+  },
+  {
+      "numero": "Y97",
+      "nome": "QUITANDINHA/RIO NEGRO (via CAMPO DO TENENTE)",
+      "origem": "Quilandinha, Curitiba, Brasil",
+      "destino": "Rio Negro, Curitiba, Brasil",
+      "tarifa_dinheiro": 6.00,
+      "tarifa_cartao": 5.50,
+      "pontos_base": [
+          "Quilandinha",
+          "Campo do Tenente",
+          "Rio Negro"
+      ],
+      "municipios_atendidos": ["Quitandinha"],
+      "operadora": "Reunidas",
+      "categoria": "Alimentador"
+  },
+  {
+    "numero": "F12",
+    "nome": "JARDIM BRASIL",
+    "origem": "Fazenda Rio Grande, Brasil",
+    "destino": "Terminal Fazenda Rio Grande, Brasil",
+    "tarifa_dinheiro": 6.00,
+    "tarifa_cartao": 5.50,
+    "pontos_base": [
+        "Fazenda Rio Grande",
+        "Terminal Fazenda Rio Grande"
+    ]
+},
+{
+    "numero": "H12",
+    "nome": "ARAUCÁRIA/ PINHAIS",
+    "origem": "Araucária, Brasil",
+    "destino": "Pinhais, Brasil",
+    "tarifa_dinheiro": 6.00,
+    "tarifa_cartao": 5.50,
+    "pontos_base": [
+        "Araucária",
+        "Pinhais"
+    ]
+}, 
+{
+    "numero": "F12",
+    "nome": "JARDIM BRASIL",
+    "origem": "Fazenda Rio Grande, Brasil",
+    "destino": "Terminal Fazenda Rio Grande, Brasil",
+    "tarifa_dinheiro": 6.00,
+    "tarifa_cartao": 5.50,
+    "pontos_base": [
+        "Fazenda Rio Grande",
+        "Terminal Fazenda Rio Grande"
+    ]
+},
+{
+    "numero": "H12",
+    "nome": "ARAUCÁRIA/ PINHAIS",
+    "origem": "Araucária, Brasil",
+    "destino": "Pinhais, Brasil",
+    "tarifa_dinheiro": 6.00,
+    "tarifa_cartao": 5.50,
+    "pontos_base": [
+        "Araucária",
+        "Pinhais"
+    ]
+},
+{
+    "numero": "H13",
+    "nome": "ARAUCÁRIA/ ANGÉLICA",
+    "origem": "Araucária, Brasil",
+    "destino": "Angélica, Brasil",
+    "tarifa_dinheiro": 6.00,
+    "tarifa_cartao": 5.50,
+    "pontos_base": [
+        "Araucária",
+        "Angélica"
+    ]
+},
+{
+    "numero": "H14",
+    "nome": "ARAUCÁRIA/ ROÇA GRANDE",
+    "origem": "Araucária, Brasil",
+    "destino": "Roça Grande, Brasil",
+    "tarifa_dinheiro": 6.00,
+    "tarifa_cartao": 5.50,
+    "pontos_base": [
+        "Araucária",
+        "Roça Grande"
+    ]
+},
+{
+    "numero": "H15",
+    "nome": "ARAUCÁRIA/ COLOMBO",
+    "origem": "Araucária, Brasil",
+    "destino": "Colombo, Brasil",
+    "tarifa_dinheiro": 6.00,
+    "tarifa_cartao": 5.50,
+    "pontos_base": [
+        "Araucária",
+        "Colombo"
+    ]
+},
+{
+    "numero": "H16",
+    "nome": "ARAUCÁRIA/ ALMIRANTE TAMANDARÉ",
+    "origem": "Araucária, Brasil",
+    "destino": "Almirante Tamandaré, Brasil",
+    "tarifa_dinheiro": 6.00,
+    "tarifa_cartao": 5.50,
+    "pontos_base": [
+        "Araucária",
+        "Almirante Tamandaré"
+    ]
+},
+{
+    "numero": "H17",
+    "nome": "ARAUCÁRIA/ CAMPO LARGO",
+    "origem": "Araucária, Brasil",
+    "destino": "Campo Largo, Brasil",
+    "tarifa_dinheiro": 6.00,
+    "tarifa_cartao": 5.50,
+    "pontos_base": [
+        "Araucária",
+        "Campo Largo"
+    ]
+},
+{
+    "numero": "F12",
+    "nome": "JARDIM BRASIL",
+    "origem": "Fazenda Rio Grande, Brasil",
+    "destino": "Terminal Fazenda Rio Grande, Brasil",
+    "tarifa_dinheiro": 6.00,
+    "tarifa_cartao": 5.50,
+    "pontos_base": [
+        "Fazenda Rio Grande",
+        "Terminal Fazenda Rio Grande"
+    ]
+},
+{
+    "numero": "H12",
+    "nome": "ARAUCÁRIA/ PINHAIS",
+    "origem": "Araucária, Brasil",
+    "destino": "Pinhais, Brasil",
+    "tarifa_dinheiro": 6.00,
+    "tarifa_cartao": 5.50,
+    "pontos_base": [
+        "Araucária",
+        "Pinhais"
+    ]
+},
+{
+    "numero": "H13",
+    "nome": "ARAUCÁRIA/ ANGÉLICA",
+    "origem": "Araucária, Brasil",
+    "destino": "Angélica, Brasil",
+    "tarifa_dinheiro": 6.00,
+    "tarifa_cartao": 5.50,
+    "pontos_base": [
+        "Araucária",
+        "Angélica"
+    ]
+},
+{
+    "numero": "H14",
+    "nome": "ARAUCÁRIA/ ROÇA GRANDE",
+    "origem": "Araucária, Brasil",
+    "destino": "Roça Grande, Brasil",
+    "tarifa_dinheiro": 6.00,
+    "tarifa_cartao": 5.50,
+    "pontos_base": [
+        "Araucária",
+        "Roça Grande"
+    ]
+},
+{
+    "numero": "H15",
+    "nome": "ARAUCÁRIA/ COLOMBO",
+    "origem": "Araucária, Brasil",
+    "destino": "Colombo, Brasil",
+    "tarifa_dinheiro": 6.00,
+    "tarifa_cartao": 5.50,
+    "pontos_base": [
+        "Araucária",
+        "Colombo"
+    ]
+},
+{
+    "numero": "H16",
+    "nome": "ARAUCÁRIA/ ALMIRANTE TAMANDARÉ",
+    "origem": "Araucária, Brasil",
+    "destino": "Almirante Tamandaré, Brasil",
+    "tarifa_dinheiro": 6.00,
+    "tarifa_cartao": 5.50,
+    "pontos_base": [
+        "Araucária",
+        "Almirante Tamandaré"
+    ]
+},
+{
+    "numero": "H17",
+    "nome": "ARAUCÁRIA/ CAMPO LARGO",
+    "origem": "Araucária, Brasil",
+    "destino": "Campo Largo, Brasil",
+    "tarifa_dinheiro": 6.00,
+    "tarifa_cartao": 5.50,
+    "pontos_base": [
+        "Araucária",
+        "Campo Largo"
+    ]
+},
+{
+    "numero": "I01",
+    "nome": "CAMPO LARGO/ BARRA NOVA",
+    "origem": "Campo Largo, Brasil",
+    "destino": "Barra Nova, Brasil",
+    "tarifa_dinheiro": 6.00,
+    "tarifa_cartao": 5.50,
+    "pontos_base": [
+        "Campo Largo",
+        "Barra Nova"
+    ]
+},
+{
+    "numero": "I02",
+    "nome": "CAMPO LARGO/ CENTRO",
+    "origem": "Campo Largo, Brasil",
+    "destino": "Centro de Campo Largo, Brasil",
+    "tarifa_dinheiro": 6.00,
+    "tarifa_cartao": 5.50,
+    "pontos_base": [
+        "Campo Largo",
+        "Centro de Campo Largo"
+    ]
+},
+{
+    "numero": "I03",
+    "nome": "CAMPO LARGO/ BAIRRO ITAQUI",
+    "origem": "Campo Largo, Brasil",
+    "destino": "Bairro Itaqui, Brasil",
+    "tarifa_dinheiro": 6.00,
+    "tarifa_cartao": 5.50,
+    "pontos_base": [
+        "Campo Largo",
+        "Bairro Itaqui"
+    ]
+},
+{
+    "numero": "I30",
+    "nome": "C.LARGO/BALSA NOVA",
+    "origem": "Campo Largo (Centro)",
+    "destino": "Sede Balsa Nova",
+    "tarifa_dinheiro": 6.00,
+    "tarifa_cartao": 5.50,
+    "pontos_base": [
+        "Campo Largo (Centro)",
+        "Sede Balsa Nova"
+    ],
+    "municipios_atendidos": ["Campo Largo", "Balsa Nova"],
+    "operadora": "Campo Largo",
+    "categoria": "Intercidades"
+},
+{
+    "numero": "I31",
+    "nome": "C.LARGO/BALSA NOVA (via BUGRE)",
+    "origem": "Campo Largo (Centro)",
+    "destino": "Balsa Nova",
+    "tarifa_dinheiro": 6.00,
+    "tarifa_cartao": 5.50,
+    "pontos_base": [
+        "Campo Largo (Centro)",
+        "Bugre",
+        "Balsa Nova"
+    ],
+    "municipios_atendidos": ["Campo Largo", "Balsa Nova"],
+    "operadora": "Campo Largo",
+    "categoria": "Intercidades"
+},
+{
+    "numero": "B32",
+    "nome": "ARAUCÁRIA/CAMPO LARGO",
+    "origem": "Term.Araucária",
+    "destino": "Term.Campo Largo",
+    "tarifa_dinheiro": 6.00,
+    "tarifa_cartao": 5.50,
+    "pontos_base": [
+        "Term.Araucária",
+        "Term.Campo Largo"
+    ],
+    "municipios_atendidos": ["Araucária", "Campo Largo"],
+    "operadora": "Araucária",
+    "categoria": "Intercidades"
+},
+{
+    "numero": "I33",
+    "nome": "JD. PAULISTA/GUARAITUBA",
+    "origem": "Term.Jd. Paulista",
+    "destino": "Term. Guaraituba",
+    "tarifa_dinheiro": 6.00,
+    "tarifa_cartao": 5.50,
+    "pontos_base": [
+        "Term.Jd. Paulista",
+        "Term. Guaraituba"
+    ],
+    "municipios_atendidos": ["Campina Grande do Sul", "Colombo"],
+    "operadora": "C. Grande Sul / Colombo",
+    "categoria": "Intercidades Integrado"
+},
+{
+    "numero": "I60",
+    "nome": "BARRAS/PIAUIARA",
+    "origem": "Term.Barras",
+    "destino": "Piaguara",
+    "tarifa_dinheiro": 6.00,
+    "tarifa_cartao": 5.50,
+    "pontos_base": [
+        "Term.Barras",
+        "Piaguara"
+    ],
+    "municipios_atendidos": ["Quatro Barras", "Piaguara"],
+    "operadora": "Quatro Barras / Piaguara",
+    "categoria": "Intercidades Integrado"
+},
+{
+    "numero": "I69",
+    "nome": "BARRAS/JD. PAULISTA",
+    "origem": "Term.Barras",
+    "destino": "Term. Jd. Paulista",
+    "tarifa_dinheiro": 6.00,
+    "tarifa_cartao": 5.50,
+    "pontos_base": [
+        "Term.Barras",
+        "Term. Jd. Paulista"
+    ],
+    "municipios_atendidos": ["Quatro Barras", "Campina Grande do Sul"],
+    "operadora": "Quatro Barras / C. Grande Sul",
+    "categoria": "Intercidades Integrado"
+},
+{
+    "numero": "I70",
+    "nome": "PIAÇAGUERA/SÃO JOSÉ",
+    "origem": "Term.Piaguara",
+    "destino": "São José dos Pinhais",
+    "tarifa_dinheiro": 6.00,
+    "tarifa_cartao": 5.50,
+    "pontos_base": [
+        "Term.Piaguara",
+        "São José dos Pinhais"
+    ],
+    "municipios_atendidos": ["Piaguara", "São José dos Pinhais"],
+    "operadora": "Piaguara / São José dos Pinhais",
+    "categoria": "Intercidades Integrado"
+},
+{
+    "numero": "I71",
+    "nome": "ITAPERUÇU/RIO BRANCO",
+    "origem": "Sede de Itaperuçu",
+    "destino": "Sede de Rio Branco do Sul",
+    "tarifa_dinheiro": 6.00,
+    "tarifa_cartao": 5.50,
+    "pontos_base": [
+        "Sede de Itaperuçu",
+        "Sede de Rio Branco do Sul"
+    ],
+    "municipios_atendidos": ["Itaperuçu", "Rio Branco do Sul"],
+    "operadora": "Itaperuçu / Rio Branco do Sul",
+    "categoria": "Intercidades Integrado"
+},
+{
+    "numero": "P90",
+    "nome": "T.CACHOEIRA/MARACANÃ",
+    "origem": "Term.Cachoeira",
+    "destino": "Roça Grande / Maracanã",
+    "tarifa_dinheiro": 6.00,
+    "tarifa_cartao": 5.50,
+    "pontos_base": [
+        "Term.Cachoeira",
+        "Roça Grande",
+        "Maracanã"
+    ],
+    "municipios_atendidos": ["Colombo", "Alm. Tamandaré"],
+    "operadora": "Colombo / Alm. Tamandaré",
+    "categoria": "Intercidades Integrado"
+},
+{
+    "numero": "P91",
+    "nome": "T.AMANDARÉ/COLOMBO",
+    "origem": "Term. Tamandaré",
+    "destino": "Term. Colombo",
+    "tarifa_dinheiro": 6.00,
+    "tarifa_cartao": 5.50,
+    "pontos_base": [
+        "Term. Tamandaré",
+        "Term. Colombo"
+    ],
+    "municipios_atendidos": ["Almirante Tamandaré", "Colombo"],
+    "operadora": "Alm. Tamandaré / Colombo",
+    "categoria": "Intercidades Integrado"
+},
+{
+    "numero": "J12",
+    "nome": "RIBEIRÃO DAS LAGES",
+    "origem": "Term. Campo Comprido",
+    "destino": "Ribeirão das Lages",
+    "tarifa_dinheiro": 6.00,
+    "tarifa_cartao": 5.50,
+    "pontos_base": [
+        "Term. Campo Comprido",
+        "Ribeirão das Lages"
+    ],
+    "municipios_atendidos": ["Campo Largo"],
+    "operadora": "Campo Largo",
+    "categoria": "Linha Direta (Ligeirinho)"
+},
+{
+    "numero": "J16",
+    "nome": "SÃO ÂNGELO",
+    "origem": "Term. Campo Comprido",
+    "destino": "São Ângelo",
+    "tarifa_dinheiro": 6.00,
+    "tarifa_cartao": 5.50,
+    "pontos_base": [
+        "Term. Campo Comprido",
+        "São Ângelo"
+    ],
+    "municipios_atendidos": ["Campo Largo"],
+    "operadora": "Campo Largo",
+    "categoria": "Convencional"
+},
+{
+    "numero": "J17",
+    "nome": "DOM PEDRO II",
+    "origem": "Term. Campo Comprido",
+    "destino": "Dom Pedro II",
+    "tarifa_dinheiro": 5.50,
+    "tarifa_cartao": 5.50,
+    "pontos_base": [
+        "Term. Campo Comprido",
+        "Dom Pedro II"
+    ],
+    "municipios_atendidos": ["Campo Largo"],
+    "operadora": "Campo Largo",
+    "categoria": "Convencional"
+},
+{
+    "numero": "J18",
+    "nome": "DONA FINA",
+    "origem": "Term. Campo Comprido",
+    "destino": "Dona Fina",
+    "tarifa_dinheiro": 5.50,
+    "tarifa_cartao": 5.50,
+    "pontos_base": [
+        "Term. Campo Comprido",
+        "Dona Fina"
+    ],
+    "municipios_atendidos": ["Campo Largo"],
+    "operadora": "Campo Largo",
+    "categoria": "Convencional"
+},
+{
+    "numero": "J21",
+    "nome": "VILA TORRES",
+    "origem": "Term. Campo Comprido",
+    "destino": "Vila Torres",
+    "tarifa_dinheiro": 5.50,
+    "tarifa_cartao": 5.50,
+    "pontos_base": [
+        "Term. Campo Comprido",
+        "Vila Torres"
+    ],
+    "municipios_atendidos": ["Campo Largo"],
+    "operadora": "Campo Largo",
+    "categoria": "Convencional"
+}, 
+{
+    "numero": "J62",
+    "nome": "CAMPO LARGO/GUADALUPE",
+    "origem": "Term. Campo Largo",
+    "destino": "Term. Guadalupe",
+    "tarifa_dinheiro": 6.00,
+    "tarifa_cartao": 5.50,
+    "pontos_base": [
+        "Term. Campo Largo",
+        "Term. Guadalupe"
+    ],
+    "municipios_atendidos": ["Campo Largo"],
+    "operadora": "Campo Largo",
+    "categoria": "Convencional"
+},
+{
+    "numero": "J67",
+    "nome": "TAMBE",
+    "origem": "Term. Campo Largo",
+    "destino": "Tambe",
+    "tarifa_dinheiro": 6.00,
+    "tarifa_cartao": 5.50,
+    "pontos_base": [
+        "Term. Campo Largo",
+        "Tambe"
+    ],
+    "municipios_atendidos": ["Campo Largo"],
+    "operadora": "Campo Largo",
+    "categoria": "Convencional"
+},
+{
+    "numero": "J99",
+    "nome": "HOSP. ROCIO/ITAPERUÇU",
+    "origem": "Hospital Rocio",
+    "destino": "Itaperuçu",
+    "tarifa_dinheiro": 6.00,
+    "tarifa_cartao": 5.50,
+    "pontos_base": [
+        "Hospital Rocio",
+        "Itaperuçu"
+    ],
+    "municipios_atendidos": ["Campo Largo", "Itaperuçu"],
+    "operadora": "Campo Largo",
+    "categoria": "Convencional"
+},
+{
+    "numero": "K71",
+    "nome": "ITAPERUÇU/TAMANDARÉ",
+    "origem": "Itaperuçu",
+    "destino": "Term. Tamandaré",
+    "tarifa_dinheiro": 6.00,
+    "tarifa_cartao": 5.50,
+    "pontos_base": [
+        "Itaperuçu",
+        "Term. Tamandaré"
+    ],
+    "municipios_atendidos": ["Itaperuçu", "Almirante Tamandaré"],
+    "operadora": "Itaperuçu / Tamandaré",
+    "categoria": "Convencional (Sáb. e Dom.)"
+},
+{
+    "numero": "K72",
+    "nome": "DIRETO ITAPERUÇU",
+    "origem": "Itaperuçu",
+    "destino": "Curitiba",
+    "tarifa_dinheiro": 6.00,
+    "tarifa_cartao": 5.50,
+    "pontos_base": [
+        "Itaperuçu",
+        "Curitiba"
+    ],
+    "municipios_atendidos": ["Itaperuçu"],
+    "operadora": "Itaperuçu",
+    "categoria": "Convencional"
+},
+{
+    "numero": "L71",
+    "nome": "BRANCO DO SUL/TAMANDARÉ/LAMENHA/PRAÇA 19",
+    "origem": "Rio Branco do Sul",
+    "destino": "Praça 19 de Dezembro",
+    "tarifa_dinheiro": 6.00,
+    "tarifa_cartao": 5.50,
+    "pontos_base": [
+        "Rio Branco do Sul",
+        "Term. Tamandaré",
+        "Lamenha",
+        "Praça 19 de Dezembro"
+    ],
+    "municipios_atendidos": ["Rio Branco do Sul", "Almirante Tamandaré", "Curitiba"],
+    "operadora": "Rio Branco do Sul / Tamandaré",
+    "categoria": "Intercidades Integrado"
+},
+{
+    "numero": "L11",
+    "nome": "RIO B. SUL/TAMANDARÉ",
+    "origem": "Rio Branco do Sul",
+    "destino": "Term. Tamandaré",
+    "tarifa_dinheiro": 6.00,
+    "tarifa_cartao": 5.50,
+    "pontos_base": [
+        "Rio Branco do Sul",
+        "Term. Tamandaré"
+    ],
+    "municipios_atendidos": ["Rio Branco do Sul", "Almirante Tamandaré"],
+    "operadora": "Rio Branco do Sul / Tamandaré",
+    "categoria": "Convencional"
+},
+{
+    "numero": "L72",
+    "nome": "DIRETO RIO BRANCO",
+    "origem": "Rio Branco do Sul",
+    "destino": "Praça 19 de Dezembro",
+    "tarifa_dinheiro": 6.00,
+    "tarifa_cartao": 5.50,
+    "pontos_base": [
+        "Rio Branco do Sul",
+        "Praça 19 de Dezembro"
+    ],
+    "municipios_atendidos": ["Rio Branco do Sul", "Curitiba"],
+    "operadora": "Rio Branco do Sul",
+    "categoria": "Convencional"
+},
+{
+    "numero": "L73",
+    "nome": "RIO BRANCO DO SUL/PRAÇA 19 (via T. TAMANDARÉ)",
+    "origem": "Rio Branco do Sul",
+    "destino": "Praça 19 de Dezembro",
+    "tarifa_dinheiro": 6.00,
+    "tarifa_cartao": 5.50,
+    "pontos_base": [
+        "Rio Branco do Sul",
+        "Term. Tamandaré",
+        "Praça 19 de Dezembro"
+    ],
+    "municipios_atendidos": ["Rio Branco do Sul", "Almirante Tamandaré", "Curitiba"],
+    "operadora": "Rio Branco do Sul / Tamandaré",
+    "categoria": "Convencional (Dom.)"
+},
+{
+    "numero": "N11",
+    "nome": "SEDE/JD. PAULISTA",
+    "origem": "Sede de Campina Grande do Sul",
+    "destino": "Term. Jd. Paulista",
+    "tarifa_dinheiro": 6.00,
+    "tarifa_cartao": 5.50,
+    "pontos_base": [
+        "Sede de Campina Grande do Sul",
+        "Term. Jd. Paulista"
+    ],
+    "municipios_atendidos": ["Campina Grande do Sul"],
+    "operadora": "Campina Grande do Sul",
+    "categoria": "Convencional"
+},
+{
+    "numero": "N12",
+    "nome": "ST. DECACON",
+    "origem": "Campina Grande do Sul",
+    "destino": "Term. Jd. Paulista",
+    "tarifa_dinheiro": 6.00,
+    "tarifa_cartao": 5.50,
+    "pontos_base": [
+        "Campina Grande do Sul",
+        "Term. Jd. Paulista"
+    ],
+    "municipios_atendidos": ["Campina Grande do Sul"],
+    "operadora": "Campina Grande do Sul",
+    "categoria": "Convencional"
+},
+{
+    "numero": "N23",
+    "nome": "AJOU ABDALLA II",
+    "origem": "Campina Grande do Sul",
+    "destino": "Term. Jd. Paulista",
+    "tarifa_dinheiro": 6.00,
+    "tarifa_cartao": 5.50,
+    "pontos_base": [
+        "Campina Grande do Sul",
+        "Term. Jd. Paulista"
+    ],
+    "municipios_atendidos": ["Campina Grande do Sul"],
+    "operadora": "Campina Grande do Sul",
+    "categoria": "Convencional"
+},
+{
+    "numero": "N24",
+    "nome": "KANE PAULO RIST",
+    "origem": "Campina Grande do Sul",
+    "destino": "Term. Jd. Paulista",
+    "tarifa_dinheiro": 6.00,
+    "tarifa_cartao": 5.50,
+    "pontos_base": [
+        "Campina Grande do Sul",
+        "Term. Jd. Paulista"
+    ],
+    "municipios_atendidos": ["Campina Grande do Sul"],
+    "operadora": "Campina Grande do Sul",
+    "categoria": "Convencional"
+},
+{
+    "numero": "N61",
+    "nome": "CAMPINA GRANDE DO SUL/GUADALUPE",
+    "origem": "Campina Grande do Sul",
+    "destino": "Term. Guadalupe",
+    "tarifa_dinheiro": 6.00,
+    "tarifa_cartao": 5.50,
+    "pontos_base": [
+        "Campina Grande do Sul",
+        "Term. Guadalupe"
+    ],
+    "municipios_atendidos": ["Campina Grande do Sul"],
+    "operadora": "Campina Grande do Sul",
+    "categoria": "Alimentador"
+},
+{
+    "numero": "N62",
+    "nome": "JD. PAULISTA/GUADALUPE",
+    "origem": "Term. Jd. Paulista",
+    "destino": "Term. Guadalupe",
+    "tarifa_dinheiro": 6.00,
+    "tarifa_cartao": 5.50,
+    "pontos_base": [
+        "Term. Jd. Paulista",
+        "Term. Guadalupe"
+    ],
+    "municipios_atendidos": ["Campina Grande do Sul"],
+    "operadora": "Campina Grande do Sul",
+    "categoria": "Alimentador"
+},
+{
+    "numero": "N72",
+    "nome": "EUGENIA MARIA/GUADALUPE",
+    "origem": "Eugênia Maria, Campina Grande do Sul",
+    "destino": "Term. Guadalupe",
+    "tarifa_dinheiro": 6.00,
+    "tarifa_cartao": 5.50,
+    "pontos_base": [
+        "Eugênia Maria",
+        "Term. Guadalupe"
+    ],
+    "municipios_atendidos": ["Campina Grande do Sul"],
+    "operadora": "Campina Grande do Sul",
+    "categoria": "Troncal"
+},
+{
+    "numero": "N73",
+    "nome": "JARDIM PAULISTA, BARRAS/GUADALUPE",
+    "origem": "Jardim Paulista, Campina Grande do Sul",
+    "destino": "Term. Guadalupe",
+    "tarifa_dinheiro": 6.00,
+    "tarifa_cartao": 5.50,
+    "pontos_base": [
+        "Term. Jd. Paulista",
+        "Term. Quatro Barras",
+        "Term. Guadalupe"
+    ],
+    "municipios_atendidos": ["Campina Grande do Sul", "Quatro Barras"],
+    "operadora": "Campina Grande do Sul",
+    "categoria": "Troncal"
+},
+    {
+        "numero": "D02",
+        "nome": "TERM. SÃO ROQUE/SANTOS ANDRADE",
+        "origem": "Praça Santos Andrade, Curitiba",
+        "destino": "Term. São Roque, Piraquara",
+        "tarifa_dinheiro": 6.50,
+        "tarifa_cartao": 5.50,
+        "pontos_base": [
+            "Praça Santos Andrade",
+            "Term. São Roque"
+        ],
+        "municipios_atendidos": ["Curitiba", "Piraquara"],
+        "operadora": "Piraquara",
+        "categoria": "Troncal"
+    },
+    {
+        "numero": "D11",
+        "nome": "PLANTA DEODORO",
+        "origem": "Term. Piraquara",
+        "destino": "Planta Deodoro, Piraquara",
+        "tarifa_dinheiro": 6.00,
+        "tarifa_cartao": 5.50,
+        "pontos_base": [
+            "Term. Piraquara",
+            "Planta Deodoro"
+        ],
+        "municipios_atendidos": ["Piraquara"],
+        "operadora": "Piraquara",
+        "categoria": "Alimentador"
+    },
+    {
+        "numero": "D12",
+        "nome": "SÃO CRISTÓVÃO",
+        "origem": "Term. Piraquara",
+        "destino": "São Cristóvão, Piraquara",
+        "tarifa_dinheiro": 6.00,
+        "tarifa_cartao": 5.50,
+        "pontos_base": [
+            "Term. Piraquara",
+            "São Cristóvão"
+        ],
+        "municipios_atendidos": ["Piraquara"],
+        "operadora": "Piraquara",
+        "categoria": "Alimentador"
+    },
+    {
+        "numero": "D13",
+        "nome": "SÃO TIAGO/T. SÃO ROQUE (via NOVA TIROL)",
+        "origem": "Term. São Roque, Piraquara",
+        "destino": "São Tiago, Piraquara",
+        "tarifa_dinheiro": 6.00,
+        "tarifa_cartao": 5.50,
+        "pontos_base": [
+            "Term. São Roque",
+            "São Tiago"
+        ],
+        "municipios_atendidos": ["Piraquara"],
+        "operadora": "Piraquara",
+        "categoria": "Alimentador"
+    },
+    {
+        "numero": "D15",
+        "nome": "VILA FRANÇA",
+        "origem": "Term. Piraquara",
+        "destino": "Vila França, Piraquara",
+        "tarifa_dinheiro": 6.00,
+        "tarifa_cartao": 5.50,
+        "pontos_base": [
+            "Term. Piraquara",
+            "Vila França"
+        ],
+        "municipios_atendidos": ["Piraquara"],
+        "operadora": "Piraquara",
+        "categoria": "Alimentador"
+    },
+{
+    "numero": "D17",
+    "nome": "PENDULAR NORTE",
+    "origem": "Term. Piraquara, Curitiba",
+    "destino": "Pendular Norte, Curitiba",
+    "tarifa_dinheiro": 6.00,
+    "tarifa_cartao": 5.50,
+    "pontos_base": [
+        "Term. Piraquara",
+        "Pendular Norte"
+    ],
+    "municipios_atendidos": ["Piraquara"],
+    "operadora": "Piraquara",
+    "categoria": "Alimentador"
+},
+{
+    "numero": "D18",
+    "nome": "R. DOLORES CRISTOVÃO",
+    "origem": "Term. Piraquara",
+    "destino": "Rua Dolores Cristóvão, Piraquara",
+    "tarifa_dinheiro": 6.00,
+    "tarifa_cartao": 5.50,
+    "pontos_base": [
+        "Term. Piraquara",
+        "Rua Dolores Cristóvão"
+    ],
+    "municipios_atendidos": ["Piraquara"],
+    "operadora": "Piraquara",
+    "categoria": "Alimentador"
+},
+{
+    "numero": "D20",
+    "nome": "T.D. CENTRAL/T. SÃO ROQUE",
+    "origem": "Term. Central, Piraquara",
+    "destino": "Term. São Roque, Piraquara",
+    "tarifa_dinheiro": 6.00,
+    "tarifa_cartao": 5.50,
+    "pontos_base": [
+        "Term. Central",
+        "Term. São Roque"
+    ],
+    "municipios_atendidos": ["Piraquara"],
+    "operadora": "Piraquara",
+    "categoria": "Alimentador (Sáb. e Dom.)"
+},
+{
+    "numero": "D21",
+    "nome": "S.T. MONICA",
+    "origem": "Term. São Roque, Piraquara",
+    "destino": "Santa Mônica, Piraquara",
+    "tarifa_dinheiro": 6.00,
+    "tarifa_cartao": 5.50,
+    "pontos_base": [
+        "Term. São Roque",
+        "Santa Mônica"
+    ],
+    "municipios_atendidos": ["Piraquara"],
+    "operadora": "Piraquara",
+    "categoria": "Alimentador"
+},
+{
+    "numero": "D22",
+    "nome": "GUARATUBA",
+    "origem": "Term. Pinhais",
+    "destino": "Guaratuba, Piraquara",
+    "tarifa_dinheiro": 6.00,
+    "tarifa_cartao": 5.50,
+    "pontos_base": [
+        "Term. Pinhais",
+        "Guaratuba"
+    ],
+    "municipios_atendidos": ["Pinhais", "Piraquara"],
+    "operadora": "Piraquara",
+    "categoria": "Intercidades Integrado"
+},
+    {
+        "numero": "D23",
+        "nome": "VILA MACEDO/VILA MILITAR",
+        "origem": "Term. Campo Largo",
+        "destino": "Vila Macedo / Vila Militar, Campo Largo",
+        "tarifa_dinheiro": 6.00,
+        "tarifa_cartao": 5.50,
+        "pontos_base": [
+            "Term. Campo Largo",
+            "Vila Macedo",
+            "Vila Militar"
+        ],
+        "municipios_atendidos": ["Campo Largo"],
+        "operadora": "Campo Largo",
+        "categoria": "Alimentador"
+    },
+    {
+        "numero": "D31",
+        "nome": "BELLA VISTA",
+        "origem": "Term. São Roque, Curitiba",
+        "destino": "Bella Vista, Piraquara, Curitiba",
+        "tarifa_dinheiro": 6.00,
+        "tarifa_cartao": 5.50,
+        "pontos_base": [
+            "Term. São Roque",
+            "Bella Vista"
+        ],
+        "municipios_atendidos": ["Piraquara"],
+        "operadora": "Piraquara",
+        "categoria": "Alimentador"
+    },
+    {
+        "numero": "D66",
+        "nome": "DIRETO PIRAQUARA",
+        "origem": "Pç. Santos Andrade, Curitiba",
+        "destino": "Term. Piraquara, Piraquara",
+        "tarifa_dinheiro": 6.00,
+        "tarifa_cartao": 5.50,
+        "pontos_base": [
+            "Pç. Santos Andrade",
+            "Term. Piraquara"
+        ],
+        "municipios_atendidos": ["Curitiba", "Piraquara"],
+        "operadora": "Piraquara",
+        "categoria": "Troncal"
+    },
+    {
+        "numero": "D69",
+        "nome": "MACAD.TBA/PIRAQUARA",
+        "origem": "Pç. Santos Andrade, Curitiba",
+        "destino": "Term. Piraquara, Piraquara",
+        "tarifa_dinheiro": 6.00,
+        "tarifa_cartao": 5.50,
+        "pontos_base": [
+            "Pç. Santos Andrade",
+            "Term. Piraquara"
+        ],
+        "municipios_atendidos": ["Curitiba", "Piraquara"],
+        "operadora": "Piraquara",
+        "categoria": "Metropolitano"
+    },
+    {
+        "numero": "D97",
+        "nome": "CIRCULAR BELA VISTA/NOVA TIROL",
+        "origem": "Term. São Roque, Piraquara",
+        "destino": "Bela Vista / Nova Tirol, Piraquara",
+        "tarifa_dinheiro": 6.00,
+        "tarifa_cartao": 5.50,
+        "pontos_base": [
+            "Term. São Roque",
+            "Bela Vista",
+            "Nova Tirol"
+        ],
+        "municipios_atendidos": ["Piraquara"],
+        "operadora": "Piraquara",
+        "categoria": "Alimentador (Sáb. e Dom.)"
+    }
+]
+
+
