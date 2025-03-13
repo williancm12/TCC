@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Linhas Favoritas</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        table, th, td {
+            border: 1px solid #ccc;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .remove-button {
+            background-color: #dc3545;
+        }
+
+        .remove-button:hover {
+            background-color: #c82333;
+        }
+
+        #sidebar {
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 10px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Linhas Favoritas</h2>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Número da Linha</th> 
+                <th>Nome da Linha</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody id="tabela-linhas">
+        </tbody>
+    </table>
+
+    <div id="sidebar">
+        <button onclick="irParaPesquisa()">Voltar para Pesquisa</button>
+        <button onclick="sair()">Sair</button>
+    </div>
+
+    <script>
+        function exibirLinhasFavoritas() {
+            const linhasFavoritas = JSON.parse(localStorage.getItem("linhasFavoritas") || "[]");
+            const tabela = document.getElementById("tabela-linhas");
+            tabela.innerHTML = ""; // Limpa a tabela antes de adicionar novas linhas
+
+            if (linhasFavoritas.length === 0) {
+                tabela.innerHTML = "<tr><td colspan='3'>Nenhuma linha favorita salva.</td></tr>";
+                return;
+            }
+
+            linhasFavoritas.forEach((linha, index) => {
+                const row = document.createElement("tr");
+                row.innerHTML = `
+                    <td>${linha.numero}</td> <!-- Alterado para "numero" em vez de "id" -->
+                    <td>${linha.nome}</td>
+                    <td>
+                        <button class="remove-button" onclick="removerLinhaFavorita(${index})">Remover</button>
+                    </td>
+                `;
+                tabela.appendChild(row);
+            });
+        }
+
+        function removerLinhaFavorita(index) {
+            let linhasFavoritas = JSON.parse(localStorage.getItem("linhasFavoritas") || "[]");
+            linhasFavoritas.splice(index, 1);
+            localStorage.setItem("linhasFavoritas", JSON.stringify(linhasFavoritas));
+            exibirLinhasFavoritas();
+        }
+
+        function irParaPesquisa() {
+            window.location.href = "Teste02.html"; // Ajuste o nome da página correta
+        }
+
+        function sair() {
+            alert("Você saiu do sistema.");
+            window.location.href = "inicio-mapa.html"; // Ajuste para a página inicial correta
+        }
+        
+        window.onload = exibirLinhasFavoritas;
+    </script>
+</body>
+</html>
