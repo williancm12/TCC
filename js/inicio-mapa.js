@@ -12,24 +12,22 @@ document.addEventListener("DOMContentLoaded", function () {
 
     let map, userMarker, userCircle;
 
+
     function initMap() {
-        map = new google.maps.Map(document.getElementById('map'), {
+        map = new google.maps.Map(document.getElementById("map"), {
             center: { lat: -25.4284, lng: -49.2733 },
-            zoom: 13
+            zoom: 12,
         });
-
-        var busMarker = new google.maps.Marker({
-            position: { lat: -25.4284, lng: -49.2733 },
-            map: map,
-            title: 'Ônibus Exemplo'
-        });
-
-        document.getElementById('getLocationBtn').addEventListener('click', function () {
-            localizarUsuario();
-        });
-
-        localizarUsuario(); // Iniciar com a localização do usuário
+    
+        // Configuração de rotas
+        directionsService = new google.maps.DirectionsService();
+        directionsRenderer = new google.maps.DirectionsRenderer();
+        directionsRenderer.setMap(map);
+        
+        // Obtém a localização do usuário
+        localizarUsuario();
     }
+    
 
     function localizarUsuario() {
         if (navigator.geolocation) {

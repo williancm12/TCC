@@ -83,7 +83,7 @@
         <h2>Pesquisar Linha de Ônibus - Curitiba</h2>
         <input type="text" id="linha" placeholder="Digite o nome ou número da linha">
         <button onclick="salvarLinhaFavorita()">Salvar como Favorita</button>
-        <button onclick="buscarRota()">Buscar Rota</button> <!-- Botão de Buscar Rota -->
+        <button onclick="buscarRota()">Buscar Rota</button> 
     </div>
 
     <div id="map"></div>
@@ -121,6 +121,8 @@ function initMap() {
         zoom: 12,
     });
 
+    // localização do usuario 
+    
     directionsService = new google.maps.DirectionsService();
     directionsRenderer = new google.maps.DirectionsRenderer();
     directionsRenderer.setMap(map);
