@@ -104,3 +104,29 @@ document.addEventListener("DOMContentLoaded", function () {
         document.getElementById('user_avatar').src = savedImage;
     }
 });
+
+//função para altera o a img na pagina 
+
+document.addEventListener("DOMContentLoaded", function () {
+    const userAvatar = document.getElementById("user_avatar");
+    
+    // Carregar imagem salva no localStorage
+    const savedImage = localStorage.getItem("profileImage");
+    if (savedImage) {
+        userAvatar.src = savedImage;
+    }
+
+    // Se houver um input de arquivo na página, permite alteração da imagem
+    const fileInput = document.getElementById("file_input");
+    if (fileInput) {
+        fileInput.addEventListener("change", function (event) {
+            const reader = new FileReader();
+            reader.onload = function () {
+                const imageData = reader.result;
+                userAvatar.src = imageData;
+                localStorage.setItem("profileImage", imageData);
+            };
+            reader.readAsDataURL(event.target.files[0]);
+        });
+    }
+});

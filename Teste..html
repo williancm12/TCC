@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pagamento com Stripe</title>
+    <script src="https://js.stripe.com/v3/"></script>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; }
+        form { max-width: 400px; margin: auto; padding: 20px; border: 1px solid #ddd; border-radius: 8px; }
+        input, button { width: 100%; padding: 10px; margin: 10px 0; }
+        button { background-color: #556cd6; color: white; border: none; cursor: pointer; }
+        button:disabled { background-color: #bbb; }
+        .carousel-container { width: 100%; overflow: hidden; margin: 20px auto; position: relative; }
+        .carousel { display: flex; width: 300%; animation: slide 6s infinite linear; }
+        .carousel img { width: 100px; margin: 0 10px; }
+        @keyframes slide {
+            0% { transform: translateX(0); }
+            33% { transform: translateX(-100px); }
+            66% { transform: translateX(-200px); }
+            100% { transform: translateX(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Finalizar Compra</h2>
+
+    <!-- Carrossel de bancos -->
+    <div class="carousel-container">
+        <div class="carousel">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/8/8f/Banco_do_Brasil_logo.svg" alt="Banco do Brasil">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/2/2d/Bradesco_logo.svg" alt="Bradesco">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/4/4b/Ita%C3%BA_logo.svg" alt="Itaú">
+        </div>
+    </div>
+
+    <form id="payment-form">
+        <input type="text" id="full-name" placeholder="Nome Completo" required>
+        <input type="text" id="cep" placeholder="CEP" required>
+        <div id="card-element"></div>
+        <button id="submit">Pagar</button>
+    </form>
+    <script src="js/Teste.js"></script>
+    <script>
+        const stripe = Stripe("pk_test_xxxxxxxxxxxxx"); // Chave pública
+        const elements = stripe.elements();
+        const cardElement = elements.create("card");
+        cardElement.mount("#card-element");
+
+        const form = document.getElementById("payment-form");
+        const button = document.getElementById("submit");
+
+        form.addEventListener("submit", async (event) => {
+            event.preventDefault();
+            button.disabled = true;
+
+            const fullName = document.getElementById("full-name").value;
+            const cep = document.getElementById("cep").value;
+
+            if (!fullName || !cep) {
+                alert("Por favor, preencha todos os campos.");
+                button.disabled = false;
+                return;
+            }
+
+            const response = await fetch("http://localhost:3001/create-payment-intent", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ amount: 50, currency: "brl" }) // Altere o valor conforme necessário
+            });
+
+            const { clientSecret } = await response.json();
+
+            const result = await stripe.confirmCardPayment(clientSecret, {
+                payment_method: { card: cardElement }
+            });
+
+            if (result.error) {
+                alert("Erro: " + result.error.message);
+                button.disabled = false;
+            } else {
+                alert("Pagamento aprovado!");
+                form.reset();
+            }
+        });
+    </script>
+
+</body>
+</html>

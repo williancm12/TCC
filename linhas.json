@@ -74,8 +74,8 @@
     {
         "numero": "A07",
         "nome": "TAMANDARÉ/CABRAL",
-        "origem": "Term.Cabral, Curitiba, Brasil",
-        "destino": "Term.Tamandaré, Tamandaré, Brasil",
+        "origem": "Term.Cabral, Curitiba,",
+        "destino": "Term.Tamandaré, Tamandaré, Curitiba",
         "tarifa_dinheiro": 6.00,
         "tarifa_cartao": 5.50,
         "pontos_base": [
@@ -170,8 +170,8 @@
     {
         "numero": "A11",
         "nome": "SAN FRANCISCO",
-        "origem": "Term.Tamandaré, Tamandaré, Brasil",
-        "destino": "Term.Cachoeira, Curitiba, Brasil",
+        "origem": "Term.Tamandaré, Tamandaré, Curitiba",
+        "destino": "Term.Cachoeira, Curitiba,",
         "tarifa_dinheiro": 6.00,
         "tarifa_cartao": 5.50,
         "pontos_base": [
