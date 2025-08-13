@@ -3,87 +3,317 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pagamento com Stripe</title>
-    <script src="https://js.stripe.com/v3/"></script>
+    <title>Linhas Favoritas de Ônibus</title>
+    <!-- particles.js lib -->
+    <script src="http://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <!-- stats.js lib -->
+    <script src="http://threejs.org/examples/js/libs/stats.min.js"></script>
     <style>
-        body { font-family: Arial, sans-serif; text-align: center; }
-        form { max-width: 400px; margin: auto; padding: 20px; border: 1px solid #ddd; border-radius: 8px; }
-        input, button { width: 100%; padding: 10px; margin: 10px 0; }
-        button { background-color: #556cd6; color: white; border: none; cursor: pointer; }
-        button:disabled { background-color: #bbb; }
-        .carousel-container { width: 100%; overflow: hidden; margin: 20px auto; position: relative; }
-        .carousel { display: flex; width: 300%; animation: slide 6s infinite linear; }
-        .carousel img { width: 100px; margin: 0 10px; }
-        @keyframes slide {
-            0% { transform: translateX(0); }
-            33% { transform: translateX(-100px); }
-            66% { transform: translateX(-200px); }
-            100% { transform: translateX(0); }
+        /* ---- reset ---- */
+        html, body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: white;
+            overflow: hidden;
         }
+
+        canvas {
+            display: block;
+            vertical-align: bottom;
+        }
+
+        /* ---- particles.js container ---- */
+        #particles-js {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #000000;
+            z-index: -1;
+        }
+
+        /* ---- stats.js ---- */
+        .count-particles {
+            background: #000022;
+            position: absolute;
+            top: 48px;
+            left: 0;
+            width: 80px;
+            color: #13E8E9;
+            font-size: .8em;
+            text-align: left;
+            text-indent: 4px;
+            line-height: 14px;
+            padding-bottom: 2px;
+            font-family: Helvetica, Arial, sans-serif;
+            font-weight: bold;
+            border-radius: 0 0 3px 3px;
+            z-index: 10;
+        }
+
+        h2 {
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+            margin-top: 20px;
+        }
+
+        /* Tabela estilizada */
+        table {
+            width: 80%;
+            max-width: 800px;
+            border-collapse: collapse;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            margin: 20px auto; /* Centraliza horizontalmente */
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+            color: white;
+        }
+
+        th {
+            background-color: rgba(0, 0, 0, 0.7);
+        }
+
+        tr:hover {
+            background-color: rgba(255, 255, 255, 0.3);
+        }
+
+        /* Botões */
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            cursor: pointer;
+            font-size: 14px;
+            border-radius: 5px;
+            transition: background 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .remove-button {
+            background-color: #dc3545;
+        }
+
+        .remove-button:hover {
+            background-color: #c82333;
+        }
+
+        /* Sidebar no rodapé */
+        #sidebar {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(255, 255, 255, 0.2);
+            padding: 10px 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            display: flex;
+            gap: 10px;
+            backdrop-filter: blur(10px);
+        }
+
+        #sidebar button {
+            padding: 10px 20px;
+            font-weight: bold;
+        }
+
+        .tabela-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh; /* ocupa toda a altura da tela */
+            flex-direction: column; /* mantém o título e a tabela em coluna */
+        }
+
     </style>
 </head>
 <body>
 
-    <h2>Finalizar Compra</h2>
-
-    <!-- Carrossel de bancos -->
-    <div class="carousel-container">
-        <div class="carousel">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/8/8f/Banco_do_Brasil_logo.svg" alt="Banco do Brasil">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/2/2d/Bradesco_logo.svg" alt="Bradesco">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/4/4b/Ita%C3%BA_logo.svg" alt="Itaú">
-        </div>
+    <!-- particles.js container -->
+    <div id="particles-js"></div>
+    <div class="tabela-container">
+    <h2>Linhas Favoritas de Ônibus</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Número da Linha</th>
+                <th>Nome da Linha</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody id="tabela-linhas">
+        </tbody>
+    </table>
+</div>
+    <div id="sidebar">
+        <button onclick="irParaPesquisa()">Voltar para Pesquisa</button>
+        <button onclick="sair()">Sair</button>
     </div>
 
-    <form id="payment-form">
-        <input type="text" id="full-name" placeholder="Nome Completo" required>
-        <input type="text" id="cep" placeholder="CEP" required>
-        <div id="card-element"></div>
-        <button id="submit">Pagar</button>
-    </form>
-    <script src="js/Teste.js"></script>
     <script>
-        const stripe = Stripe("pk_test_xxxxxxxxxxxxx"); // Chave pública
-        const elements = stripe.elements();
-        const cardElement = elements.create("card");
-        cardElement.mount("#card-element");
+        function exibirLinhasFavoritas() {
+            const linhasFavoritas = JSON.parse(localStorage.getItem("linhasFavoritas") || "[]");
+            const tabela = document.getElementById("tabela-linhas");
+            tabela.innerHTML = ""; // Limpa a tabela antes de adicionar novas linhas
 
-        const form = document.getElementById("payment-form");
-        const button = document.getElementById("submit");
-
-        form.addEventListener("submit", async (event) => {
-            event.preventDefault();
-            button.disabled = true;
-
-            const fullName = document.getElementById("full-name").value;
-            const cep = document.getElementById("cep").value;
-
-            if (!fullName || !cep) {
-                alert("Por favor, preencha todos os campos.");
-                button.disabled = false;
+            if (linhasFavoritas.length === 0) {
+                tabela.innerHTML = "<tr><td colspan='3'>Nenhuma linha favorita salva.</td></tr>";
                 return;
             }
 
-            const response = await fetch("http://localhost:3001/create-payment-intent", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ amount: 50, currency: "brl" }) // Altere o valor conforme necessário
+            linhasFavoritas.forEach((linha, index) => {
+                const row = document.createElement("tr");
+                row.innerHTML = `
+                    <td>${linha.numero}</td>
+                    <td>${linha.nome}</td>
+                    <td>
+                        <button class="remove-button" onclick="removerLinhaFavorita(${index})">Remover</button>
+                    </td>
+                `;
+                tabela.appendChild(row);
             });
+        }
 
-            const { clientSecret } = await response.json();
+        function removerLinhaFavorita(index) {
+            let linhasFavoritas = JSON.parse(localStorage.getItem("linhasFavoritas") || "[]");
+            linhasFavoritas.splice(index, 1);
+            localStorage.setItem("linhasFavoritas", JSON.stringify(linhasFavoritas));
+            exibirLinhasFavoritas();
+        }
 
-            const result = await stripe.confirmCardPayment(clientSecret, {
-                payment_method: { card: cardElement }
-            });
+        function irParaPesquisa() {
+            window.location.href = "linha-onibus.html";
+        }
 
-            if (result.error) {
-                alert("Erro: " + result.error.message);
-                button.disabled = false;
-            } else {
-                alert("Pagamento aprovado!");
-                form.reset();
-            }
+        function sair() {
+            alert("Você saiu do sistema.");
+            window.location.href = "inicio-mapa.html";
+        }
+
+        window.onload = exibirLinhasFavoritas;
+
+        // particles.js config
+        particlesJS("particles-js", {
+            "particles": {
+                "number": {
+                    "value": 80,
+                    "density": {
+                        "enable": true,
+                        "value_area": 800
+                    }
+                },
+                "color": {
+                    "value": "#db00cf"
+                },
+                "shape": {
+                    "type": "circle",
+                    "stroke": {
+                        "width": 0,
+                        "color": "#db00cf"
+                    },
+                    "polygon": {
+                        "nb_sides": 8
+                    }
+                },
+                "opacity": {
+                    "value": 0.5,
+                    "random": false
+                },
+                "size": {
+                    "value": 3,
+                    "random": true
+                },
+                "line_linked": {
+                    "enable": true,
+                    "distance": 320,
+                    "color": "#db00cf",
+                    "opacity": 0.86,
+                    "width": 1
+                },
+                "move": {
+                    "enable": true,
+                    "speed": 6,
+                    "direction": "none",
+                    "random": false,
+                    "straight": false,
+                    "out_mode": "out",
+                    "bounce": false
+                }
+            },
+            "interactivity": {
+                "detect_on": "window",
+                "events": {
+                    "onhover": {
+                        "enable": true,
+                        "mode": "repulse"
+                    },
+                    "onclick": {
+                        "enable": true,
+                        "mode": "push"
+                    },
+                    "resize": true
+                },
+                "modes": {
+                    "grab": {
+                        "distance": 400,
+                        "line_linked": {
+                            "opacity": 1
+                        }
+                    },
+                    "bubble": {
+                        "distance": 200,
+                        "size": 40,
+                        "duration": 10,
+                        "opacity": 0.05,
+                        "speed": 3
+                    },
+                    "repulse": {
+                        "distance": 200,
+                        "duration": 0.4
+                    },
+                    "push": {
+                        "particles_nb": 4
+                    },
+                    "remove": {
+                        "particles_nb": 2
+                    }
+                }
+            },
+            "retina_detect": true
         });
+
+        // stats.js setup
+        var count_particles, stats, update;
+        stats = new Stats;
+        stats.setMode(0);
+        stats.domElement.style.position = 'absolute';
+        stats.domElement.style.left = '0px';
+        stats.domElement.style.top = '0px';
+        document.body.appendChild(stats.domElement);
+        count_particles = document.querySelector('.js-count-particles');
+        update = function () {
+            stats.begin();
+            stats.end();
+            if (window.pJSDom[0].pJS.particles && window.pJSDom[0].pJS.particles.array) {
+                count_particles.innerText = window.pJSDom[0].pJS.particles.array.length;
+            }
+            requestAnimationFrame(update);
+        };
+        requestAnimationFrame(update);
     </script>
 
 </body>

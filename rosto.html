@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>FacePay - Pagamento Facial</title>
+  <link rel="stylesheet" href="CSS/rosto.css">
+</head>
+<body>
+ 
+  <h1>Cadastro Facial</h1>
+  <input type="text" id="name" placeholder="Nome do colaborador" /><br>
+  <video id="video" width="320" height="240" autoplay></video><br>
+  <button onclick="rosto()">Cadastrar Rosto</button>
+  <canvas id="canvas" width="320" height="240" style="display:none;"></canvas>
+  <p id="status"></p>
+
+  <script src="js/rosto.js"></script>
+</body>
+</html>
+  

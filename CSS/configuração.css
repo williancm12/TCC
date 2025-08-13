@@ -141,3 +141,35 @@ body.dark-theme {
 .main-content h1.dark-theme, .main-content h3.dark-theme, .main-content p.dark-theme {
     color: #b77ce1; 
 }
+
+#save-name-btn {
+    background-color: transparent;
+    color: #6a1b9a;
+    padding: 6px 12px;
+    border: 2px solid #6a1b9a;
+    border-radius: 20px;
+    font-size: 14px;
+    cursor: pointer;
+    float: right;
+    margin-top: 0; /* retirado o espaço extra */
+    margin-bottom: 10px; /* opcional: um pequeno espaço inferior */
+    transition: all 0.3s ease;
+  }
+  
+  #save-name-btn:hover {
+    background-color: #6a1b9a;
+    color: white;
+    transform: scale(1.05);
+  }
+  
+  #name-input {
+    border: none; /* Remove a borda */
+    background-color: transparent; /* Remove o fundo */
+    color: #333; /* Cor do texto */
+    font-size: 16px;
+    padding: 8px 0;
+    outline: none; /* Remove o contorno ao clicar */
+    width: 100%; /* Pode ajustar a largura conforme necessário */
+    transition: border-color 0.3s ease;
+  }
+  

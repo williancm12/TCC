@@ -12,9 +12,9 @@
     <nav id="sidebar">
         <div id="sidebar_content">
             <div id="user">
-                <img src="Image/WhatsApp Image 2024-05-17 at 15.21.51 (1).jpeg" id="user_avatar" alt="Avatar">
+                <img src="" id="user_avatar" alt="Avatar">
                 <p id="user_infos">
-                    <span class="item-description">Fulano de Tal</span>
+                    <span class="item-description" id="user-name-display">Fulano de Tal</span>
                     <span class="item-description">Lorem Ipsum</span>
                 </p>
             </div>
@@ -38,7 +38,7 @@
                     </a>
                 </li>
                 <li class="side-item">
-                    <a href="#">
+                    <a href="Teste2.html">
                         <i class="fa-solid fa-box"></i>
                         <span class="item-description">Produtos</span>
                     </a>
@@ -46,7 +46,7 @@
                 <li class="side-item">
                     <a href="linha-onibus.html">
                         <i class="fa-solid fa-bus" style="color: black;"></i>
-                        <span class="item-description"></span>
+                        <span class="item-description">Linha de Ônibus</span>
                     </a>
                 </li>
                 
@@ -74,8 +74,26 @@
         <div class="map-container">
             <div id="map"></div>
         </div>
+    
+
+        <script>
+              document.addEventListener("DOMContentLoaded", function () {
+    const savedName = localStorage.getItem("userName");
+    if (savedName) {
+      const nameEl = document.getElementById("user-name-display");
+      if (nameEl) nameEl.innerText = savedName;
+    }
+
+    const savedImage = localStorage.getItem("profileImage");
+    if (savedImage) {
+      const avatar = document.getElementById("user_avatar");
+      if (avatar) avatar.src = savedImage;
+    }
+  });
+     </script>
     </main>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDzn_bdYS1y5XGLd2gK4Xiu03uLXY6h8G4" async defer></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDzn_bdYS1y5XGLd2gK4Xiu03uLXY6h8G4&callback=initMap" async defer></script>
+
     <script src="js/inicio-mapa.js"></script>
 
 </html>

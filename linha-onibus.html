@@ -1,324 +1,283 @@
-<!DOCTYPE html>
-<html lang="pt">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pesquisar Linha de Ônibus - Curitiba</title>
-</head>
-<body>
+    <!DOCTYPE html>
+    <html lang="pt">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Pesquisar Linha de Ônibus - Curitiba</title>
+    </head>
+    <body>
 
-    <div id="top-bar">
-        <h2>Pesquisar Linha de Ônibus - Curitiba</h2>
-        <input type="text" id="linha" placeholder="Digite o nome ou número da linha">
-        <button onclick="salvarLinhaFavorita()">Salvar como Favorita</button>
-        <button onclick="buscarRota()">Buscar Rota</button> 
-    </div>
+        <div id="top-bar">
+            <h2>Pesquisar Linha de Ônibus - Curitiba</h2>
+            <input type="text" id="linha" placeholder="Digite o nome ou número da linha">
+            <button onclick="salvarLinhaFavorita()">Salvar como Favorita</button>
+            <button onclick="buscarRota()">Buscar Rota</button> 
+        </div>
 
-    <div id="map"></div>
+        <div id="map"></div>
 
-    <!-- Sidebar para navegação -->
-    <div id="sidebar">
-        <button onclick="openPage('linha-favorita.html')">Ir para Linhas Favoritas</button>
-        <button onclick="openPage('inicio-mapa.html')">Sair</button>
-    </div>
+        <!-- Sidebar para navegação -->
+        <div id="sidebar">
+            <button onclick="openPage('linha-favorita.html')">Ir para Linhas Favoritas</button>
+            <button onclick="openPage('inicio-mapa.html')">Sair</button>
+        </div>
 
-    <script>
-// função para rodar para outras abas 
-function openPage(pageUrl) {
-    window.location.href = pageUrl;
-}
+        <script>
+    let map, directionsService, directionsRenderer, geocoder;
+    let linhasOnibus = [];
+    let userMarker, userCircle;
 
-  let map, directionsService, directionsRenderer;
-let linhasOnibus = [];
-let userMarker, userCircle;
+    document.addEventListener("DOMContentLoaded", () => {
+        fetch("linhas.json")
+            .then(response => response.json())
+            .then(data => {
+                linhasOnibus = data;
+            })
+            .catch(error => console.error("Erro ao carregar linhas:", error));
 
-document.addEventListener("DOMContentLoaded", () => {
-    fetch("linhas.json")
-        .then(response => response.json())
-        .then(data => {
-            linhasOnibus = data;
-        })  
-        .catch(error => console.error("Erro ao carregar linhas:", error));
-    
-    carregarLinhasFavoritas();
-});
-
-function initMap() {
-    map = new google.maps.Map(document.getElementById("map"), {
-        center: { lat: -25.4284, lng: -49.2733 },
-        zoom: 12,
+        carregarLinhasFavoritas();
     });
 
-    // localização do usuario 
-    
-    directionsService = new google.maps.DirectionsService();
-    directionsRenderer = new google.maps.DirectionsRenderer();
-    directionsRenderer.setMap(map);
-    
-    localizarUsuario();
-}
+    function initMap() {
+        map = new google.maps.Map(document.getElementById("map"), {
+            center: { lat: -25.4284, lng: -49.2733 },
+            zoom: 12,
+        });
 
-function buscarRota() {
-    const linhaDigitada = document.getElementById("linha").value.trim();
-    if (!linhaDigitada) {
-        alert("Por favor, digite o nome ou número da linha de ônibus.");
-        return;
+        directionsService = new google.maps.DirectionsService();
+        directionsRenderer = new google.maps.DirectionsRenderer();
+        directionsRenderer.setMap(map);
+
+        geocoder = new google.maps.Geocoder();
+
+        localizarUsuario();
     }
 
-    const linhaEncontrada = linhasOnibus.find(linha =>
-        linha.numero === linhaDigitada || linha.nome.toLowerCase().includes(linhaDigitada.toLowerCase())
-    );
-
-    if (!linhaEncontrada) {
-        alert("Linha de ônibus não encontrada.");
-        return;
-    }
-
-    const request = {
-        origin: linhaEncontrada.origem,
-        destination: linhaEncontrada.destino,
-        travelMode: "TRANSIT",
-        transitOptions: { modes: ["BUS"] }
-    };
-
-    directionsService.route(request, (result, status) => {
-        if (status === "OK") {
-            directionsRenderer.setDirections(result);
-        } else {
-            alert("Erro ao buscar a rota. Tente novamente.");
+    function buscarRota() {
+        const linhaDigitada = document.getElementById("linha").value.trim();
+        if (!linhaDigitada) {
+            alert("Por favor, digite o nome ou número da linha de ônibus.");
+            return;
         }
-    });
-}
 
-function localizarUsuario() {
-    if (navigator.geolocation) {
-        navigator.geolocation.watchPosition(
-            (position) => {
-                const userLocation = {
-                    lat: position.coords.latitude,
-                    lng: position.coords.longitude
-                };
+        const linhaEncontrada = linhasOnibus.find(linha =>
+            linha.numero === linhaDigitada || linha.nome.toLowerCase().includes(linhaDigitada.toLowerCase())
+        );
 
-                if (userMarker) {
-                    userMarker.setMap(null);
-                    userCircle.setMap(null);
+        if (!linhaEncontrada) {
+            alert("Linha de ônibus não encontrada.");
+            return;
+        }
+
+        geocoder.geocode({ address: linhaEncontrada.origem }, (resultsOrigem, statusOrigem) => {
+            if (statusOrigem !== "OK") {
+                alert("Endereço de origem não encontrado: " + statusOrigem);
+                return;
+            }
+
+            geocoder.geocode({ address: linhaEncontrada.destino }, (resultsDestino, statusDestino) => {
+                if (statusDestino !== "OK") {
+                    alert("Endereço de destino não encontrado: " + statusDestino);
+                    return;
                 }
 
-                userMarker = new google.maps.Marker({
-                    position: userLocation,
-                    map: map,
-                    icon: {
-                        url: "https://maps.google.com/mapfiles/kml/shapes/man.png",
-                        scaledSize: new google.maps.Size(40, 40)
+                const request = {
+                    origin: resultsOrigem[0].geometry.location,
+                    destination: resultsDestino[0].geometry.location,
+                    travelMode: "TRANSIT",
+                    transitOptions: { modes: ["BUS"] }
+                };
+
+                directionsService.route(request, (result, status) => {
+                    if (status === "OK") {
+                        directionsRenderer.setDirections(result);
+                    } else {
+                        alert("Erro ao buscar a rota: " + status);
+                        console.error("Google Maps Directions error:", status);
                     }
                 });
+            });
+        });
+    }
 
-                userCircle = new google.maps.Circle({
-                    center: userLocation,
-                    radius: position.coords.accuracy,
-                    map: map,
-                    fillColor: "#4285F4",
-                    fillOpacity: 0.2,
-                    strokeColor: "#4285F4",
-                    strokeOpacity: 0.6,
-                    strokeWeight: 2
-                });
+    function localizarUsuario() {
+        if (navigator.geolocation) {
+            navigator.geolocation.watchPosition(
+                (position) => {
+                    const userLocation = {
+                        lat: position.coords.latitude,
+                        lng: position.coords.longitude
+                    };
 
-                map.setCenter(userLocation);
-            },
-            (error) => {
-                console.error("Erro ao obter localização:", error);
-                alert("Não foi possível acessar sua localização.");
-            },
-            { enableHighAccuracy: true, maximumAge: 0 }
+                    if (userMarker) {
+                        userMarker.setMap(null);
+                        userCircle.setMap(null);
+                    }
+
+                    userMarker = new google.maps.Marker({
+                        position: userLocation,
+                        map: map,
+                        icon: {
+                            url: "https://maps.google.com/mapfiles/kml/shapes/man.png",
+                            scaledSize: new google.maps.Size(40, 40)
+                        }
+                    });
+
+                    userCircle = new google.maps.Circle({
+                        center: userLocation,
+                        radius: position.coords.accuracy,
+                        map: map,
+                        fillColor: "#4285F4",
+                        fillOpacity: 0.2,
+                        strokeColor: "#4285F4",
+                        strokeOpacity: 0.6,
+                        strokeWeight: 2
+                    });
+
+                    map.setCenter(userLocation);
+                },
+                (error) => {
+                    console.error("Erro ao obter localização:", error);
+                    alert("Não foi possível acessar sua localização.");
+                },
+                { enableHighAccuracy: true, maximumAge: 0 }
+            );
+        } else {
+            alert("Seu navegador não suporta geolocalização.");
+        }
+    }
+
+    function salvarLinhaFavorita() {
+        const linhaDigitada = document.getElementById("linha").value.trim();
+        if (!linhaDigitada) {
+            alert("Digite um número ou nome de linha antes de salvar.");
+            return;
+        }
+
+        const linhaEncontrada = linhasOnibus.find(linha =>
+            linha.numero === linhaDigitada || linha.nome.toLowerCase().includes(linhaDigitada.toLowerCase())
         );
-    } else {
-        alert("Seu navegador não suporta geolocalização.");
-    }
-}
 
-function salvarLinhaFavorita() {
-    const linhaDigitada = document.getElementById("linha").value.trim();
-    if (!linhaDigitada) {
-        alert("Digite um número ou nome de linha antes de salvar.");
-        return;
-    }
+        if (!linhaEncontrada) {
+            alert("Linha de ônibus não encontrada.");
+            return;
+        }
 
-    const linhaEncontrada = linhasOnibus.find(linha =>
-        linha.numero === linhaDigitada || linha.nome.toLowerCase().includes(linhaDigitada.toLowerCase())
-    );
+        let linhasFavoritas = JSON.parse(localStorage.getItem("linhasFavoritas") || "[]");
 
-    if (!linhaEncontrada) {
-        alert("Linha de ônibus não encontrada.");
-        return;
-    }
+        if (linhasFavoritas.length >= 10) {
+            alert("Você já tem 10 linhas favoritas. Remova uma antes de adicionar outra.");
+            return;
+        }
 
-    let linhasFavoritas = JSON.parse(localStorage.getItem("linhasFavoritas") || "[]");
+        const jaSalva = linhasFavoritas.some(linha => linha.id === linhaEncontrada.id);
+        if (jaSalva) {
+            alert("Essa linha já está salva como favorita.");
+            return;
+        }
 
-    const jaSalva = linhasFavoritas.some(linha => linha.id === linhaEncontrada.id);
-    if (jaSalva) {
-        alert("Essa linha já está salva como favorita.");
-        return;
+        linhasFavoritas.push({ id: linhaEncontrada.id, nome: linhaEncontrada.nome });
+        localStorage.setItem("linhasFavoritas", JSON.stringify(linhasFavoritas));
+
+        alert(`Linha ${linhaEncontrada.nome} (${linhaEncontrada.id}) salva como favorita!`);
+        carregarLinhasFavoritas();
     }
 
-    linhasFavoritas.push({ id: linhaEncontrada.id, nome: linhaEncontrada.nome });
-    localStorage.setItem("linhasFavoritas", JSON.stringify(linhasFavoritas));
+    function carregarLinhasFavoritas() {
+        const tabela = document.getElementById("tabelaFavoritas");
+        if (!tabela) return;
 
-    alert(`Linha ${linhaEncontrada.nome} (${linhaEncontrada.id}) salva como favorita!`);
-    carregarLinhasFavoritas();
-}
+        const linhasFavoritas = JSON.parse(localStorage.getItem("linhasFavoritas") || "[]");
+        tabela.innerHTML = "";
 
-function carregarLinhasFavoritas() {
-    const tabela = document.getElementById("tabelaFavoritas");
-    if (!tabela) return;
-    
-    const linhasFavoritas = JSON.parse(localStorage.getItem("linhasFavoritas") || "[]");
-    tabela.innerHTML = "";
+        if (linhasFavoritas.length === 0) {
+            tabela.innerHTML = "<tr><td colspan='2'>Nenhuma linha favorita.</td></tr>";
+            return;
+        }
 
-    if (linhasFavoritas.length === 0) {
-        tabela.innerHTML = "<tr><td colspan='2'>Nenhuma linha favorita.</td></tr>";
-        return;
+        linhasFavoritas.forEach(linha => {
+            const row = `<tr><td>${linha.id}</td><td>${linha.nome}</td></tr>`;
+            tabela.innerHTML += row;
+        });
     }
 
-    linhasFavoritas.forEach(linha => {
-        const row = `<tr><td>${linha.id}</td><td>${linha.nome}</td></tr>`;
-        tabela.innerHTML += row;
-    });
-}
 
-window.onload = initMap;
+        </script>
 
+        <!-- Corrigido: Adicionando callback initMap() -->
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDzn_bdYS1y5XGLd2gK4Xiu03uLXY6h8G4&libraries=places&callback=initMap" async defer></script>
+    </body>
+    </html>
 
-function salvarLinhaFavorita() {
-    const linhaDigitada = document.getElementById("linha").value.trim();
-    if (!linhaDigitada) {
-        alert("Digite um número ou nome de linha antes de salvar.");
-        return;
-    }
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    // Carregar as linhas disponíveis
-    const linhaEncontrada = linhasOnibus.find(linha =>
-        linha.numero === linhaDigitada || linha.nome.toLowerCase().includes(linhaDigitada.toLowerCase())
-    );
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            overflow: hidden;
+        }
 
-    if (!linhaEncontrada) {
-        alert("Linha de ônibus não encontrada.");
-        return;
-    }
+        #top-bar {
+            position: absolute;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: rgba(255, 255, 255, 0.8); 
+            padding: 10px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            z-index: 1000;      
+        }
 
-    // Recupera as linhas salvas
-    let linhasFavoritas = JSON.parse(localStorage.getItem("linhasFavoritas") || "[]");
+        h2 {
+            margin-bottom: 10px;
+        }
 
-    // Verifica se já está salva
-    function adicionarLinhaFavorita(numero, nome) {
-    let linhasFavoritas = JSON.parse(localStorage.getItem("linhasFavoritas") || "[]");
+        input {
+            padding: 10px;
+            width: 250px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
 
-    // Verifica se já existe uma linha com o mesmo número
-    const jaExiste = linhasFavoritas.some(linha => linha.numero === numero);
+        button {
+            padding: 10px;
+            cursor: pointer;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            margin-left: 5px;
+        }
 
-    if (jaExiste) {
-        alert("Essa linha já está salva como favorita.");
-        return;
-    }
+        button:hover {
+            background-color: #0056b3;
+        }
+        
+        #map {
+            flex-grow: 1;
+            width: 100%;
+            height: 100vh;
+        }
 
-    // Adiciona nova linha favorita
-    linhasFavoritas.push({ numero, nome });
-    localStorage.setItem("linhasFavoritas", JSON.stringify(linhasFavoritas));
-
-    alert("Linha adicionada aos favoritos!");
-}
-
-
-    // Limite de 10 favoritos
-    if (linhasFavoritas.length >= 10) {
-        alert("Você já tem 10 linhas favoritas. Remova uma antes de adicionar outra.");
-        return;
-    }
-
-    // Adicionar a nova linha e salvar
-    linhasFavoritas.push({ id: linhaEncontrada.id, nome: linhaEncontrada.nome });
-    localStorage.setItem("linhasFavoritas", JSON.stringify(linhasFavoritas));
-
-    alert(`Linha ${linhaEncontrada.nome} (${linhaEncontrada.id}) salva como favorita!`);
-}
-
-
-    </script>
-
-    <!-- Corrigido: Adicionando callback initMap() -->
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDzn_bdYS1y5XGLd2gK4Xiu03uLXY6h8G4&libraries=places&callback=initMap" async defer></script>
-</body>
-</html>
-
-<style>
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-    }
-
-    body {
-        font-family: Arial, sans-serif;
-        display: flex;
-        flex-direction: column;
-        height: 100vh;
-        overflow: hidden;
-    }
-
-    #top-bar {
-        position: absolute;
-        top: 10px;
-        left: 50%;
-        transform: translateX(-50%);
-        background-color: rgba(255, 255, 255, 0.8); 
-        padding: 10px;
-        border-radius: 8px;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-        text-align: center;
-        z-index: 1000;      
-    }
-
-    h2 {
-        margin-bottom: 10px;
-    }
-
-    input {
-        padding: 10px;
-        width: 250px;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-    }
-
-    button {
-        padding: 10px;
-        cursor: pointer;
-        background-color: #007bff;
-        color: white;
-        border: none;
-        border-radius: 5px;
-        margin-left: 5px;
-    }
-
-    button:hover {
-        background-color: #0056b3;
-    }
-
-    #map {
-        flex-grow: 1;
-        width: 100%;
-        height: 100vh;
-    }
-
-    #sidebar {
-        position: absolute;
-        bottom: 10px;
-        left: 50%;
-        transform: translateX(-50%);
-        background-color: rgba(255, 255, 255, 0.8);
-        padding: 10px;
-        border-radius: 8px;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-        z-index: 1000;
-        text-align: center;
-    }
-</style>
+        #sidebar {
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 10px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            text-align: center;
+        }
+    </style>

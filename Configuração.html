@@ -1,60 +1,51 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Página de Configurações</title>
-    <link rel="stylesheet" href="CSS/configuração.css">
-    <link rel="shortcut icon" type="image/x-icon" href="./Image/Captura de tela 2025-02-12 094009.png">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Página de Configurações</title>
+  <link rel="stylesheet" href="CSS/configuração.css" />
+  <link rel="shortcut icon" type="image/x-icon" href="./Image/Captura de tela 2025-02-12 094009.png" />
 </head>
 <body>
-
-    <div class="sidebar">
-        <div class="profile-container">
-            
-            <img src="Image/WhatsApp Image 2024-05-17 at 15.21.51 (1).jpeg" alt="Foto de perfil" class="profile-picture" id="profile-img">
-            <h3>Nome da Pessoa</h3>
-        </div>
-
-        <div class="sidebar-buttons">
-
-            <button onclick="document.getElementById('img-input').click()">Alterar Imagem de Perfil</button>
-
-            <button onclick="openPage('Política de Privacidade.html')">Política de Privacidade</button>
-            <button onclick="openPage('chat.html')">Chats</button>
-
-            <button id="theme-toggle" style="width: 100%; padding: 10px;">Mudar Tema</button>
-
-            <a href="https://wa.me/5541995554948" target="_blank" style="display: block; text-decoration: none;">
-                <button>Ajuda</button>
-            </a>
-
-            <button onclick="openPage('inicio-mapa.html')">Voltar</button>
-        </div>
+  <div class="sidebar">
+    <div class="profile-container">
+      <img src="" alt="Foto de perfil" class="profile-picture" id="profile-img" />
+      <h3 id="user-name"></h3>
     </div>
 
-    <div class="main-content">
-        <h1>Configurações da Conta</h1>
+    <div class="sidebar-buttons">
+      <button onclick="document.getElementById('img-input').click()">Alterar Imagem de Perfil</button>
+      <button onclick="openPage('Política de Privacidade.html')">Política de Privacidade</button>
+      <button onclick="openPage('chat.html')">Chats</button>
+      <button id="theme-toggle">Mudar Tema</button>
+      <a href="https://wa.me/5541995554948" target="_blank"><button>Ajuda</button></a>
+      <button onclick="openPage('inicio-mapa.html')">Voltar</button>
+    </div>
+  </div>
 
-        <div class="config-option">
-            <h3>Alterar número</h3>
-            <p>Mude o número associado à sua conta.</p>
-        </div>
+  <div class="main-content">
+    <h1>Configurações da Conta</h1>
 
-        <div class="config-option">
-            <h3>Verificação em duas etapas</h3>
-            <p>Adicione uma camada extra de segurança.</p>
-        </div>
-
-        <div class="config-option">
-            <h3>Solicitar informações da conta</h3>
-            <p>Solicite um relatório com suas informações e configurações da conta.</p>
-        </div>
+    <div class="config-option">
+      <h3>Alterar Nome</h3>
+      <input type="text" id="name-input" placeholder="Digite o novo nome" />
+      <button id="save-name-btn" onclick="saveName()">Salvar Nome</button>
     </div>
 
-    <input type="file" id="img-input" accept="image/*" onchange="previewImage(event)" style="display: none;">
+    <div class="config-option">
+      <h3>Verificação em duas etapas</h3>
+      <p>Adicione uma camada extra de segurança.</p>
+    </div>
+
+    <div class="config-option">
+      <h3>Solicitar informações da conta</h3>
+      <p>Solicite um relatório com suas informações e configurações da conta.</p>
+    </div>
+  </div>
+
+  <input type="file" id="img-input" accept="image/*" onchange="previewImage(event)" style="display: none" />
 
     <script src="js/Configuração.js"></script>
-    
 </body>
 </html>

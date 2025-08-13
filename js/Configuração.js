@@ -48,7 +48,7 @@ document.addEventListener("DOMContentLoaded", function() {
             const output = document.getElementById('profile-img');
             const imageData = reader.result;
 
-            // Atualiza a imagem de perfil e salva no localStorage
+            // Atualiza a imagem de perzfil e salva no localStorage
             output.src = imageData;
             localStorage.setItem('profileImage', imageData);
         };
@@ -62,3 +62,44 @@ document.addEventListener("DOMContentLoaded", function() {
             document.getElementById('profile-img').src = savedImage;
         }
     };
+
+    // Função para salvar o nome do colaborador 
+
+    function openPage(url) {
+      window.location.href = url;
+    }
+
+    function previewImage(event) {
+      const reader = new FileReader();
+      reader.onload = function () {
+        const output = document.getElementById("profile-img");
+        const imageData = reader.result;
+        output.src = imageData;
+        localStorage.setItem("profileImage", imageData);
+      };
+      reader.readAsDataURL(event.target.files[0]);
+    }
+
+    function saveName() {
+      const name = document.getElementById("name-input").value.trim();
+      if (name) {
+        localStorage.setItem("userName", name);
+        document.getElementById("user-name").innerText = name;
+        alert("Nome salvo com sucesso!");
+      }
+    }
+
+    window.onload = function () {
+      const savedName = localStorage.getItem("userName");
+      const savedImage = localStorage.getItem("profileImage");
+
+      if (savedName) {
+        document.getElementById("user-name").innerText = savedName;
+        document.getElementById("name-input").value = savedName;
+      }
+
+      if (savedImage) {
+        document.getElementById("profile-img").src = savedImage;
+      }
+    };
+  

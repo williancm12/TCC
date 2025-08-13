@@ -130,3 +130,45 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 });
+
+
+window.onload = function () {
+    const savedName = localStorage.getItem("userName");
+    const savedImage = localStorage.getItem("profileImage");
+  
+    if (savedName) {
+      const userNameElement = document.getElementById("user-name");
+      const userSidebarName = document.getElementById("user-name-sidebar");
+  
+      if (userNameElement) userNameElement.innerText = savedName;
+      if (userSidebarName) userSidebarName.innerText = savedName;
+  
+      const nameInput = document.getElementById("name-input");
+      if (nameInput) nameInput.value = savedName;
+    }
+  
+    if (savedImage) {
+      const profileImg = document.getElementById("profile-img");
+      const sidebarImg = document.getElementById("user_avatar");
+      if (profileImg) profileImg.src = savedImage;
+      if (sidebarImg) sidebarImg.src = savedImage;
+    }
+  };
+
+  window.onload = function () {
+    const savedName = localStorage.getItem("userName");
+
+    if (savedName) {
+      const nameElement = document.getElementById("user-name-display");
+      if (nameElement) {
+        nameElement.innerText = savedName;
+      }
+    }
+  };
+
+  window.onload = function () {
+    const savedName = localStorage.getItem("userName");
+    if (savedName) {
+      document.getElementById("user-name-display").innerText = savedName;
+    }
+  };

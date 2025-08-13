@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Carrossel Infinito</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f5f5f5;
+      padding: 40px 20px;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .carousel-container {
+      position: relative;
+      overflow: hidden;
+      max-width: 1000px;
+      margin: auto;
+    }
+
+    .carousel-track {
+      display: flex;
+      transition: transform 0.5s ease;
+    }
+
+    .plan-card {
+      flex: 0 0 50%;
+      padding: 20px;
+    }
+
+    .card-inner {
+      background-color: white;
+      border-radius: 10px;
+      padding: 20px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      height: 100%;
+    }
+
+    .plan-title {
+      font-size: 20px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    .plan-description {
+      font-size: 14px;
+      color: #555;
+      margin-bottom: 10px;
+    }
+
+    .plan-price {
+      font-size: 18px;
+      font-weight: bold;
+      color: #222;
+      margin-bottom: 20px;
+    }
+
+    .buy-button {
+      display: inline-block;
+      background-color: #00B67A;
+      color: white;
+      text-decoration: none;
+      padding: 12px 20px;
+      border-radius: 6px;
+      transition: background-color 0.3s;
+    }
+
+    .buy-button:hover {
+      background-color: #009E6D;
+    }
+
+    .arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background-color: rgba(0, 0, 0, 0.3);
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      cursor: pointer;
+      font-size: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 10;
+      opacity: 0.5;
+      transition: 0.3s;
+    }
+
+    .arrow:hover {
+      opacity: 1;
+    }
+
+    .arrow-left {
+      left: -20px;
+    }
+
+    .arrow-right {
+      right: -20px;
+    }
+
+    .carousel-dots {
+      display: flex;
+      justify-content: center;
+      margin-top: 15px;
+    }
+
+    .dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background-color: #ccc;
+      margin: 0 5px;
+      cursor: pointer;
+    }
+
+    .dot.active {
+      background-color: #00B67A;
+    }
+
+    @media (max-width: 768px) {
+      .plan-card {
+        flex: 0 0 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Escolha Seu Plano</h1>
+
+  <div class="carousel-container" id="carouselContainer">
+    <button class="arrow arrow-left" id="prevBtn">&#9664;</button>
+    <button class="arrow arrow-right" id="nextBtn">&#9654;</button>
+
+    <div class="carousel-track" id="carouselTrack">
+      <div class="plan-card"><div class="card-inner"><div class="plan-title">Plano Básico</div><div class="plan-description">Ideal para iniciantes.</div><div class="plan-price">R$ XX,XX</div><a href="#" class="buy-button">Comprar</a></div></div>
+      <div class="plan-card"><div class="card-inner"><div class="plan-title">Plano Padrão</div><div class="plan-description">Com mais recursos padrão.</div><div class="plan-price">R$ XX,XX</div><a href="#" class="buy-button">Comprar</a></div></div>
+      <div class="plan-card"><div class="card-inner"><div class="plan-title">Plano Avançado</div><div class="plan-description">Recursos avançados.</div><div class="plan-price">R$ XX,XX</div><a href="#" class="buy-button">Comprar</a></div></div>
+      <div class="plan-card"><div class="card-inner"><div class="plan-title">Plano Premium</div><div class="plan-description">Acesso total e suporte.</div><div class="plan-price">R$ XX,XX</div><a href="#" class="buy-button">Comprar</a></div></div>
+      <div class="plan-card"><div class="card-inner"><div class="plan-title">Plano Empresarial</div><div class="plan-description">Para empresas e equipes.</div><div class="plan-price">R$ XX,XX</div><a href="#" class="buy-button">Comprar</a></div></div>
+      <div class="plan-card"><div class="card-inner"><div class="plan-title">Plano Plus</div><div class="plan-description">Recursos extras incluídos.</div><div class="plan-price">R$ XX,XX</div><a href="#" class="buy-button">Comprar</a></div></div>
+    </div>
+
+    <div class="carousel-dots" id="carouselDots"></div>
+  </div>
+
+  <script>
+    const track = document.getElementById("carouselTrack");
+    const dots = document.getElementById("carouselDots");
+    const prevBtn = document.getElementById("prevBtn");
+    const nextBtn = document.getElementById("nextBtn");
+    const container = document.getElementById("carouselContainer");
+
+    let index = 0;
+    let totalCards = 6;
+    let cardsPerSlide = window.innerWidth < 768 ? 1 : 2;
+    let totalSlides = Math.ceil(totalCards / cardsPerSlide);
+    let autoSlide;
+
+    const updateSlide = () => {
+      const percent = 100 * index;
+      track.style.transition = "transform 0.5s ease";
+      track.style.transform = `translateX(-${percent}%)`;
+      updateDots();
+    };
+
+    const updateDots = () => {
+      document.querySelectorAll('.dot').forEach((dot, i) => {
+        dot.classList.toggle('active', i === index);
+      });
+    };
+
+    const createDots = () => {
+      dots.innerHTML = "";
+      for (let i = 0; i < totalSlides; i++) {
+        const dot = document.createElement("div");
+        dot.classList.add("dot");
+        if (i === 0) dot.classList.add("active");
+        dot.addEventListener("click", () => {
+          index = i;
+          updateSlide();
+        });
+        dots.appendChild(dot);
+      }
+    };
+
+    const nextSlide = () => {
+      index++;
+      if (index >= totalSlides) {
+        index = 0;
+        track.style.transition = "none";
+        track.style.transform = `translateX(0%)`;
+        setTimeout(() => {
+          track.style.transition = "transform 0.5s ease";
+          updateSlide();
+        }, 20);
+      } else {
+        updateSlide();
+      }
+    };
+
+    const prevSlide = () => {
+      index--;
+      if (index < 0) {
+        index = totalSlides - 1;
+        track.style.transition = "none";
+        track.style.transform = `translateX(-${100 * index}%)`;
+        setTimeout(() => {
+          track.style.transition = "transform 0.5s ease";
+          updateSlide();
+        }, 20);
+      } else {
+        updateSlide();
+      }
+    };
+
+    const startAutoSlide = () => autoSlide = setInterval(nextSlide, 5000);
+    const stopAutoSlide = () => clearInterval(autoSlide);
+
+    container.addEventListener("mouseenter", stopAutoSlide);
+    container.addEventListener("mouseleave", startAutoSlide);
+    prevBtn.addEventListener("click", prevSlide);
+    nextBtn.addEventListener("click", nextSlide);
+
+    // Swipe mobile
+    let startX = 0;
+    container.addEventListener("touchstart", e => startX = e.touches[0].clientX);
+    container.addEventListener("touchend", e => {
+      const diff = e.changedTouches[0].clientX - startX;
+      if (diff > 50) prevSlide();
+      else if (diff < -50) nextSlide();
+    });
+
+    createDots();
+    updateSlide();
+    startAutoSlide();
+
+    window.addEventListener("resize", () => {
+      cardsPerSlide = window.innerWidth < 768 ? 1 : 2;
+      totalSlides = Math.ceil(totalCards / cardsPerSlide);
+      createDots();
+      updateSlide();
+    });
+  </script>
+
+</body>
+</html>
