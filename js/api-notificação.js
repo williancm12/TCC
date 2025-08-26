@@ -123,14 +123,32 @@ setInterval(sendNotification, 180000); // 3 minutos em milissegundos
 // Envia uma mensagem inicial ao carregar a página
 sendNotification();
 
-// Função para alternar o tema de fundo
-let themes = [
-    'linear-gradient(135deg, #1e3c72, #2a5298)',
-    'linear-gradient(135deg, #000, #6a0dad)'
-];
-let currentThemeIndex = 0;
+// Sistema de Temas Light/Dark
+document.addEventListener("DOMContentLoaded", function() {
+    const savedTheme = localStorage.getItem("theme") || "light";
 
+    // Aplica o tema salvo ou o padrão ao carregar a página
+    document.body.classList.add(savedTheme + "-theme");
+    updateThemeClasses(savedTheme);
+});
+
+// Função para alternar o tema
 function toggleTheme() {
-    currentThemeIndex = (currentThemeIndex + 1) % themes.length;
-    document.body.style.background = themes[currentThemeIndex];
+    const currentTheme = document.body.classList.contains("light-theme") ? "light" : "dark";
+    const newTheme = currentTheme === "light" ? "dark" : "light";
+
+    // Atualiza o tema no body e nos elementos
+    document.body.classList.remove(currentTheme + "-theme");
+    document.body.classList.add(newTheme + "-theme");
+    updateThemeClasses(newTheme);
+
+    // Salva o novo tema no localStorage para persistir entre páginas
+    localStorage.setItem("theme", newTheme);
+}
+
+function updateThemeClasses(theme) {
+    document.querySelectorAll(".conversation-container, .controls, .card, .message, .timestamp, .control-btn").forEach(el => {
+        el.classList.remove("light-theme", "dark-theme");
+        el.classList.add(theme + "-theme");
+    });
 }

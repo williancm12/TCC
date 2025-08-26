@@ -33,10 +33,15 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 
     function updateThemeClasses(theme) {
-        document.querySelectorAll(".sidebar, .sidebar-buttons button, .main-content h1, .main-content h3, .main-content p").forEach(el => {
+        // Aplica o tema em todos os elementos da página atual
+        document.querySelectorAll(".sidebar, .sidebar-buttons button, .main-content h1, .main-content h3, .main-content p, input, .config-option").forEach(el => {
             el.classList.remove("light-theme", "dark-theme");
             el.classList.add(theme + "-theme");
         });
+        
+        // Também aplica no body para garantir que o tema seja aplicado globalmente
+        document.body.classList.remove("light-theme", "dark-theme");
+        document.body.classList.add(theme + "-theme");
     }
 });
 

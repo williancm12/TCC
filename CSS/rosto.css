@@ -1,40 +1,130 @@
 body {
-    font-family: Arial, sans-serif;
-    text-align: center;
-    background-color: #f4f4f4;
-    margin: 0;
-    padding: 20px;
-  }
-  
-  h1 {
-    color: #333;
-  }
-  
-  video {
-    border: 4px solid #3498db;
-    border-radius: 10px;
-    margin-top: 10px;
-  }
-  
-  button {
-    margin-top: 15px;
-    padding: 10px 20px;
-    font-size: 16px;
-    background-color: #3498db;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  button:hover {
-    background-color: #2980b9;
-  }
-  
-  #status {
-    margin-top: 20px;
-    font-size: 18px;
-    font-weight: bold;
-  }
-  
+      margin: 0;
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: linear-gradient(135deg, #000000, #b77ce1, #000000);
+      color: #fff;
+      flex-direction: column;
+      text-align: center;
+    }
+
+    h1 {
+      margin-bottom: 20px;
+    }
+
+    .container {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+    }
+
+    input {
+      padding: 10px;
+      width: 250px;
+      margin-bottom: 15px;
+      border: none;
+      border-radius: 8px;
+      outline: none;
+      border: 3px solid #3e253e;
+      background: rgba(255, 251, 251, 0.73);
+    }
+
+    video {
+      border-radius: 12px;
+      margin-bottom: 10px;
+      border: 3px solid #3e253e;
+    }
+
+    button {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 8px;
+      background: #8e15e5;
+      color: #ffffff;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background: #3e253e;
+    }
+
+    #status {
+      margin-top: 15px;
+      font-size: 14px;
+    }
+
+/* Tema Claro (Light Theme) */
+body.light-theme {
+  background: linear-gradient(135deg, #e3e9f7, #4285F4) !important;
+  color: #000 !important;
+}
+
+h1.light-theme {
+  color: #000 !important;
+}
+
+.container.light-theme {
+  background: rgba(255, 255, 255, 0.9) !important;
+  color: #000 !important;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2) !important;
+}
+
+input.light-theme {
+  background: rgba(255, 255, 255, 0.9) !important;
+  color: #000 !important;
+  border: 3px solid #007bff !important;
+}
+
+button.light-theme {
+  background: #007bff !important;
+  color: #ffffff !important;
+}
+
+button.light-theme:hover {
+  background: #0056b3 !important;
+}
+
+p.light-theme {
+  color: #000 !important;
+}
+
+/* Tema Escuro (Dark Theme) */
+body.dark-theme {
+  background: linear-gradient(135deg, #1c1c1c, #8b5cf6) !important;
+  color: #ffffff !important;
+}
+
+h1.dark-theme {
+  color: #fff !important;
+}
+
+.container.dark-theme {
+  background: rgba(51, 51, 51, 0.9) !important;
+  color: #fff !important;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5) !important;
+}
+
+input.dark-theme {
+  background: rgba(51, 51, 51, 0.9) !important;
+  color: #fff !important;
+  border: 3px solid #8b5cf6 !important;
+}
+
+button.dark-theme {
+  background: #8b5cf6 !important;
+  color: #ffffff !important;
+}
+
+button.dark-theme:hover {
+  background: #7c3aed !important;
+}
+
+p.dark-theme {
+  color: #fff !important;
+}

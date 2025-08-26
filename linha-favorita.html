@@ -4,17 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Linhas Favoritas</title>
+    <link rel="shortcut icon" type="image/x-icon" href="./Image/Gemini_Generated_Image_hz8gyqhz8gyqhz8g.png">
 </head>
 <body>
 
     <!-- Carrossel de imagens -->
     <div class="carousel-background">
-        <img src="image/09-Rodrigo-Bueno-1152x1536.jpg" class="active">
-        <img src="image/77775-Curitiba.avif">
-        <img src="image/77776-Curitiba.jpg">
-        <img src="image/64324-Curitiba.avif">
+        <img src="Image/09-Rodrigo-Bueno-1152x1536.jpg" class="active">
+        <img src="Image/77775-Curitiba.avif">
+        <img src="Image/77776-Curitiba.jpg">
+        <img src="Image/64324-Curitiba.avif">
         
-        <img src="image/09-Rodrigo-Bueno-1152x1536.jpg">
+        <img src="Image/09-Rodrigo-Bueno-1152x1536.jpg">
     </div>
 
     <h2>Linhas Favoritas</h2>
@@ -22,8 +23,12 @@
     <table>
         <thead>
             <tr>
-                <th>Número da Linha</th> 
+                <th>Número</th> 
                 <th>Nome da Linha</th>
+                <th>Origem</th>
+                <th>Destino</th>
+                <th>Tarifa</th>
+                <th>Operadora</th>
                 <th>Ações</th>
             </tr>
         </thead>
@@ -32,10 +37,11 @@
     </table>
 
     <div id="sidebar">
-        <button onclick="irParaPesquisa()">Voltar para Pesquisa</button>
-        <button onclick="sair()">Sair</button>
+        <button onclick="irParaPesquisa('linha-onibus')">Voltar para Pesquisa</button>
+        <button onclick="sair('inicio-mapa')">Sair</button>
     </div>
 
+    <script src="js/theme-manager.js"></script>
     <script>
         function exibirLinhasFavoritas() {
             const linhasFavoritas = JSON.parse(localStorage.getItem("linhasFavoritas") || "[]");
@@ -43,17 +49,31 @@
             tabela.innerHTML = ""; // Limpa a tabela antes de adicionar novas linhas
 
             if (linhasFavoritas.length === 0) {
-                tabela.innerHTML = "<tr><td colspan='3'>Nenhuma linha favorita salva.</td></tr>";
+                tabela.innerHTML = "<tr><td colspan='7'>Nenhuma linha favorita salva.</td></tr>";
                 return;
             }
 
             linhasFavoritas.forEach((linha, index) => {
                 const row = document.createElement("tr");
+                // Usa tarifa_dinheiro se disponível, senão tarifa_cartao, senão "N/A"
+                let tarifa = "N/A";
+                if (linha.tarifa_dinheiro) {
+                    tarifa = `R$ ${linha.tarifa_dinheiro.toFixed(2)}`;
+                } else if (linha.tarifa_cartao) {
+                    tarifa = `R$ ${linha.tarifa_cartao.toFixed(2)}`;
+                }
+                
+                const operadora = linha.operadora || "N/A";
+                
                 row.innerHTML = `
-                    <td>${linha.numero}</td>
+                    <td><strong>${linha.numero || linha.id || "N/A"}</strong></td>
                     <td>${linha.nome}</td>
+                    <td>${linha.origem || "N/A"}</td>
+                    <td>${linha.destino || "N/A"}</td>
+                    <td>${tarifa}</td>
+                    <td>${operadora}</td>
                     <td>
-                        <button class="remove-button" onclick="removerLinhaFavorita(${index})">Remover</button>
+                        <button class="remove-button" onclick="removerLinhaFavorita(${index})">🗑️ Remover</button>
                     </td>
                 `;
                 tabela.appendChild(row);
@@ -151,21 +171,24 @@
 
     /* Tabela estilizada */
     table {
-        width: 80%;
-        max-width: 800px;
+        width: 95%;
+        max-width: 1200px;
         border-collapse: collapse;
         background: rgba(255, 255, 255, 0.2);
         border-radius: 8px;
         overflow: hidden;
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
         backdrop-filter: blur(10px);
+        font-size: 14px;
     }
 
     th, td {
-        padding: 12px;
+        padding: 8px 12px;
         text-align: left;
         border-bottom: 1px solid rgba(255, 255, 255, 0.3);
         color: white;
+        word-wrap: break-word;
+        max-width: 200px;
     }
 
     th {

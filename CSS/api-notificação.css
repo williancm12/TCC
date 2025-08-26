@@ -1,0 +1,180 @@
+* {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            transition: background 0.3s;
+            flex-direction: column;
+            overflow: hidden;
+        }
+        .conversation-container {
+            width: 100%;
+            max-width: 500px; /* Limita a largura dos cards */
+            height: 80%; /* Tamanho fixo para a área das mensagens */
+            overflow-y: auto; /* Permite rolar somente as mensagens */
+            margin-bottom: 60px; /* Espaço para os botões fixos */
+            padding: 20px;
+            padding-bottom: 80px; /* Adiciona espaço inferior */
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* Centraliza os cards */
+            gap: 10px;
+        }
+        .card {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+            width: 100%;
+            max-width: 400px; /* Reduz o tamanho máximo do card */
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            font-size: 14px; /* Diminui o tamanho da fonte */
+        }
+        .message {
+            background: #f9f9f9;
+            padding: 10px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            width: 100%;
+        }
+        .timestamp {
+            font-size: 0.8rem;
+            color: #aaa;
+            margin-top: 5px;
+        }
+        .delete-btn {
+            background: #e74c3c;
+            color: white;
+            padding: 8px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        .delete-btn:hover {
+            background: #c0392b;
+        }
+        .controls {
+            position: fixed;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+        }
+        .control-btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .back-btn {
+            background: #555;
+            color: white;
+        }
+        .theme-btn {
+            background: #007bff;
+            color: white;
+        }
+        .delete-all-btn {
+            background: #e74c3c;
+            color: white;
+        }
+        .delete-all-btn:hover {
+            background: #c0392b;
+        } 
+      .conversation-container {
+     width: 100%;
+    max-width: 500px;
+     height: 80%;
+    overflow-y: scroll; 
+    margin-bottom: 60px;
+    padding: 20px;
+    padding-bottom: 80px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.conversation-container::-webkit-scrollbar {
+    display: none;
+}
+
+/* Tema Claro (Light Theme) */
+body.light-theme {
+    background: linear-gradient(135deg, #e3e9f7, #4285F4);
+    color: #000;
+}
+
+.conversation-container.light-theme {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.card.light-theme {
+    background: white;
+    color: #000;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+}
+
+.message.light-theme {
+    background: #f9f9f9;
+    color: #000;
+}
+
+.timestamp.light-theme {
+    color: #666;
+}
+
+.control-btn.light-theme {
+    background: #007bff;
+    color: white;
+}
+
+.control-btn.light-theme:hover {
+    background: #0056b3;
+}
+
+/* Tema Escuro (Dark Theme) */
+body.dark-theme {
+    background: linear-gradient(135deg, #1c1c1c, #8b5cf6);
+    color: #ffffff;
+}
+
+.conversation-container.dark-theme {
+    background: rgba(51, 51, 51, 0.1);
+}
+
+.card.dark-theme {
+    background: #333;
+    color: #fff;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+}
+
+.message.dark-theme {
+    background: #444;
+    color: #fff;
+}
+
+.timestamp.dark-theme {
+    color: #ccc;
+}
+
+.control-btn.dark-theme {
+    background: #8b5cf6;
+    color: white;
+}
+
+.control-btn.dark-theme:hover {
+    background: #7c3aed;
+}

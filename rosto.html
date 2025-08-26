@@ -1,19 +1,22 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-br">
 <head>
+  <meta charset="UTF-8">
   <title>FacePay - Pagamento Facial</title>
-  <link rel="stylesheet" href="CSS/rosto.css">
+  <link rel="shortcut icon" type="image/x-icon" href="./Image/Gemini_Generated_Image_hz8gyqhz8gyqhz8g.png">
+  <link rel="stylesheet" href="./CSS/rosto.css">
 </head>
 <body>
- 
   <h1>Cadastro Facial</h1>
-  <input type="text" id="name" placeholder="Nome do colaborador" /><br>
-  <video id="video" width="320" height="240" autoplay></video><br>
-  <button onclick="rosto()">Cadastrar Rosto</button>
-  <canvas id="canvas" width="320" height="240" style="display:none;"></canvas>
-  <p id="status"></p>
+  <div class="container">
+    <input type="text" id="name" placeholder="Nome do colaborador" /><br>
+    <video id="video" width="320" height="240" autoplay></video><br>
+    <button id="btnCadastrar" onclick="rosto()">Cadastrar Rosto</button>
+    <canvas id="canvas" width="320" height="240" style="display:none;"></canvas>
+    <p id="status">Aproxime o rosto da câmera e clique em cadastrar</p>
+  </div>
 
-  <script src="js/rosto.js"></script>
+  <script src="./js/theme-manager.js"></script>
+  <script src="./JS/rosto.js"></script>
 </body>
 </html>
-  
