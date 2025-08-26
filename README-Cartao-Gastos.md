@@ -167,3 +167,4 @@ Para dúvidas ou problemas:
 - [ ] Backup na nuvem
 - [ ] Notificações push
 - [ ] Modo offline
+

@@ -61,7 +61,7 @@
 
     .buy-button {
       display: inline-block;
-      background-color: #00B67A;
+      background-color: #7c3aed;
       color: white;
       text-decoration: none;
       padding: 12px 20px;
@@ -70,7 +70,7 @@
     }
 
     .buy-button:hover {
-      background-color: #009E6D;
+      background-color: #6d28d9;
     }
 
     .arrow {
