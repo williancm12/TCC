@@ -1,46 +1,72 @@
 // Sistema de Gerenciamento de Cartões e Gastos
 class CartaoGastos {
     constructor() {
-        this.cartoes = JSON.parse(localStorage.getItem('cartoes')) || [];
-        this.gastos = JSON.parse(localStorage.getItem('gastos')) || [];
-        this.init();
+        console.log('Iniciando CartaoGastos...');
+        try {
+            this.cartoes = JSON.parse(localStorage.getItem('cartoes')) || [];
+            this.gastos = JSON.parse(localStorage.getItem('gastos')) || [];
+            console.log('Dados carregados:', { cartoes: this.cartoes.length, gastos: this.gastos.length });
+            this.init();
+        } catch (error) {
+            console.error('Erro ao inicializar CartaoGastos:', error);
+        }
     }
 
     init() {
-        this.setupEventListeners();
-        this.atualizarInterface();
+        console.log('Inicializando interface...');
+        try {
+            this.setupEventListeners();
+            this.atualizarInterface();
+            console.log('Interface inicializada com sucesso');
+        } catch (error) {
+            console.error('Erro ao inicializar interface:', error);
+        }
     }
 
     setupEventListeners() {
+        console.log('Configurando event listeners...');
+        
         // Formulário de vinculação de cartão
         const form = document.querySelector('.payment-container form');
         if (form) {
+            console.log('Formulário encontrado, adicionando listener');
             form.addEventListener('submit', (e) => this.vincularCartao(e));
+        } else {
+            console.log('Formulário não encontrado');
         }
 
         // Botões de compra dos planos
-        document.querySelectorAll('.buy-button').forEach(btn => {
+        const buyButtons = document.querySelectorAll('.buy-button');
+        console.log('Botões de compra encontrados:', buyButtons.length);
+        buyButtons.forEach(btn => {
             btn.addEventListener('click', (e) => this.processarCompra(e));
         });
 
         // Formatação automática dos campos
         this.setupFormatacaoCampos();
+        console.log('Event listeners configurados');
     }
 
     setupFormatacaoCampos() {
+        console.log('Configurando formatação dos campos...');
+        
         // Formatação do número do cartão
         const cardNumber = document.getElementById('cardNumber');
         if (cardNumber) {
+            console.log('Campo número do cartão encontrado');
             cardNumber.addEventListener('input', (e) => {
                 let value = e.target.value.replace(/\D/g, '');
                 value = value.replace(/(\d{4})/g, '$1 ').trim();
                 e.target.value = value;
             });
+        } else {
+            console.log('Campo número do cartão não encontrado');
         }
 
         // Formatação da data de validade
         const cardExpiry = document.getElementById('cardExpiry');
         if (cardExpiry) {
+            console.log('Campo validade encontrado');
             cardExpiry.addEventListener('input', (e) => {
                 let value = e.target.value.replace(/\D/g, '');
                 if (value.length >= 2) {
@@ -48,7 +74,11 @@ class CartaoGastos {
                 }
                 e.target.value = value;
             });
+        } else {
+            console.log('Campo validade não encontrado');
         }
+        
+        console.log('Formatação dos campos configurada');
     }
 
     vincularCartao(e) {
@@ -220,26 +250,32 @@ class CartaoGastos {
     }
 
     atualizarInterface() {
-        this.mostrarCartoesVinculados();
-        this.mostrarHistoricoGastos();
+        console.log('Atualizando interface...');
+        try {
+            this.mostrarCartoesVinculados();
+            this.mostrarHistoricoGastos();
+            console.log('Interface atualizada com sucesso');
+        } catch (error) {
+            console.error('Erro ao atualizar interface:', error);
+        }
     }
 
     mostrarCartoesVinculados() {
+        console.log('Mostrando cartões vinculados...');
         let container = document.querySelector('.cartoes-vinculados');
         if (!container) {
+            console.log('Criando container de cartões...');
             container = document.createElement('div');
             container.className = 'cartoes-vinculados';
-            container.style.cssText = `
-                max-width: 500px;
-                margin: 20px auto;
-                background: white;
-                padding: 20px;
-                border-radius: 12px;
-                box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-            `;
             
             const paymentContainer = document.querySelector('.payment-container');
-            paymentContainer.parentNode.insertBefore(container, paymentContainer.nextSibling);
+            if (paymentContainer && paymentContainer.parentNode) {
+                paymentContainer.parentNode.insertBefore(container, paymentContainer.nextSibling);
+                console.log('Container inserido após payment-container');
+            } else {
+                console.log('Payment container não encontrado, adicionando ao body');
+                document.body.appendChild(container);
+            }
         }
 
         if (this.cartoes.length === 0) {
@@ -250,12 +286,12 @@ class CartaoGastos {
         let html = '<h3>Cartões Vinculados</h3>';
         this.cartoes.forEach(cartao => {
             html += `
-                <div class="cartao-item" style="border: 1px solid #ddd; padding: 15px; margin: 10px 0; border-radius: 8px;">
+                <div class="cartao-item">
                     <p><strong>Nome:</strong> ${cartao.nome}</p>
                     <p><strong>Número:</strong> ${cartao.numero}</p>
                     <p><strong>Validade:</strong> ${cartao.validade}</p>
-                    <p><strong>Status:</strong> <span style="color: #00B67A;">Ativo</span></p>
-                    <button onclick="cartaoGastos.removerCartao(${cartao.id})" style="background: #e74c3c; color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer;">Remover</button>
+                    <p><strong>Status:</strong> <span class="status-ativo">Ativo</span></p>
+                    <button class="btn-remover" onclick="cartaoGastos.removerCartao(${cartao.id})">Remover</button>
                 </div>
             `;
         });
@@ -264,22 +300,20 @@ class CartaoGastos {
     }
 
     mostrarHistoricoGastos() {
+        console.log('Mostrando histórico de gastos...');
         let container = document.querySelector('.historico-gastos');
         if (!container) {
+            console.log('Criando container de histórico...');
             container = document.createElement('div');
             container.className = 'historico-gastos';
-            container.style.cssText = `
-                max-width: 500px;
-                margin: 20px auto;
-                background: white;
-                padding: 20px;
-                border-radius: 12px;
-                box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-            `;
             
             const cartoesContainer = document.querySelector('.cartoes-vinculados');
-            if (cartoesContainer) {
+            if (cartoesContainer && cartoesContainer.parentNode) {
                 cartoesContainer.parentNode.insertBefore(container, cartoesContainer.nextSibling);
+                console.log('Container de histórico inserido após cartões');
+            } else {
+                console.log('Container de cartões não encontrado, adicionando ao body');
+                document.body.appendChild(container);
             }
         }
 
@@ -295,12 +329,12 @@ class CartaoGastos {
             const data = new Date(gasto.data).toLocaleDateString('pt-BR');
             const cartao = this.cartoes.find(c => c.id === gasto.cartaoId);
             html += `
-                <div class="gasto-item" style="border: 1px solid #ddd; padding: 15px; margin: 10px 0; border-radius: 8px;">
+                <div class="gasto-item">
                     <p><strong>Descrição:</strong> ${gasto.descricao}</p>
                     <p><strong>Valor:</strong> R$ ${gasto.valor.toFixed(2)}</p>
                     <p><strong>Data:</strong> ${data}</p>
                     <p><strong>Cartão:</strong> ${cartao ? cartao.numero : 'N/A'}</p>
-                    <p><strong>Status:</strong> <span style="color: #00B67A;">${gasto.status}</span></p>
+                    <p><strong>Status:</strong> <span class="status-aprovado">${gasto.status}</span></p>
                 </div>
             `;
         });
@@ -328,9 +362,27 @@ class CartaoGastos {
 
 // Inicializar o sistema quando a página carregar
 let cartaoGastos;
-document.addEventListener('DOMContentLoaded', () => {
-    cartaoGastos = new CartaoGastos();
-});
+
+function inicializarSistema() {
+    console.log('Tentando inicializar sistema...');
+    try {
+        if (typeof CartaoGastos !== 'undefined') {
+            cartaoGastos = new CartaoGastos();
+            console.log('Sistema inicializado com sucesso');
+        } else {
+            console.error('Classe CartaoGastos não encontrada');
+        }
+    } catch (error) {
+        console.error('Erro ao inicializar sistema:', error);
+    }
+}
+
+// Múltiplas formas de inicialização para garantir que funcione
+document.addEventListener('DOMContentLoaded', inicializarSistema);
+window.addEventListener('load', inicializarSistema);
+
+// Fallback: tentar inicializar após um pequeno delay
+setTimeout(inicializarSistema, 100);
 
 // Adicionar estilos CSS para as animações
 const style = document.createElement('style');

@@ -56,6 +56,10 @@ function applyTheme(theme) {
         // Página de linhas favoritas
         console.log("Aplicando tema para linha-favorita");
         applyThemeToElements(theme, "body, h2, table, th, td, button, #sidebar");
+    } else if (currentPage.includes('Teste') || currentUrl.includes('Teste')) {
+        // Página Teste.html
+        console.log("Aplicando tema para Teste.html");
+        applyThemeToElements(theme, "body, h2, table, th, td, button, #sidebar, #particles-js");
     }
 }
 

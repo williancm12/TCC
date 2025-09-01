@@ -10,13 +10,13 @@
 </head>
 <body>
 
-  <h1>Escolha Seu Plano</h1>
+  <h1>Escolha Sua Recarga</h1>
 
   <!-- Botão de Voltar -->
   <div style="text-align: center; margin-bottom: 20px;">
-    <a href="inicio-mapa.html" style="display: inline-block; background-color: #4f46e5; color: white; text-decoration: none; padding: 12px 24px; border-radius: 8px; font-weight: bold; transition: background-color 0.3s;">
+    <a href="inicio-mapa.html" style="display: inline-block; background-color: #3b82f6; color: white; text-decoration: none; padding: 12px 24px; border-radius: 8px; font-weight: bold; transition: background-color 0.3s;">
       <i class="fa-solid fa-arrow-left" style="margin-right: 8px;"></i>
-      Voltar ao Mapa
+      Sair
     </a>
   </div>
 
@@ -25,12 +25,12 @@
     <button class="arrow arrow-right" id="nextBtn">&#9654;</button>
 
     <div class="carousel-track" id="carouselTrack">
-      <div class="plan-card"><div class="card-inner"><div class="plan-title">Plano Básico</div><div class="plan-description">Ideal para iniciantes.</div><div class="plan-price">R$ 20,00</div><a href="#" class="buy-button">Comprar</a></div></div>
-      <div class="plan-card"><div class="card-inner"><div class="plan-title">Plano Padrão</div><div class="plan-description">Com mais recursos padrão.</div><div class="plan-price">R$ 35,00</div><a href="#" class="buy-button">Comprar</a></div></div>
-      <div class="plan-card"><div class="card-inner"><div class="plan-title">Plano Avançado</div><div class="plan-description">Recursos avançados.</div><div class="plan-price">R$ 50,00</div><a href="#" class="buy-button">Comprar</a></div></div>
-      <div class="plan-card"><div class="card-inner"><div class="plan-title">Plano Premium</div><div class="plan-description">Acesso total e suporte.</div><div class="plan-price">R$ 75,00</div><a href="#" class="buy-button">Comprar</a></div></div>
-      <div class="plan-card"><div class="card-inner"><div class="plan-title">Plano Empresarial</div><div class="plan-description">Para empresas e equipes.</div><div class="plan-price">R$ 90,00</div><a href="#" class="buy-button">Comprar</a></div></div>
-      <div class="plan-card"><div class="card-inner"><div class="plan-title">Plano Plus</div><div class="plan-description">Recursos extras incluídos.</div><div class="plan-price">R$ 100,00</div><a href="#" class="buy-button">Comprar</a></div></div>
+      <div class="plan-card"><div class="card-inner"><div class="plan-title">Recarga Básico</div><div class="plan-description">Ideal para iniciantes.</div><div class="plan-price">R$ 20,00</div><a href="#" class="buy-button">Comprar</a></div></div>
+      <div class="plan-card"><div class="card-inner"><div class="plan-title">Recarga Padrão</div><div class="plan-description">Com mais recursos padrão.</div><div class="plan-price">R$ 35,00</div><a href="#" class="buy-button">Comprar</a></div></div>
+      <div class="plan-card"><div class="card-inner"><div class="plan-title">Recarga Avançado</div><div class="plan-description">Recursos avançados.</div><div class="plan-price">R$ 50,00</div><a href="#" class="buy-button">Comprar</a></div></div>
+      <div class="plan-card"><div class="card-inner"><div class="plan-title">Recarga Premium</div><div class="plan-description">Acesso total e suporte.</div><div class="plan-price">R$ 75,00</div><a href="#" class="buy-button">Comprar</a></div></div>
+      <div class="plan-card"><div class="card-inner"><div class="plan-title">Recarga Empresarial</div><div class="plan-description">Para empresas e equipes.</div><div class="plan-price">R$ 90,00</div><a href="#" class="buy-button">Comprar</a></div></div>
+      <div class="plan-card"><div class="card-inner"><div class="plan-title">Recarga Plus</div><div class="plan-description">Recursos extras incluídos.</div><div class="plan-price">R$ 100,00</div><a href="#" class="buy-button">Comprar</a></div></div>
     </div>
 
     <div class="carousel-dots" id="carouselDots"></div>
@@ -59,6 +59,24 @@
   <script src="js/theme-manager.js"></script>
   <script src="js/cartao-gastos.js"></script>
   <script>
+    // Teste para verificar se as classes de tema estão sendo aplicadas
+    setTimeout(() => {
+      console.log("=== TESTE DE TEMA ===");
+      console.log("Classe do body:", document.body.className);
+      
+      const buyButtons = document.querySelectorAll('.buy-button');
+      buyButtons.forEach((btn, index) => {
+        console.log(`Botão ${index + 1}:`, {
+          className: btn.className,
+          computedStyle: window.getComputedStyle(btn).backgroundColor,
+          hasDarkTheme: btn.classList.contains('dark-theme'),
+          parentHasDarkTheme: btn.closest('.dark-theme') !== null
+        });
+      });
+      
+      console.log("====================");
+    }, 1000);
+
     // Carrossel
     const track = document.getElementById("carouselTrack");
     const dots = document.getElementById("carouselDots");

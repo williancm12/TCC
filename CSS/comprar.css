@@ -61,7 +61,7 @@
 
     .buy-button {
       display: inline-block;
-      background-color: #7c3aed;
+      background-color: #3b82f6;
       color: white;
       text-decoration: none;
       padding: 12px 20px;
@@ -70,7 +70,7 @@
     }
 
     .buy-button:hover {
-      background-color: #6d28d9;
+      background-color: #2563eb;
     }
 
     .arrow {
@@ -121,7 +121,7 @@
     }
 
     .dot.active {
-      background-color: #00B67A;
+      background-color: #3b82f6;
     }
 
     /* ---- FORMULÁRIO CARTÃO ---- */
@@ -157,7 +157,7 @@
     .payment-button {
       width: 100%;
       padding: 14px;
-      background-color: #00B67A;
+      background-color: #3b82f6;
       color: white;
       font-size: 16px;
       border: none;
@@ -167,7 +167,33 @@
     }
 
     .payment-button:hover {
-      background-color: #009E6D;
+      background-color: #2563eb;
+    }
+
+    /* Estilos específicos para botões no tema escuro */
+    body.dark-theme .buy-button {
+      background-color: #8b5cf6 !important;
+    }
+
+    body.dark-theme .buy-button:hover {
+      background-color: #7c3aed !important;
+    }
+
+    /* Fallback adicional para garantir que funcione */
+    .dark-theme .buy-button {
+      background-color: #8b5cf6 !important;
+    }
+
+    .dark-theme .buy-button:hover {
+      background-color: #7c3aed !important;
+    }
+
+    .payment-button.dark-theme {
+      background-color: #8b5cf6;
+    }
+
+    .payment-button.dark-theme:hover {
+      background-color: #7c3aed;
     }
 
     @media (max-width: 768px) {
@@ -197,7 +223,7 @@
     }
 
     .plan-title.light-theme {
-      color: #000;
+      color: #ffffff;
     }
 
     .plan-description.light-theme {
@@ -205,7 +231,7 @@
     }
 
     .plan-price.light-theme {
-      color: #222;
+      color: #ffffff;
     }
 
     .payment-container.light-theme {
@@ -221,12 +247,12 @@
     }
 
     button.light-theme {
-      background-color: #00B67A;
+      background-color: #3b82f6;
       color: white;
     }
 
     button.light-theme:hover {
-      background-color: #009E6D;
+      background-color: #2563eb;
     }
 
     .arrow.light-theme {
@@ -239,7 +265,7 @@
     }
 
     .dot.active.light-theme {
-      background-color: #00B67A;
+      background-color: #3b82f6;
     }
 
     /* Tema Escuro (Dark Theme) */

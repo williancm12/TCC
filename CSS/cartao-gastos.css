@@ -1,13 +1,12 @@
 /* Estilos para o Sistema de Cartões e Gastos */
 
+/* ===== ESTILOS BASE ===== */
 .cartoes-vinculados,
 .historico-gastos {
     max-width: 500px;
     margin: 20px auto;
-    background: white;
     padding: 25px;
     border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
     transition: all 0.3s ease;
 }
 
@@ -15,17 +14,15 @@
 .historico-gastos h3 {
     text-align: center;
     margin-bottom: 20px;
-    color: #333;
     font-size: 18px;
 }
 
 .cartao-item,
 .gasto-item {
-    border: 1px solid #ddd;
+    border: 1px solid;
     padding: 20px;
     margin: 15px 0;
     border-radius: 8px;
-    background: #f9f9f9;
     transition: all 0.3s ease;
 }
 
@@ -33,22 +30,20 @@
 .gasto-item:hover {
     transform: translateY(-2px);
     box-shadow: 0 6px 20px rgba(0,0,0,0.15);
-    border-color: #00B67A;
 }
 
 .cartao-item p,
 .gasto-item p {
     margin: 8px 0;
-    color: #555;
     font-size: 14px;
 }
 
 .cartao-item strong,
 .gasto-item strong {
-    color: #333;
     font-weight: 600;
 }
 
+/* ===== BOTÕES E ELEMENTOS INTERATIVOS ===== */
 .btn-remover {
     background: #e74c3c;
     color: white;
@@ -66,17 +61,7 @@
     transform: scale(1.05);
 }
 
-.status-ativo {
-    color: #00B67A;
-    font-weight: bold;
-}
-
-.status-aprovado {
-    color: #00B67A;
-    font-weight: bold;
-}
-
-/* Mensagens de notificação */
+/* ===== MENSAGENS DE NOTIFICAÇÃO ===== */
 .mensagem {
     position: fixed;
     top: 20px;
@@ -90,19 +75,7 @@
     box-shadow: 0 4px 12px rgba(0,0,0,0.2);
 }
 
-.mensagem-success {
-    background-color: #00B67A;
-}
-
-.mensagem-error {
-    background-color: #e74c3c;
-}
-
-.mensagem-info {
-    background-color: #3498db;
-}
-
-/* Animações */
+/* ===== ANIMAÇÕES ===== */
 @keyframes slideIn {
     from { 
         transform: translateX(100%); 
@@ -125,7 +98,12 @@
     }
 }
 
-/* Responsividade */
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* ===== RESPONSIVIDADE ===== */
 @media (max-width: 768px) {
     .cartoes-vinculados,
     .historico-gastos {
@@ -146,37 +124,113 @@
     }
 }
 
-/* Tema escuro */
+/* ===== TEMA CLARO (LIGHT THEME) ===== */
+.light-theme .cartoes-vinculados,
+.light-theme .historico-gastos {
+    background: white !important;
+    color: #000 !important;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1) !important;
+}
+
+.light-theme .cartoes-vinculados h3,
+.light-theme .historico-gastos h3 {
+    color: #333 !important;
+}
+
+.light-theme .cartao-item,
+.light-theme .gasto-item {
+    background: #f9f9f9 !important;
+    border-color: #ddd !important;
+    color: #000 !important;
+}
+
+.light-theme .cartao-item p,
+.light-theme .gasto-item p {
+    color: #555 !important;
+}
+
+.light-theme .cartao-item strong,
+.light-theme .gasto-item strong {
+    color: #333 !important;
+}
+
+.light-theme .cartao-item:hover,
+.light-theme .gasto-item:hover {
+    border-color: #3b82f6 !important;
+}
+
+.light-theme .status-ativo,
+.light-theme .status-aprovado {
+    color: #3b82f6 !important;
+    font-weight: bold;
+}
+
+.light-theme .mensagem-success {
+    background-color: #3b82f6 !important;
+}
+
+.light-theme .mensagem-error {
+    background-color: #e74c3c !important;
+}
+
+.light-theme .mensagem-info {
+    background-color: #3498db !important;
+}
+
+/* ===== TEMA ESCURO (DARK THEME) ===== */
 .dark-theme .cartoes-vinculados,
 .dark-theme .historico-gastos {
-    background: #333;
-    color: #fff;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-}
-
-.dark-theme .cartao-item,
-.dark-theme .gasto-item {
-    background: #444;
-    border-color: #555;
-    color: #fff;
-}
-
-.dark-theme .cartao-item p,
-.dark-theme .gasto-item p {
-    color: #ccc;
-}
-
-.dark-theme .cartao-item strong,
-.dark-theme .gasto-item strong {
-    color: #fff;
+    background: #333 !important;
+    color: #fff !important;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3) !important;
 }
 
 .dark-theme .cartoes-vinculados h3,
 .dark-theme .historico-gastos h3 {
-    color: #fff;
+    color: #fff !important;
 }
 
-/* Melhorias no formulário de pagamento */
+.dark-theme .cartao-item,
+.dark-theme .gasto-item {
+    background: #444 !important;
+    border-color: #555 !important;
+    color: #fff !important;
+}
+
+.dark-theme .cartao-item p,
+.dark-theme .gasto-item p {
+    color: #ccc !important;
+}
+
+.dark-theme .cartao-item strong,
+.dark-theme .gasto-item strong {
+    color: #fff !important;
+}
+
+.dark-theme .cartao-item:hover,
+.dark-theme .gasto-item:hover {
+    border-color: #8b5cf6 !important;
+}
+
+.dark-theme .status-ativo,
+.dark-theme .status-aprovado {
+    color: #8b5cf6 !important;
+    font-weight: bold;
+}
+
+.dark-theme .mensagem-success {
+    background-color: #8b5cf6 !important;
+}
+
+.dark-theme .mensagem-error {
+    background-color: #e74c3c !important;
+}
+
+.dark-theme .mensagem-info {
+    background-color: #3498db !important;
+}
+
+/* ===== FORMULÁRIO DE PAGAMENTO ===== */
 .payment-container {
     position: relative;
 }
@@ -187,8 +241,7 @@
 
 .payment-container input:focus {
     outline: none;
-    border-color: #00B67A;
-    box-shadow: 0 0 0 2px rgba(0, 176, 122, 0.2);
+    border-color: #3b82f6;
 }
 
 .payment-button:disabled {
@@ -200,20 +253,14 @@
     background-color: #ccc;
 }
 
-/* Indicador de carregamento */
+/* ===== INDICADOR DE CARREGAMENTO ===== */
 .loading {
     display: inline-block;
     width: 20px;
     height: 20px;
     border: 3px solid #f3f3f3;
-    border-top: 3px solid #00B67A;
+    border-top: 3px solid #3b82f6;
     border-radius: 50%;
     animation: spin 1s linear infinite;
     margin-right: 10px;
 }
-
-@keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-}
-

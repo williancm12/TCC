@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", function () {
     function initMap() {
         map = new google.maps.Map(document.getElementById("map"), {
             center: { lat: -25.4284, lng: -49.2733 },
-            zoom: 12,
+            zoom: 12
         });
     
         // Configuração de rotas

@@ -168,3 +168,7 @@ Para dúvidas ou problemas:
 - [ ] Notificações push
 - [ ] Modo offline
 
+
+
+
+
