@@ -5,17 +5,11 @@
   <title>FacePay - Pagamento Facial</title>
   <link rel="shortcut icon" type="image/x-icon" href="./Image/Gemini_Generated_Image_hz8gyqhz8gyqhz8g.png">
   <link rel="stylesheet" href="./CSS/rosto.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
   <h1>Cadastro Facial</h1>
   
-  <!-- Botão de Voltar -->
-  <div style="text-align: center; margin-bottom: 20px;">
-    <a href="inicio-mapa.html" style="display: inline-block; background-color: #4f46e5; color: white; text-decoration: none; padding: 12px 24px; border-radius: 8px; font-weight: bold; transition: background-color 0.3s;">
-      <i class="fa-solid fa-arrow-left" style="margin-right: 8px;"></i>
-      Voltar ao Mapa
-    </a>
-  </div>
   
   <div class="container">
     <input type="text" id="name" placeholder="Nome do colaborador" /><br>
@@ -23,9 +17,17 @@
     <button id="btnCadastrar" onclick="rosto()">Cadastrar Rosto</button>
     <canvas id="canvas" width="320" height="240" style="display:none;"></canvas>
     <p id="status">Aproxime o rosto da câmera e clique em cadastrar</p>
+    
+    <!-- Botão Continuar (inicialmente oculto) -->
+    <div id="continueButton" style="display: none; text-align: center; margin-top: 20px;">
+      <a href="inicio-mapa.html" style="display: inline-block; background-color: #28a745; color: white; text-decoration: none; padding: 12px 24px; border-radius: 8px; font-weight: bold; transition: background-color 0.3s;">
+        <i class="fa-solid fa-check" style="margin-right: 8px;"></i>
+        Continuar
+      </a>
+    </div>
   </div>
 
   <script src="./js/theme-manager.js"></script>
-  <script src="./JS/rosto.js"></script>
+  <script src="./js/rosto.js"></script>
 </body>
 </html>

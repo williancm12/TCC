@@ -23,11 +23,11 @@
             </div>
             <div class="step" data-step="2">
                 <div class="step-number">2</div>
-                <div class="step-label">Dados Bancários</div>
+                <div class="step-label">Endereço</div>
             </div>
             <div class="step" data-step="3">
                 <div class="step-number">3</div>
-                <div class="step-label">Endereço</div>
+                <div class="step-label">Rosto</div>
             </div>
         </div>
 
@@ -113,47 +113,8 @@
                 </div>
             </div>
 
-            <!-- Seção 2: Dados Bancários -->
+            <!-- Seção 2: Endereço -->
             <div class="form-section" id="section-2">
-                <h2 class="section-title">Dados Bancários</h2>
-                
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="banco">Nome do Banco <span class="required">*</span></label>
-                        <input type="text" id="banco" name="banco" required>
-                        <div class="error-message">Nome do banco é obrigatório</div>
-                    </div>
-                    <div class="form-group">
-                        <label for="agencia">Agência <span class="required">*</span></label>
-                        <input type="text" id="agencia" name="agencia" required>
-                        <div class="error-message">Agência é obrigatória</div>
-                    </div>
-                </div>
-
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="conta">Número da Conta <span class="required">*</span></label>
-                        <input type="text" id="conta" name="conta" required>
-                        <div class="error-message">Número da conta é obrigatório</div>
-                    </div>
-                    <div class="form-group">
-                        <label for="tipoConta">Tipo de Conta</label>
-                        <select id="tipoConta" name="tipoConta">
-                            <option value="corrente">Conta Corrente</option>
-                            <option value="poupanca">Conta Poupança</option>
-                            <option value="salario">Conta Salário</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="button-group">
-                    <button type="button" class="btn btn-secondary" onclick="prevSection()">Anterior</button>
-                    <button type="button" class="btn btn-primary" onclick="nextSection()">Próximo</button>
-                </div>
-            </div>
-
-            <!-- Seção 3: Endereço -->
-            <div class="form-section" id="section-3">
                 <h2 class="section-title">Endereço Residencial</h2>
                 
                 <div class="form-row">
@@ -237,7 +198,39 @@
 
                 <div class="button-group">
                     <button type="button" class="btn btn-secondary" onclick="prevSection()">Anterior</button>
-                    <button type="submit" class="btn btn-success">Finalizar Cadastro</button>
+                    <button type="button" class="btn btn-primary" onclick="nextSection()">Próximo</button>
+                </div>
+            </div>
+
+            <!-- Seção 3: Rosto -->
+            <div class="form-section" id="section-3">
+                <h2 class="section-title">Reconhecimento Facial</h2>
+                
+                <div class="form-content">
+                    <p>Para finalizar seu cadastro, precisamos fazer o reconhecimento facial. Clique no botão abaixo para acessar a página de captura de rosto.</p>
+                    
+                    <div class="face-capture-info">
+                        <div class="info-item">
+                            <i class="fa-solid fa-camera"></i>
+                            <span>Posicione seu rosto na câmera</span>
+                        </div>
+                        <div class="info-item">
+                            <i class="fa-solid fa-lightbulb"></i>
+                            <span>Mantenha boa iluminação</span>
+                        </div>
+                        <div class="info-item">
+                            <i class="fa-solid fa-eye"></i>
+                            <span>Olhe diretamente para a câmera</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="button-group">
+                    <button type="button" class="btn btn-secondary" onclick="prevSection()">Anterior</button>
+                    <a href="rosto.html" class="btn btn-success">
+                        <i class="fa-solid fa-camera" style="margin-right: 8px;"></i>
+                        Ir para Captura de Rosto
+                    </a>
                 </div>
             </div>
         </form>

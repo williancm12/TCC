@@ -36,6 +36,10 @@ function applyTheme(theme) {
         // Página de linha de ônibus
         console.log("Aplicando tema para linha-onibus");
         applyThemeToElements(theme, "#top-bar, #sidebar, .suggestions, .linha-info, .linha-info h4, .linha-info p, .linha-info strong, button, input");
+    } else if (currentPage.includes('teste-3') || currentUrl.includes('teste-3')) {
+        // Página teste-3 (mapa com linhas de ônibus)
+        console.log("Aplicando tema para teste-3");
+        applyThemeToElements(theme, "#top-bar, #sidebar, .suggestions, .linha-info, .linha-info h4, .linha-info p, .linha-info strong, button, input, #sidebar-bottom");
     } else if (currentPage.includes('api-notificação') || currentPage.includes('api-notificacao') || currentUrl.includes('api-notificação') || currentUrl.includes('api-notificacao')) {
         // Página de notificações
         console.log("Aplicando tema para api-notificação");

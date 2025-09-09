@@ -1,4 +1,4 @@
-let currentSection = 1;
+        let currentSection = 1;
         const totalSections = 3;
 
         // Aplicar máscaras
