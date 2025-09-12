@@ -4,11 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="CSS/inicio-mapa.html.css">
     <link rel="shortcut icon" type="image/x-icon" href="./Image/Gemini_Generated_Image_hz8gyqhz8gyqhz8g.png">
+    <link rel="stylesheet" href="CSS/teste-3.css">
     <title>Mapa</title>
 </head>
-<body>
+<body class="light-theme">
     <nav id="sidebar">
         <div id="sidebar_content">
             <div id="user">
@@ -40,20 +40,14 @@
                     </a>
                 </li>
               <li class="side-item">
-  <a href="teste-comprar.html">
-    <i class="fa-solid fa-credit-card"></i>
-    <span class="item-description">Recarga</span>
-  </a>
-</li>
+                   <a href="teste-comprar.html">
+                       <i class="fa-solid fa-credit-card"></i>
+                       <span class="item-description">Recarga</span>
+                   </a>
+             </li>
+
                 <li class="side-item">
-                    <a href="linha-onibus.html">
-                        <i class="fa-solid fa-bus" style="color: black;"></i>
-                        <span class="item-description">Linha de Ônibus</span>
-                    </a>
-                </li>
-                
-                <li class="side-item">
-                     <a href="Teste.html">
+                     <a href="linha-favorita.html">
                          <i class="fa-solid fa-route" style="color: black;"></i>
                          <span class="item-description">Linhas Favoritas</span>
                     </a>
@@ -79,7 +73,38 @@
             </a>
         </div>
     </nav>
-     <main>
+     <!-- Top Bar -->
+    <div id="top-bar">
+        <h2>Pesquisar Linha de Ônibus - Curitiba</h2>
+        <input type="text" id="linha" placeholder="Digite o nome ou número da linha">
+        <button onclick="salvarLinhaFavorita()">Salvar como Favorita</button>
+        <button onclick="buscarRota()">Buscar Rota</button> 
+    </div>
+
+    <!-- Sugestões de pesquisa -->
+    <div class="suggestions" id="suggestions"></div>
+            
+    <!-- Informações da linha -->
+    <div class="linha-info" id="linhaInfo">
+        <h4 id="linhaTitulo"></h4>
+        <p><strong>Origem:</strong> <span id="linhaOrigem"></span></p>
+        <p><strong>Destino:</strong> <span id="linhaDestino"></span></p>
+        <p><strong>Tarifa:</strong> R$ <span id="linhaTarifa"></span></p>
+        <p><strong>Operadora:</strong> <span id="linhaOperadora"></span></p>
+
+        <button id="favoritoBtn" class="favorito-btn" onclick="toggleFavorito()">
+            <span class="icon">❤</span>
+            <span class="texto">Adicionar aos Favoritos</span>
+        </button>
+    </div>
+
+    <!-- Barra lateral inferior -->
+    <div id="sidebar-bottom">
+        <button onclick="openPage('linha-favorita.html')">Ir para Linhas Favoritas</button>
+        <button onclick="openPage('inicio-mapa.html')">Sair</button>
+    </div>
+
+    <main>
         <div class="map-container">
             <div id="map"></div>
         </div>
