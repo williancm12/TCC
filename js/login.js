@@ -55,3 +55,40 @@ function openModal() {
 function closeModal() {
     document.getElementById('modal').style.display = 'none';
 }
+
+ document.getElementById("loginForm").addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const username = document.getElementById("username").value;
+    const password = document.getElementById("password").value;
+
+    try {
+      const response = await fetch("https://localhost:7006/api/Login/login", {
+        method: "POST",
+        headers: {
+          "accept": "*/*",
+          "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIzIiwiZW1haWwiOiJtb3JlaXJhY2V6YXIwNUBnbWFpbC5jb20iLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjMiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoibW9yZWlyYWNlemFyMDVAZ21haWwuY29tIiwiZXhwIjoxNzYwNzE5MDcyfQ.QNkDaSWnLv-YFHzTJNPogRZIGvZJDMxNVObGsR8MF68",
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          username: username,
+          password: password
+        })
+      });
+
+      if (!response.ok) {
+        throw new Error(`Erro: ${response.status}`);
+      }
+
+      const data = await response.json();
+      console.log("Token recebido:", data.token);
+
+      // Exemplo: salvar o token no localStorage
+      localStorage.setItem("authToken", data.token);
+
+      alert("Login realizado com sucesso!");
+    } catch (error) {
+      console.error("Falha no login:", error);
+      alert("Erro ao fazer login. Verifique as credenciais.");
+    }
+  });
