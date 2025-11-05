@@ -176,3 +176,98 @@
                 }
             });
         });
+
+        //teste get e post
+
+        const API_URL = "https://localhost:7006/api/Usuario";
+
+    // --- POST: Envia os dados do formulário para o backend ---
+    document.getElementById("cadastroForm").addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        // Captura os dados do formulário
+        const formData = {
+            nome: document.getElementById("nome").value,
+            cpf: document.getElementById("cpf").value,
+            rg: document.getElementById("rg").value,
+            dataNascimento: document.getElementById("dataNasc").value,
+            sexo: document.getElementById("sexo").value,
+            deficiencia: document.getElementById("deficiencia").value,
+            celular: document.getElementById("celular").value,
+            telefone: document.getElementById("telefone").value,
+            email: document.getElementById("email").value,
+            senha: document.getElementById("senha").value,
+            cep: document.getElementById("cep").value,
+            numero: document.getElementById("numero").value,
+            rua: document.getElementById("rua").value,
+            complemento: document.getElementById("complemento").value,
+            bairro: document.getElementById("bairro").value,
+            cidade: document.getElementById("cidade").value,
+            estado: document.getElementById("estado").value,
+            pais: document.getElementById("pais").value
+        };
+
+        try {
+            const response = await fetch(API_URL, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(formData)
+            });
+
+            if (!response.ok) {
+                const error = await response.json();
+                console.error("Erro ao cadastrar:", error);
+                alert("Erro ao cadastrar usuário!");
+                return;
+            }
+
+            const data = await response.json();
+            console.log("Usuário cadastrado:", data);
+
+            // Se o backend retornar um token de autenticação:
+            if (data.token) {
+                localStorage.setItem("authToken", data.token);
+                console.log("Token salvo:", data.token);
+            }
+
+            alert("Cadastro realizado com sucesso!");
+        } catch (error) {
+            console.error("Erro na requisição:", error);
+            alert("Erro ao conectar com o servidor.");
+        }
+    });
+
+    // --- GET: Busca lista de usuários (requer token se autenticado) ---
+    async function buscarUsuarios() {
+        const token = localStorage.getItem("authToken");
+
+        try {
+            const response = await fetch(API_URL, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": token ? `Bearer ${token}` : ""
+                }
+            });
+
+            if (!response.ok) {
+                const error = await response.json();
+                console.error("Erro ao buscar usuários:", error);
+                return;
+            }
+
+            const usuarios = await response.json();
+            console.log("Usuários encontrados:", usuarios);
+
+            // Aqui você pode exibir os dados no HTML, se quiser
+            // exemplo:
+            // document.getElementById("listaUsuarios").innerText = JSON.stringify(usuarios, null, 2);
+        } catch (error) {
+            console.error("Erro na requisição GET:", error);
+        }
+    }
+
+    // Opcional: chamar o GET automaticamente quando a página carregar
+    document.addEventListener("DOMContentLoaded", buscarUsuarios);

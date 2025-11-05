@@ -14,10 +14,9 @@
             <div id="user">
                 <img src="" id="user_avatar" alt="Avatar">
                 <p id="user_infos">
-                    <span class="item-description" id="user-name-display">Fulano de Tal</span>
-                    <span class="item-description">Lorem Ipsum</span>
-                </p>
-            </div>
+                    <span class="item-description"  id="username"></span>
+                    <span class="item-description" id="email"></span>
+</p>                </div>
             <ul id="side_items">
              <li class="side-item active">
                 <a href="cadastro-completo.html">
@@ -111,11 +110,6 @@
 
         <script>
               document.addEventListener("DOMContentLoaded", function () {
-    const savedName = localStorage.getItem("userName");
-    if (savedName) {
-      const nameEl = document.getElementById("user-name-display");
-      if (nameEl) nameEl.innerText = savedName;
-    }
 
     const savedImage = localStorage.getItem("profileImage");
     if (savedImage) {
@@ -123,10 +117,17 @@
       if (avatar) avatar.src = savedImage;
     }
   });
+
+    document.addEventListener("DOMContentLoaded", () => {
+        if (window.location.pathname.includes("inicio-mapa.html")) {
+        getPerfilUser();
+    }
+    })
      </script>
     
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDzn_bdYS1y5XGLd2gK4Xiu03uLXY6h8G4&callback=initMap" async defer></script>
     <script src="js/theme-manager.js"></script>
     <script src="js/inicio-mapa.js"></script>
-
+    <script src="js/perfil.js"></script>
+</body>
 </html>

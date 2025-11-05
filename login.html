@@ -9,22 +9,22 @@
     <title>Login</title>
 </head>
 <body>
-    <div class="log">
-        <form action="PHP/login.php" method="post">
-            <h1>Login</h1>
-            
-            <label for="email">E-mail</label>
-            <input type="text" placeholder="email" id="email" name="email" required>
-    
-            <label for="senha">Senha</label>
-            <input type="password" placeholder="senha" id="senha" name="senha" required>
-    
-            <button type="submit">Entrar</button>
-    
-            <a href="cadastro.html">Cadastrar aqui</a>
-        </form>
-    </div>
+  <div class="log">
+    <form >
+      <h1>Login</h1>
 
-    <script src="js/login.js"></script>
+      <label for="username">E-mail</label>
+      <input type="text" placeholder="email" id="username" name="username" required>
+
+      <label for="password">Senha</label>
+      <input type="password" placeholder="senha" id="password" name="password" required>
+
+      <button type="button" id="btnEntrar" onclick="Login(event)">Entrar</button>
+
+      <a href="cadastro.html">Cadastrar aqui</a>
+    </form>
+  </div>
+  <script src="js/login.js"></script>
 </body>
+
 </html>
