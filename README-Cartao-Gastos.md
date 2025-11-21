@@ -69,7 +69,7 @@ Este sistema permite vincular cartões de crédito/débito e registrar gastos qu
 ### Processamento de Pagamento
 - **Cartão vinculado**: Deve haver pelo menos um cartão ativo
 - **Simulação realista**: Delay de 2 segundos para processamento
-- **Preços variados**: R$ 29,90 a R$ 199,90 para demonstração
+- **Preços variados**: R$ 20,00 a R$ 100,00 para demonstração
 
 ## Armazenamento
 
@@ -96,7 +96,7 @@ Este sistema permite vincular cartões de crédito/débito e registrar gastos qu
     id: timestamp,
     cartaoId: 1234567890,
     descricao: "Compra - Plano Premium",
-    valor: 99.90,
+    valor: 100.00,
     data: "2024-01-01T00:00:00.000Z",
     status: "aprovado"
 }
@@ -142,12 +142,12 @@ Este sistema permite vincular cartões de crédito/débito e registrar gastos qu
 - **Informação**: #3498db (azul)
 
 ### Preços dos Planos
-- **Básico**: R$ 29,90
-- **Padrão**: R$ 49,90
-- **Avançado**: R$ 79,90
-- **Premium**: R$ 99,90
-- **Empresarial**: R$ 149,90
-- **Plus**: R$ 199,90
+- **Básico**: R$ 20,90
+- **Padrão**: R$ 35,90
+- **Avançado**: R$ 50,90
+- **Premium**: R$ 75,90
+- **Empresarial**: R$ 90,90
+- **Plus**: R$ 100,90
 
 ## Suporte
 

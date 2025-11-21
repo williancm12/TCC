@@ -3,12 +3,35 @@ class CartaoGastos {
     constructor() {
         console.log('Iniciando CartaoGastos...');
         try {
-            this.cartoes = JSON.parse(localStorage.getItem('cartoes')) || [];
-            this.gastos = JSON.parse(localStorage.getItem('gastos')) || [];
-            console.log('Dados carregados:', { cartoes: this.cartoes.length, gastos: this.gastos.length });
+            const cartoesSalvos = localStorage.getItem('cartoes');
+            const gastosSalvos = localStorage.getItem('gastos');
+            
+            this.cartoes = cartoesSalvos ? JSON.parse(cartoesSalvos) : [];
+            this.gastos = gastosSalvos ? JSON.parse(gastosSalvos) : [];
+            
+            // Garantir que todos os cartões tenham a propriedade 'ativo'
+            this.cartoes = this.cartoes.map(cartao => {
+                if (cartao.ativo === undefined) {
+                    cartao.ativo = true;
+                }
+                return cartao;
+            });
+            
+            // Salvar de volta se algum cartão foi atualizado
+            if (this.cartoes.some(c => c.ativo === undefined)) {
+                this.salvarCartoes();
+            }
+            
+            console.log('Dados carregados:', { 
+                cartoes: this.cartoes.length, 
+                cartoesAtivos: this.cartoes.filter(c => c.ativo !== false).length,
+                gastos: this.gastos.length 
+            });
             this.init();
         } catch (error) {
             console.error('Erro ao inicializar CartaoGastos:', error);
+            this.cartoes = [];
+            this.gastos = [];
         }
     }
 
@@ -165,21 +188,88 @@ class CartaoGastos {
     processarCompra(e) {
         e.preventDefault();
         
-        if (this.cartoes.length === 0) {
+        // Recarregar cartões do localStorage para garantir que está atualizado
+        this.cartoes = JSON.parse(localStorage.getItem('cartoes')) || [];
+        
+        // Verificar se há cartões ativos
+        const cartoesAtivos = this.cartoes.filter(c => c.ativo !== false);
+        
+        console.log('Verificando cartões para compra:', {
+            total: this.cartoes.length,
+            ativos: cartoesAtivos.length,
+            cartoes: this.cartoes
+        });
+        
+        if (cartoesAtivos.length === 0) {
             this.mostrarMensagem('Você precisa vincular um cartão primeiro!', 'error');
             return;
         }
 
-        const planoTitulo = e.target.closest('.card-inner').querySelector('.plan-title').textContent;
-        const preco = this.gerarPrecoAleatorio();
+        // Encontrar o card-inner mais próximo
+        // Pode ser que o e.target seja o <a> ou um elemento dentro dele
+        let cardInner = e.target.closest('.card-inner');
+        
+        // Se não encontrou, tenta encontrar pelo botão
+        if (!cardInner) {
+            const button = e.target.closest('.buy-button') || e.target;
+            cardInner = button.closest('.card-inner') || button.parentElement?.closest('.card-inner');
+        }
+        
+        if (!cardInner) {
+            console.error('Card-inner não encontrado. e.target:', e.target);
+            this.mostrarMensagem('Erro ao processar compra. Tente novamente.', 'error');
+            return;
+        }
+        
+        console.log('Card-inner encontrado:', cardInner);
+        
+        const planoTitulo = cardInner.querySelector('.plan-title')?.textContent || 'Plano';
+        
+        // Pegar o preço real do plano selecionado
+        const precoElement = cardInner.querySelector('.plan-price');
+        let preco = 0;
+        
+        console.log('Elemento de preço encontrado:', precoElement);
+        
+        if (precoElement) {
+            // Extrair o valor numérico do texto (ex: "R$ 20,00" -> 20.00)
+            const precoTexto = precoElement.textContent.trim();
+            console.log('Texto do preço:', precoTexto);
+            
+            // Remove "R$", espaços e substitui vírgula por ponto
+            // Primeiro remove R$ e espaços, depois remove pontos (separadores de milhar) e substitui vírgula por ponto
+            const precoNumerico = precoTexto
+                .replace(/R\$\s?/i, '')  // Remove "R$" e espaços
+                .replace(/\./g, '')       // Remove pontos (separadores de milhar)
+                .replace(',', '.');       // Substitui vírgula por ponto
+            
+            console.log('Preço numérico extraído:', precoNumerico);
+            
+            preco = parseFloat(precoNumerico);
+            console.log('Preço convertido:', preco);
+            
+            // Se não conseguir converter, usar preço aleatório como fallback
+            if (isNaN(preco) || preco <= 0) {
+                console.warn('Não foi possível extrair o preço do plano, usando preço aleatório');
+                preco = this.gerarPrecoAleatorio();
+            }
+        } else {
+            console.warn('Elemento de preço não encontrado, usando preço aleatório');
+            preco = this.gerarPrecoAleatorio();
+        }
+        
+        console.log('Preço final da compra:', preco);
         
         // Simular processamento de pagamento
         this.mostrarMensagem('Processando pagamento...', 'info');
         
         setTimeout(() => {
+            // Usar o primeiro cartão ativo
+            const cartaoAtivo = cartoesAtivos[0];
+            
             const gasto = {
                 id: Date.now(),
-                cartaoId: this.cartoes[0].id,
+                cartaoId: cartaoAtivo.id,
                 descricao: `Compra - ${planoTitulo}`,
                 valor: preco,
                 data: new Date().toISOString(),
@@ -194,7 +284,7 @@ class CartaoGastos {
     }
 
     gerarPrecoAleatorio() {
-        const precos = [29.90, 49.90, 79.90, 99.90, 149.90, 199.90];
+        const precos = [20.00, 35.00, 50.00, 75.00, 90.00, 100.00];
         return precos[Math.floor(Math.random() * precos.length)];
     }
 
@@ -262,6 +352,10 @@ class CartaoGastos {
 
     mostrarCartoesVinculados() {
         console.log('Mostrando cartões vinculados...');
+        
+        // Recarregar cartões do localStorage para garantir que está atualizado
+        this.cartoes = JSON.parse(localStorage.getItem('cartoes')) || [];
+        
         let container = document.querySelector('.cartoes-vinculados');
         if (!container) {
             console.log('Criando container de cartões...');
@@ -278,13 +372,16 @@ class CartaoGastos {
             }
         }
 
-        if (this.cartoes.length === 0) {
+        // Filtrar apenas cartões ativos
+        const cartoesAtivos = this.cartoes.filter(c => c.ativo !== false);
+        
+        if (cartoesAtivos.length === 0) {
             container.innerHTML = '<h3>Nenhum cartão vinculado</h3><p>Vincule um cartão para fazer compras.</p>';
             return;
         }
 
         let html = '<h3>Cartões Vinculados</h3>';
-        this.cartoes.forEach(cartao => {
+        cartoesAtivos.forEach(cartao => {
             html += `
                 <div class="cartao-item">
                     <p><strong>Nome:</strong> ${cartao.nome}</p>

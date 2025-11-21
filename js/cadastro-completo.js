@@ -1,273 +1,423 @@
-        let currentSection = 1;
-        const totalSections = 3;
+let currentSection = 1;
+const totalSections = 3;
 
-        // Aplicar máscaras
-        $(document).ready(function() {
-            $('.cpf-mask').mask('000.000.000-00');
-            $('.rg-mask').mask('00.000.000-0');
-            $('.date-mask').mask('00/00/0000');
-            $('.phone-mask').mask('(00) 00000-0000');
-            $('.cep-mask').mask('00000-000');
-            
-            // Auto-completar endereço pelo CEP
-            $('#cep').on('blur', function() {
-                const cep = $(this).val().replace(/\D/g, '');
-                
-                if (cep.length === 8) {
-                    // Mostrar indicador de carregamento
-                    $(this).addClass('loading');
-                    
-                    // Buscar CEP na API ViaCEP
-                    $.getJSON(`https://viacep.com.br/ws/${cep}/json/`, function(data) {
-                        if (!data.erro) {
-                            // Preencher campos automaticamente
-                            $('#rua').val(data.logradouro).addClass('auto-filled');
-                            $('#bairro').val(data.bairro).addClass('auto-filled');
-                            $('#cidade').val(data.localidade).addClass('auto-filled');
-                            $('#estado').val(data.uf).addClass('auto-filled');
-                            
-                            // Mostrar mensagem de sucesso
-                            showMessage('Endereço preenchido automaticamente!', 'success');
-                            
-                            // Focar no campo número para facilitar o preenchimento
-                            $('#numero').focus();
-                        } else {
-                            // Limpar campos se CEP não for encontrado
-                            clearAddressFields();
-                            showMessage('CEP não encontrado. Verifique e tente novamente.', 'error');
-                        }
-                    }).fail(function() {
-                        // Limpar campos se houver erro na API
-                        clearAddressFields();
-                        showMessage('Erro ao buscar CEP. Verifique sua conexão.', 'error');
-                    }).always(function() {
-                        // Remover indicador de carregamento
-                        $('#cep').removeClass('loading');
-                    });
-                } else if (cep.length > 0) {
-                    // Se CEP não tiver 8 dígitos, limpar campos
-                    clearAddressFields();
-                    showMessage('CEP deve ter 8 dígitos.', 'error');
-                }
-            });
-            
-            // Função para limpar campos de endereço
-            function clearAddressFields() {
-                $('#rua').val('').removeClass('auto-filled');
-                $('#bairro').val('').removeClass('auto-filled');
-                $('#cidade').val('').removeClass('auto-filled');
-                $('#estado').val('').removeClass('auto-filled');
-            }
-        });
-        
-        // Função para mostrar mensagens
-        function showMessage(message, type) {
-            // Remover mensagens anteriores
-            $('.message').remove();
-            
-            const messageClass = type === 'success' ? 'message-success' : 'message-error';
-            const messageHtml = `<div class="message ${messageClass}">${message}</div>`;
-            
-            // Inserir mensagem após o campo CEP
-            $('#cep').parent().after(messageHtml);
-            
-            // Remover mensagem após 5 segundos
-            setTimeout(function() {
-                $('.message').fadeOut(500, function() {
-                    $(this).remove();
-                });
-            }, 5000);
-        }
+// Função para inicializar
+function initializeForm() {
 
-        function nextSection() {
-            if (validateCurrentSection()) {
-                if (currentSection < totalSections) {
-                    currentSection++;
-                    updateProgressBar();
-                    showSection(currentSection);
-                }
-            }
-        }
+    $('.cpf-mask').mask('000.000.000-00');
+    $('.rg-mask').mask('00.000.000-0');
+    $('.date-mask').mask('00/00/0000');
+    $('.phone-mask').mask('(00) 00000-0000');
+    $('.cep-mask').mask('00000-000');
 
-        function prevSection() {
-            if (currentSection > 1) {
-                currentSection--;
-                updateProgressBar();
-                showSection(currentSection);
-            }
-        }
+    updateProgress();
+    showSection(1);
+}
 
-        function showSection(sectionNumber) {
-            // Esconder todas as seções
-            document.querySelectorAll('.form-section').forEach(section => {
-                section.classList.remove('active');
-            });
+$(document).ready(function () {
+    initializeForm();
 
-            // Mostrar seção atual
-            document.getElementById(`section-${sectionNumber}`).classList.add('active');
-        }
+    $('#cep').on('blur', function () {
+        const cep = $(this).val().replace(/\D/g, '');
 
-        function updateProgressBar() {
-            document.querySelectorAll('.step').forEach((step, index) => {
-                const stepNumber = index + 1;
-                step.classList.remove('active', 'completed');
-                
-                if (stepNumber < currentSection) {
-                    step.classList.add('completed');
-                } else if (stepNumber === currentSection) {
-                    step.classList.add('active');
-                }
-            });
-        }
+        if (cep.length === 8) {
+            $(this).addClass('loading');
 
-        function validateCurrentSection() {
-            const currentSectionElement = document.getElementById(`section-${currentSection}`);
-            const requiredFields = currentSectionElement.querySelectorAll('[required]');
-            let isValid = true;
+            $.getJSON(`https://viacep.com.br/ws/${cep}/json/`, function (data) {
+                if (!data.erro) {
+                    $('#rua').val(data.logradouro).addClass('auto-filled');
+                    $('#bairro').val(data.bairro).addClass('auto-filled');
+                    $('#cidade').val(data.localidade).addClass('auto-filled');
+                    $('#estado').val(data.uf).addClass('auto-filled');
 
-            // Limpar mensagens de erro anteriores
-            currentSectionElement.querySelectorAll('.error-message').forEach(msg => {
-                msg.style.display = 'none';
-            });
-            currentSectionElement.querySelectorAll('input, select').forEach(field => {
-                field.classList.remove('input-error');
-            });
-
-            requiredFields.forEach(field => {
-                if (!field.value.trim()) {
-                    isValid = false;
-                    field.classList.add('input-error');
-                    const errorMsg = field.parentNode.querySelector('.error-message');
-                    if (errorMsg) {
-                        errorMsg.style.display = 'block';
-                    }
-                }
-            });
-
-            return isValid;
-        }
-
-        // Validação do formulário completo
-        document.getElementById('cadastroForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            if (validateCurrentSection()) {
-                // Aqui você pode enviar os dados para o servidor
-                alert('Cadastro realizado com sucesso!');
-                console.log('Dados do formulário:', new FormData(this));
-            }
-        });
-
-        // Validação em tempo real
-        document.querySelectorAll('input, select').forEach(field => {
-            field.addEventListener('blur', function() {
-                if (this.hasAttribute('required') && !this.value.trim()) {
-                    this.classList.add('input-error');
-                    const errorMsg = this.parentNode.querySelector('.error-message');
-                    if (errorMsg) {
-                        errorMsg.style.display = 'block';
-                    }
+                    showMessage('Endereço preenchido automaticamente!', 'success');
                 } else {
-                    this.classList.remove('input-error');
-                    const errorMsg = this.parentNode.querySelector('.error-message');
-                    if (errorMsg) {
-                        errorMsg.style.display = 'none';
-                    }
+                    clearAddressFields();
+                    showMessage('CEP não encontrado. Verifique e tente novamente.', 'error');
                 }
+            }).fail(function () {
+                clearAddressFields();
+                showMessage('Erro ao buscar CEP. Verifique sua conexão.', 'error');
+            }).always(function () {
+                $('#cep').removeClass('loading');
             });
-        });
-
-        //teste get e post
-
-        const API_URL = "https://localhost:7006/api/Usuario";
-
-    // --- POST: Envia os dados do formulário para o backend ---
-    document.getElementById("cadastroForm").addEventListener("submit", async (e) => {
-        e.preventDefault();
-
-        // Captura os dados do formulário
-        const formData = {
-            nome: document.getElementById("nome").value,
-            cpf: document.getElementById("cpf").value,
-            rg: document.getElementById("rg").value,
-            dataNascimento: document.getElementById("dataNasc").value,
-            sexo: document.getElementById("sexo").value,
-            deficiencia: document.getElementById("deficiencia").value,
-            celular: document.getElementById("celular").value,
-            telefone: document.getElementById("telefone").value,
-            email: document.getElementById("email").value,
-            senha: document.getElementById("senha").value,
-            cep: document.getElementById("cep").value,
-            numero: document.getElementById("numero").value,
-            rua: document.getElementById("rua").value,
-            complemento: document.getElementById("complemento").value,
-            bairro: document.getElementById("bairro").value,
-            cidade: document.getElementById("cidade").value,
-            estado: document.getElementById("estado").value,
-            pais: document.getElementById("pais").value
-        };
-
-        try {
-            const response = await fetch(API_URL, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(formData)
-            });
-
-            if (!response.ok) {
-                const error = await response.json();
-                console.error("Erro ao cadastrar:", error);
-                alert("Erro ao cadastrar usuário!");
-                return;
-            }
-
-            const data = await response.json();
-            console.log("Usuário cadastrado:", data);
-
-            // Se o backend retornar um token de autenticação:
-            if (data.token) {
-                localStorage.setItem("authToken", data.token);
-                console.log("Token salvo:", data.token);
-            }
-
-            alert("Cadastro realizado com sucesso!");
-        } catch (error) {
-            console.error("Erro na requisição:", error);
-            alert("Erro ao conectar com o servidor.");
+        } else if (cep.length > 0) {
+            clearAddressFields();
+            showMessage('CEP deve ter 8 dígitos.', 'error');
         }
     });
 
-    // --- GET: Busca lista de usuários (requer token se autenticado) ---
-    async function buscarUsuarios() {
-        const token = localStorage.getItem("authToken");
+    function clearAddressFields() {
+        $('#rua').val('').removeClass('auto-filled');
+        $('#bairro').val('').removeClass('auto-filled');
+        $('#cidade').val('').removeClass('auto-filled');
+        $('#estado').val('').removeClass('auto-filled');
+    }
+});
 
-        try {
-            const response = await fetch(API_URL, {
-                method: "GET",
-                headers: {
-                    "Content-Type": "application/json",
-                    "Authorization": token ? `Bearer ${token}` : ""
-                }
-            });
+function showMessage(message, type) {
+    $('.message').remove();
 
-            if (!response.ok) {
-                const error = await response.json();
-                console.error("Erro ao buscar usuários:", error);
-                return;
-            }
+    const messageClass = type === 'success' ? 'message-success' : 'message-error';
+    const messageHtml = `<div class="message ${messageClass}">${message}</div>`;
 
-            const usuarios = await response.json();
-            console.log("Usuários encontrados:", usuarios);
+    $('.form-section.active').prepend(messageHtml);
 
-            // Aqui você pode exibir os dados no HTML, se quiser
-            // exemplo:
-            // document.getElementById("listaUsuarios").innerText = JSON.stringify(usuarios, null, 2);
-        } catch (error) {
-            console.error("Erro na requisição GET:", error);
-        }
+    setTimeout(function () {
+        $('.message').fadeOut(500, function () {
+            $(this).remove();
+        });
+    }, 5000);
+}
+
+function showSection(sectionNumber) {
+    if (sectionNumber < 1 || sectionNumber > totalSections) return;
+
+    const currentSectionElement = document.querySelector(`[data-section="${currentSection}"]`);
+    const nextSectionElement = document.querySelector(`[data-section="${sectionNumber}"]`);
+
+    document.querySelectorAll('.form-section').forEach(section => {
+        section.classList.remove('active', 'entering', 'exiting', 'prev');
+    });
+
+    if (currentSection !== sectionNumber && currentSectionElement) {
+        currentSectionElement.classList.add('exiting', 'prev');
     }
 
-    // Opcional: chamar o GET automaticamente quando a página carregar
-    document.addEventListener("DOMContentLoaded", buscarUsuarios);
+    currentSection = sectionNumber;
+
+    setTimeout(() => {
+        if (nextSectionElement) {
+            nextSectionElement.classList.add('active', 'entering');
+        }
+    }, currentSection !== sectionNumber ? 250 : 0);
+
+    updateProgress();
+}
+
+function nextSection() {
+    if (currentSection < totalSections) {
+
+        if (validateCurrentSection()) {
+            showSection(currentSection + 1);
+            return true;
+        }
+    }
+    return false;
+}
+
+function prevSection() {
+    if (currentSection > 1) {
+        showSection(currentSection - 1);
+    }
+}
+
+function updateProgress() {
+    const progress = (currentSection / totalSections) * 100;
+    document.getElementById('progressBarFill').style.width = progress + '%';
+    document.getElementById('currentSectionNumber').textContent = currentSection;
+}
+
+function validateCurrentSection() {
+    const currentSectionElement = document.querySelector(`[data-section="${currentSection}"]`);
+    if (!currentSectionElement) return false;
+
+    const requiredFields = currentSectionElement.querySelectorAll('[required]');
+    let isValid = true;
+
+    currentSectionElement.querySelectorAll('.error-message').forEach(msg => {
+        msg.style.display = 'none';
+    });
+    currentSectionElement.querySelectorAll('.field-input').forEach(field => {
+        field.classList.remove('input-error');
+    });
+
+    requiredFields.forEach(field => {
+        if (!field.value.trim()) {
+            isValid = false;
+            field.classList.add('input-error');
+            const errorMsg = field.parentNode.querySelector('.error-message');
+            if (errorMsg) {
+                errorMsg.style.display = 'block';
+            }
+        }
+    });
+
+    if (!isValid) {
+        const firstError = currentSectionElement.querySelector('.input-error');
+        if (firstError) {
+            firstError.focus();
+        }
+        showMessage('Por favor, preencha todos os campos obrigatórios.', 'error');
+    }
+
+    return isValid;
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+
+    const btnContinuar = document.getElementById('btnContinuar');
+    if (btnContinuar) {
+        btnContinuar.addEventListener('click', function () {
+            nextSection();
+        });
+    }
+
+    const btnVoltarBancario = document.getElementById('btnVoltarBancario');
+    if (btnVoltarBancario) {
+        btnVoltarBancario.addEventListener('click', function () {
+            prevSection();
+        });
+    }
+
+    const btnContinuarBancario = document.getElementById('btnContinuarBancario');
+    if (btnContinuarBancario) {
+        btnContinuarBancario.addEventListener('click', function () {
+            nextSection();
+        });
+    }
+
+    const btnVoltarEndereco = document.getElementById('btnVoltarEndereco');
+    if (btnVoltarEndereco) {
+        btnVoltarEndereco.addEventListener('click', function () {
+            prevSection();
+        });
+    }
+
+    const btnFinalizar = document.getElementById('btnFinalizar');
+    if (btnFinalizar) {
+        btnFinalizar.addEventListener('click', function () {
+            submitForm();
+        });
+    }
+
+    document.querySelectorAll('.field-input[required]').forEach(field => {
+        field.addEventListener('blur', function () {
+            if (this.value.trim()) {
+                this.classList.remove('input-error');
+                const errorMsg = this.parentNode.querySelector('.error-message');
+                if (errorMsg) {
+                    errorMsg.style.display = 'none';
+                }
+            } else {
+                this.classList.add('input-error');
+                const errorMsg = this.parentNode.querySelector('.error-message');
+                if (errorMsg) {
+                    errorMsg.style.display = 'block';
+                }
+            }
+        });
+    });
+
+    const btnContinuarRosto = document.getElementById('btnContinuarRosto');
+    if (btnContinuarRosto) {
+        btnContinuarRosto.addEventListener('click', function () {
+            hideInstructionsAndRedirect();
+        });
+    }
+});
+
+function validateAllFields() {
+    let isValid = true;
+
+    const section1 = document.querySelector('[data-section="1"]');
+    if (section1) {
+        const requiredFields1 = section1.querySelectorAll('[required]');
+        requiredFields1.forEach(field => {
+            if (!field.value.trim()) {
+                isValid = false;
+                field.classList.add('input-error');
+                const errorMsg = field.parentNode.querySelector('.error-message');
+                if (errorMsg) {
+                    errorMsg.style.display = 'block';
+                }
+            }
+        });
+    }
+
+    const section2 = document.querySelector('[data-section="2"]');
+    if (section2) {
+        const requiredFields2 = section2.querySelectorAll('[required]');
+        requiredFields2.forEach(field => {
+            if (!field.value.trim()) {
+                isValid = false;
+                field.classList.add('input-error');
+                const errorMsg = field.parentNode.querySelector('.error-message');
+                if (errorMsg) {
+                    errorMsg.style.display = 'block';
+                }
+            }
+        });
+    }
+
+    const section3 = document.querySelector('[data-section="3"]');
+    if (section3) {
+        const requiredFields3 = section3.querySelectorAll('[required]');
+        requiredFields3.forEach(field => {
+            if (!field.value.trim()) {
+                isValid = false;
+                field.classList.add('input-error');
+                const errorMsg = field.parentNode.querySelector('.error-message');
+                if (errorMsg) {
+                    errorMsg.style.display = 'block';
+                }
+            }
+        });
+    }
+
+    return isValid;
+}
+
+async function submitForm() {
+    if (!validateAllFields()) {
+
+        const section1 = document.querySelector('[data-section="1"]');
+        const section2 = document.querySelector('[data-section="2"]');
+        const section3 = document.querySelector('[data-section="3"]');
+
+        let errorSection = 1;
+        if (section1) {
+            const errors1 = section1.querySelectorAll('.input-error');
+            if (errors1.length > 0) {
+                errorSection = 1;
+            }
+        }
+        if (section2 && errorSection === 1) {
+            const errors2 = section2.querySelectorAll('.input-error');
+            if (errors2.length > 0) {
+                errorSection = 2;
+            }
+        }
+        if (section3 && errorSection <= 2) {
+            const errors3 = section3.querySelectorAll('.input-error');
+            if (errors3.length > 0) {
+                errorSection = 3;
+            }
+        }
+
+        showSection(errorSection);
+        const errorSectionElement = document.querySelector(`[data-section="${errorSection}"]`);
+        if (errorSectionElement) {
+            const firstError = errorSectionElement.querySelector('.input-error');
+            if (firstError) {
+                firstError.focus();
+            }
+        }
+
+        showMessage('Por favor, preencha todos os campos obrigatórios.', 'error');
+        return;
+    }
+
+    const formatDataToIso = (date) => {
+        const [day, month, year] = date.split('/');
+        const dateObj = new Date(`${year}-${month}-${day}`);
+        return dateObj.toISOString();
+    }
+
+    const removeMask = (value) => {
+        return value.replace(/\D/g, '');
+    }
+
+    const formData = {
+        email: document.getElementById("email").value,
+        senha: document.getElementById("senha").value,
+        nome: document.getElementById("nome").value,
+        telefone: removeMask(document.getElementById("telefone").value),
+        celular: removeMask(document.getElementById("celular").value),
+        rg: removeMask(document.getElementById("rg").value),
+        dataNascimento: formatDataToIso(document.getElementById("dataNasc").value),
+        cpf: removeMask(document.getElementById("cpf").value),
+        deficiencia: document.getElementById("deficiencia").value, // OK (existe no db)
+        nomeBanco: document.getElementById("nomeBanco").value,
+        agencia: document.getElementById("agencia").value,
+        numeroConta: document.getElementById("numeroConta").value,
+        tipoConta: document.getElementById("tipoConta").value,
+        cep: removeMask(document.getElementById("cep").value),
+        numero: parseInt(document.getElementById("numero").value),
+        rua: document.getElementById("rua").value,
+        complemento: document.getElementById("complemento").value,
+        bairro: document.getElementById("bairro").value,
+        cidade: document.getElementById("cidade").value,
+        estado: document.getElementById("estado").value,
+        pais: document.getElementById("pais").value
+    };
+
+    console.log("Enviando dados:", formData);
+
+    const API_URL = "https://localhost:7006/api/Login/Register";
+
+    try {
+        const response = await fetch(API_URL, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(formData)
+        });
+
+        if (!response.ok) {
+            const error = await response.json();
+            console.error("Erro ao cadastrar:", error);
+            return;
+        }
+
+        setTimeout(() => {
+            showInstructionsScreen();
+        }, 1500);
+
+    } catch (error) {
+        console.error("Erro na requisição:", error);
+    }
+}
+
+function showInstructionsScreen() {
+    const instructionsScreen = document.getElementById('instructionsScreen');
+    if (instructionsScreen) {
+        instructionsScreen.style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+
+        setTimeout(() => {
+            instructionsScreen.classList.add('show');
+        }, 10);
+    }
+}
+
+function hideInstructionsAndRedirect() {
+    const instructionsScreen = document.getElementById('instructionsScreen');
+    if (instructionsScreen) {
+        instructionsScreen.classList.remove('show');
+        setTimeout(() => {
+            instructionsScreen.style.display = 'none';
+            document.body.style.overflow = 'auto';
+            window.location.href = "rosto.html";
+        }, 300);
+    } else {
+        window.location.href = "rosto.html";
+    }
+}
+
+async function buscarUsuarios() {
+    const token = localStorage.getItem("authToken");
+    const API_URL = "https://localhost:7006/api/Usuario";
+
+    try {
+        const response = await fetch(API_URL, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": token ? `Bearer ${token}` : ""
+            }
+        });
+
+        if (!response.ok) {
+            const error = await response.json();
+            console.error("Erro ao buscar usuários:", error);
+            return;
+        }
+
+        const usuarios = await response.json();
+        console.log("Usuários encontrados:", usuarios);
+    } catch (error) {
+        console.error("Erro na requisição GET:", error);
+    }
+}

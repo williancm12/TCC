@@ -1,23 +1,997 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Notificação</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
-    <link rel="shortcut icon" type="image/x-icon" href="./Image/Gemini_Generated_Image_hz8gyqhz8gyqhz8g.png">
-    <link rel="stylesheet" href="CSS/api-notificação.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Notificações - Curitiba</title>
+  <link rel="stylesheet" href="CSS/api-notificação.css">
+  <style>
+    .bg-gray-50 { background-color: #f9fafb; }
+    .min-h-screen { min-height: 100vh; }
+    .bg-white { background-color: #ffffff; }
+    .border-b { border-bottom-width: 1px; }
+    .border-gray-200 { border-color: #e5e7eb; }
+    .sticky { position: sticky; }
+    .top-0 { top: 0; }
+    .z-50 { z-index: 50; }
+    .z-40 { z-index: 40; }
+    .shadow-sm { box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05); }
+    .max-w-7xl { max-width: 80rem; }
+    .mx-auto { margin-left: auto; margin-right: auto; }
+    .px-4 { padding-left: 1rem; padding-right: 1rem; }
+    .py-4 { padding-top: 1rem; padding-bottom: 1rem; }
+    .py-3 { padding-top: 0.75rem; padding-bottom: 0.75rem; }
+    .py-6 { padding-top: 1.5rem; padding-bottom: 1.5rem; }
+    .py-12 { padding-top: 3rem; padding-bottom: 3rem; }
+    .flex { display: flex; }
+    .justify-between { justify-content: space-between; }
+    .items-center { align-items: center; }
+    .items-start { align-items: flex-start; }
+    .gap-3 { gap: 0.75rem; }
+    .gap-2 { gap: 0.5rem; }
+    .flex-wrap { flex-wrap: wrap; }
+    .bg-gradient-to-br { background-image: linear-gradient(to bottom right, var(--tw-gradient-stops)); }
+    .from-purple-500 { --tw-gradient-from: #a855f7; --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgb(168 85 247 / 0)); }
+    .to-orange-500 { --tw-gradient-to: #f97316; }
+    .p-2 { padding: 0.5rem; }
+    .p-4 { padding: 1rem; }
+    .rounded-lg { border-radius: 0.5rem; }
+    .rounded-full { border-radius: 9999px; }
+    .rounded { border-radius: 0.25rem; }
+    .w-6 { width: 1.5rem; }
+    .h-6 { height: 1.5rem; }
+    .w-5 { width: 1.25rem; }
+    .h-5 { height: 1.25rem; }
+    .h-8 { height: 2rem; }
+    .w-8 { width: 2rem; }
+    .text-white { color: #ffffff; }
+    .text-xl { font-size: 1.25rem; line-height: 1.75rem; }
+    .text-sm { font-size: 0.875rem; line-height: 1.25rem; }
+    .text-xs { font-size: 0.75rem; line-height: 1rem; }
+    .text-5xl { font-size: 3rem; line-height: 1; }
+    .font-bold { font-weight: 700; }
+    .font-semibold { font-weight: 600; }
+    .font-medium { font-weight: 500; }
+    .text-gray-900 { color: #111827; }
+    .text-gray-600 { color: #4b5563; }
+    .text-gray-500 { color: #6b7280; }
+    .text-gray-400 { color: #9ca3af; }
+    .text-purple-700 { color: #7e22ce; }
+    .text-red-700 { color: #b91c1c; }
+    .text-orange-700 { color: #c2410c; }
+    .text-blue-700 { color: #1d4ed8; }
+    .bg-purple-100 { background-color: #f3e8ff; }
+    .bg-purple-600 { background-color: #9333ea; }
+    .bg-gray-100 { background-color: #f3f4f6; }
+    .bg-red-50 { background-color: #fef2f2; }
+    .bg-orange-50 { background-color: #fff7ed; }
+    .bg-blue-50 { background-color: #eff6ff; }
+    .border-red-200 { border-color: #fecaca; }
+    .border-red-300 { border-color: #fca5a5; }
+    .border-orange-200 { border-color: #fed7aa; }
+    .border-orange-300 { border-color: #fdba74; }
+    .border-blue-200 { border-color: #bfdbfe; }
+    .border-blue-300 { border-color: #93c5fd; }
+    .border { border-width: 1px; }
+    .px-3 { padding-left: 0.75rem; padding-right: 0.75rem; }
+    .px-2 { padding-left: 0.5rem; padding-right: 0.5rem; }
+    .py-1 { padding-top: 0.25rem; padding-bottom: 0.25rem; }
+    .hover\:bg-gray-100:hover { background-color: #f3f4f6; }
+    .transition { transition-property: all; transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1); transition-duration: 150ms; }
+    .space-y-4 > * + * { margin-top: 1rem; }
+    .text-center { text-align: center; }
+    .mt-2 { margin-top: 0.5rem; }
+    .hidden { display: none; }
+    .animate-spin { animation: spin 1s linear infinite; }
+    .border-b-2 { border-bottom-width: 2px; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+.filter-btn,
+.severity-btn {
+  padding: 8px 16px;
+  border-radius: 12px;
+  border: 1.8px solid #d9d9d9;
+  background: #ffffff;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: 0.25s ease;
+  color: #333;
+}
+
+.filter-btn i,
+.severity-btn i {
+  font-size: 17px;
+}
+
+.filter-btn:not(.dark-theme):hover,
+.severity-btn:not(.dark-theme):hover,
+body:not(.dark-theme) .filter-btn:hover,
+body:not(.dark-theme) .severity-btn:hover {
+  border-color: #1e2a56;
+  color: #1e2a56;
+  background: #f0f4ff;
+}
+
+.filter-active,
+.severity-active {
+  background: #1e2a56 !important; 
+  border-color: #1e2a56 !important;
+  color: #ffffff !important;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.25);
+}
+
+.filter-active:hover,
+.severity-active:hover {
+  background: #1e2a56 !important;
+  color: #fff !important;
+  border-color: #1e2a56 !important;
+}
+
+@media (max-width: 600px) {
+  .filter-btn,
+  .severity-btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+
+body.light-theme {
+    background-color: #ffffff;
+    color: #000000;
+}
+
+header.light-theme {
+    background-color: #ffffff;
+    border-color: #d1d5db;
+}
+
+header.light-theme h1,
+header.light-theme p {
+    color: #000000;
+}
+
+.filter-btn.light-theme,
+.severity-btn.light-theme {
+    background-color: #ffffff;
+    color: #333;
+    border: 1.8px solid #d9d9d9;
+}
+
+.severity-btn.light-theme.border-red-300 {
+    border-color: #fca5a5 !important;
+    color: #b91c1c !important;
+}
+
+.severity-btn.light-theme.border-orange-300 {
+    border-color: #fdba74 !important;
+    color: #c2410c !important;
+}
+
+.severity-btn.light-theme.border-blue-300 {
+    border-color: #93c5fd !important;
+    color: #1d4ed8 !important;
+}
+
+.filter-btn.light-theme:hover,
+.severity-btn.light-theme:hover {
+    border-color: #1e2a56;
+    color: #1e2a56;
+    background: #f0f4ff;
+}
+
+.severity-btn.light-theme.border-red-300:hover {
+    border-color: #dc2626 !important;
+    color: #dc2626 !important;
+    background: #ffe5e5 !important;
+}
+
+.severity-btn.light-theme.border-orange-300:hover {
+    border-color: #f97316 !important;
+    color: #f97316 !important;
+    background: #fff7ed !important;
+}
+
+.severity-btn.light-theme.border-blue-300:hover {
+    border-color: #2563eb !important;
+    color: #2563eb !important;
+    background: #eff6ff !important;
+}
+
+.filter-active.light-theme,
+.severity-active.light-theme {
+    background-color: #1e2a56 !important;
+    border-color: #1e2a56 !important;
+    color: #ffffff !important;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.25);
+}
+
+.filter-active.light-theme:hover,
+.severity-active.light-theme:hover {
+    background-color: #1e2a56 !important;
+    color: #ffffff !important;
+    border-color: #1e2a56 !important;
+}
+
+.notification-card.light-theme {
+    background-color: #ffffff;
+    border: 1px solid #e5e7eb;
+    color: #000000;
+}
+
+
+body.dark-theme {
+    background-color: #282828;
+    color: #ffffff;
+}
+
+header.dark-theme {
+    background-color: #333333;
+    border-color: #000000;
+}
+
+header.dark-theme h1,
+header.dark-theme p {
+    color: #b77ce1;
+}
+
+.filter-btn.dark-theme,
+.severity-btn.dark-theme {
+    background-color: #333333;
+    color: #b77ce1;
+    border: 1px solid #444444;
+}
+
+.filter-btn.dark-theme:hover,
+.severity-btn.dark-theme:hover {
+    background-color: #b110dd91;
+    color: white;
+}
+
+.filter-active.dark-theme,
+.severity-active.dark-theme {
+    background-color: #b110dd91 !important;
+    color: white !important;
+    border-color: #b110dd91 !important;
+}
+
+.notification-card.dark-theme {
+    background-color: #1a1a1a;
+    border: 1px solid #333333;
+    color: #b77ce1;
+}
+
+
+.main-content h1.light-theme,
+.main-content h3.light-theme,
+.main-content p.light-theme {
+    color: #000000;
+}
+
+.main-content h1.dark-theme,
+.main-content h3.dark-theme,
+.main-content p.dark-theme {
+    color: #b77ce1;
+}
+
+.dark-icon {
+    stroke: currentColor;
+}
+
+#save-name-btn {
+    background-color: transparent;
+    color: #6a1b9a;
+    padding: 6px 12px;
+    border: 2px solid #6a1b9a;
+    border-radius: 20px;
+    font-size: 14px;
+    cursor: pointer;
+    float: right;
+    margin-top: 0;
+    margin-bottom: 10px;
+    transition: all 0.3s ease;
+}
+
+#save-name-btn:hover {
+    background-color: #6a1b9a;
+    color: white;
+    transform: scale(1.05);
+}
+
+#name-input {
+    border: none;
+    background-color: transparent;
+    color: #333;
+    font-size: 16px;
+    padding: 8px 0;
+    outline: none;
+    width: 100%;
+    transition: border-color 0.3s ease;
+}
+
+body.dark-theme {
+    background-color: #000000;
+    color: #ffffff;
+}
+
+header.dark-theme {
+    background-color: #282828;
+    border-color: #333333;
+}
+
+header.dark-theme h1,
+header.dark-theme p {
+    color: #b77ce1;
+}
+
+
+.filter-btn.dark-theme,
+.severity-btn.dark-theme {
+    background-color: #000000 !important;
+    border: 1px solid #000000 !important; 
+    color: #b77ce1 !important;           
+}
+
+.filter-btn.dark-theme:hover,
+.severity-btn.dark-theme:hover {
+    background-color: #b110dd91 !important; 
+    color: white !important;
+}
+
+
+.filter-active.dark-theme,
+.severity-active.dark-theme {
+    background-color: #b110dd91 !important;
+    border-color: #b110dd91 !important;
+    color: white !important;
+}
+
+
+.notification-card.dark-theme {
+    background-color: #000000 !important; 
+    border: 1px solid #1a1a1a !important;
+    color: #b77ce1 !important;          
+}
+
+.notification-card.dark-theme h2,
+.notification-card.dark-theme h3,
+.notification-card.dark-theme strong {
+    color: #b77ce1 !important;
+}
+
+.notification-card.dark-theme svg {
+    stroke: #b77ce1 !important;
+    color: #b77ce1 !important;
+}
+
+.notification-card.dark-theme p,
+.notification-card.dark-theme span {
+    color: #b77ce1 !important;
+}
+
+header.dark-theme {
+    background-color: #282828 !important;
+    border-color: #333333 !important;
+}
+
+header.dark-theme h1,
+header.dark-theme .text-gray-900 {
+    color: #b77ce1 !important;
+}
+
+header.dark-theme p,
+header.dark-theme .text-gray-500 {
+    color: #b77ce1 !important;
+}
+
+header.dark-theme .bg-white {
+    background-color: #282828 !important;
+}
+
+
+.bg-white.border-b.dark-theme,
+div.dark-theme.bg-white,
+.dark-theme .bg-white.border-b,
+body.dark-theme .bg-white.border-b,
+#filter-bar.dark-theme,
+body.dark-theme #filter-bar {
+    background-color: #1a1a1a !important;
+    border-color: #333333 !important;
+}
+
+body.dark-theme div.bg-white.border-b.border-gray-200,
+body.dark-theme #filter-bar.bg-white {
+    background-color: #1a1a1a !important;
+    border-color: #333333 !important;
+}
+
+
+#notification-count.dark-theme,
+.dark-theme #notification-count {
+    background-color: #b110dd91 !important;
+    color: #ffffff !important;
+}
+
+
+button.dark-theme.hover\:bg-gray-100:hover,
+.dark-theme button:hover {
+    background-color: #333333 !important;
+}
+
+.dark-theme .text-gray-600 {
+    color: #b77ce1 !important;
+}
+
+
+.dark-theme button[onclick*="history.back"] .text-gray-600,
+.dark-theme button[title="Voltar"] .text-gray-600 {
+    color: #b77ce1 !important;
+}
+
+.dark-theme button[onclick*="history.back"]:hover,
+.dark-theme button[title="Voltar"]:hover {
+    background-color: #333333 !important;
+}
+
+
+.dark-theme .bg-white.rounded-lg {
+    background-color: #000000 !important;
+    border-color: #1a1a1a !important;
+}
+
+.dark-theme .bg-white.rounded-lg h3 {
+    color: #b77ce1 !important;
+}
+
+.dark-theme .bg-white.rounded-lg .text-gray-600 {
+    color: #b77ce1 !important;
+}
+
+.dark-theme .bg-white.rounded-lg .text-gray-500 {
+    color: #b77ce1 !important;
+}
+
+.dark-theme .bg-red-50 {
+    background-color: #4a1a1a !important;
+    border-color: #6a2a2a !important;
+    color: #ff6b6b !important;
+}
+
+.dark-theme .bg-orange-50 {
+    background-color: #4a2a1a !important;
+    border-color: #6a4a2a !important;
+    color: #ffa366 !important;
+}
+
+.dark-theme .bg-blue-50 {
+    background-color: #1a2a4a !important;
+    border-color: #2a4a6a !important;
+    color: #6ba3ff !important;
+}
+
+.dark-theme .text-red-700 {
+    color: #ff6b6b !important;
+}
+
+.dark-theme .text-orange-700 {
+    color: #ffa366 !important;
+}
+
+.dark-theme .text-blue-700 {
+    color: #6ba3ff !important;
+}
+
+.dark-theme .border-red-200 {
+    border-color: #6a2a2a !important;
+}
+
+.dark-theme .border-orange-200 {
+    border-color: #6a4a2a !important;
+}
+
+.dark-theme .border-blue-200 {
+    border-color: #2a4a6a !important;
+}
+
+
+.dark-theme #loading .text-gray-600 {
+    color: #b77ce1 !important;
+}
+
+.dark-theme #no-results .text-gray-400 {
+    color: #b77ce1 !important;
+}
+
+.dark-theme #no-results .text-gray-600 {
+    color: #b77ce1 !important;
+}
+
+.dark-theme #no-results .text-gray-500 {
+    color: #b77ce1 !important;
+}
+
+
+.dark-theme #name-input {
+    color: #b77ce1 !important;
+    background-color: transparent !important;
+}
+
+.dark-theme #save-name-btn {
+    background-color: transparent !important;
+    color: #b77ce1 !important;
+    border-color: #b77ce1 !important;
+}
+
+.dark-theme #save-name-btn:hover {
+    background-color: #b110dd91 !important;
+    color: white !important;
+    border-color: #b110dd91 !important;
+}
+
+
+.dark-theme.bg-gray-50 {
+    background-color: #161616 !important;
+}
+
+.dark-theme .bg-gray-50 {
+    background-color: #161616 !important;
+}
+
+
+#notifications-container {
+    max-height: calc(100vh - 220px);
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding-right: 8px;
+    margin-right: -8px;
+    padding-bottom: 20px;
+}
+
+#notifications-container::-webkit-scrollbar {
+    width: 8px;
+}
+
+#notifications-container::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+}
+
+#notifications-container::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 10px;
+}
+
+#notifications-container::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+.dark-theme #notifications-container::-webkit-scrollbar-track {
+    background: #1a1a1a;
+}
+
+.dark-theme #notifications-container::-webkit-scrollbar-thumb {
+    background: #555;
+}
+
+.dark-theme #notifications-container::-webkit-scrollbar-thumb:hover {
+    background: #777;
+}
+
+#notifications-container {
+    scrollbar-width: thin;
+    scrollbar-color: #888 #f1f1f1;
+}
+
+.dark-theme #notifications-container {
+    scrollbar-color: #555 #1a1a1a;
+}
+
+main {
+    height: calc(100vh - 200px);
+    overflow: hidden;
+    position: relative;
+}
+
+
+  </style>
 </head>
-<body>
-    <div class="conversation-container" id="conversation">
+<body class="bg-gray-50 min-h-screen">
+
+  <header class="bg-white border-b border-gray-200 sticky top-0 z-50 shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+      
+      <div class="flex items-center gap-3">
+        <div class="bg-gradient-to-br from-purple-500 to-orange-500 p-2 rounded-lg">
+          <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/>
+          </svg>
+        </div>
+        <div>
+          <h1 class="text-xl font-bold text-gray-900">Notificações Curitiba</h1>
+          <p class="text-sm text-gray-500">Trânsito e Clima em tempo real</p>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-3">
+        <span id="notification-count"
+          class="bg-purple-100 text-purple-700 px-3 py-1 rounded-full text-sm font-medium">
+          0 alertas
+        </span>
+
+        <button onclick="window.location.href='inicio-mapa.html'" class="p-2 hover:bg-gray-100 rounded-lg transition" title="Voltar">
+          <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+          </svg>
+        </button>
+
+        <button onclick="refreshData()" class="p-2 hover:bg-gray-100 rounded-lg transition">
+          <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
+          </svg>
+        </button>
+      </div>
+
+    </div>
+  </header>
+
+  <div id="filter-bar" class="bg-white border-b border-gray-200 sticky z-40" style="top: 73px;">
+    <div class="max-w-7xl mx-auto px-4 py-3 flex flex-wrap gap-2">
+
+      <button onclick="filterByCategory('all', this)" class="filter-btn filter-active">
+        Todos
+      </button>
+
+      <button onclick="filterByCategory('traffic', this)" class="filter-btn">
+        🚦 Trânsito
+      </button>
+
+      <button onclick="filterByCategory('weather', this)" class="filter-btn">
+        🌤️ Clima
+      </button>
+
+      <button onclick="filterByCategory('incident', this)" class="filter-btn">
+        🚨 Incidentes
+      </button>
+
+      <button onclick="filterByCategory('roadwork', this)" class="filter-btn">
+        🚧 Obras
+      </button>
+
+      <button onclick="filterBySeverity('all', this)" class="severity-btn severity-active">
+        Todas
+      </button>
+
+      <button onclick="filterBySeverity('high', this)" class="severity-btn border border-red-300 text-red-700">
+        Alta
+      </button>
+
+      <button onclick="filterBySeverity('medium', this)" class="severity-btn border border-orange-300 text-orange-700">
+        Média
+      </button>
+
+      <button onclick="filterBySeverity('low', this)" class="severity-btn border border-blue-300 text-blue-700">
+        Baixa
+      </button>
+
+    </div>
+  </div>
+
+  <main class="max-w-7xl mx-auto px-4 py-6">
+    <div id="notifications-container" class="space-y-4"></div>
+
+    <div id="loading" class="text-center py-12">
+      <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-purple-600 mx-auto"></div>
+      <p class="mt-2 text-gray-600">Carregando notificações...</p>
     </div>
 
-    <div class="controls">
-        <button class="control-btn back-btn" onclick="window.history.back()">Voltar</button>
-        <button class="control-btn delete-all-btn" onclick="deleteAllMessages()">Excluir Todas</button>
+    <div id="no-results" class="text-center py-12 hidden">
+      <div class="text-gray-400 text-5xl">🔍</div>
+      <p class="text-gray-600 font-medium">Nenhuma notificação encontrada</p>
+      <p class="text-gray-500 text-sm">Tente ajustar os filtros</p>
     </div>
+  </main>
+
+  <script>
+console.log('api-notificação.js carregado - versão 2.0');
+
+let allNotifications = [];
+let currentCategoryFilter = 'all';
+let currentSeverityFilter = 'all';
+
+async function fetchWeatherData() {
+  try {
+    const response = await fetch('https://api.open-meteo.com/v1/forecast?latitude=-25.4284&longitude=-49.2733&current=temperature_2m,relative_humidity_2m,apparent_temperature,precipitation,rain,weather_code,wind_speed_10m&timezone=America%2FSao_Paulo');
     
-    <script src="js/theme-manager.js"></script>
-    <script src="js/api-notificação.js"></script>
+    if (!response.ok) {
+      throw new Error('Erro na resposta da API');
+    }
+    
+    const data = await response.json();
+    
+    if (!data || !data.current) {
+      throw new Error('Dados inválidos da API');
+    }
+
+    const notifications = [];
+    const current = data.current;
+    const temp = current.temperature_2m;
+    const rain = current.rain || 0;
+    const windSpeed = current.wind_speed_10m;
+
+    if (temp < 15) {
+      notifications.push({
+        id: `weather-temp-${Date.now()}`,
+        title: '🥶 Temperatura Baixa',
+        description: `Temperatura de ${temp}°C. Sensação ${current.apparent_temperature}°C.`,
+        location: 'Curitiba - Centro',
+        category: 'weather',
+        severity: temp < 10 ? 'high' : 'medium',
+        time: new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })
+      });
+    }
+
+    if (rain > 0) {
+      notifications.push({
+        id: `weather-rain-${Date.now()}`,
+        title: '🌧️ Chuva Detectada',
+        description: `Chuva de ${rain}mm em Curitiba.`,
+        location: 'Curitiba - Geral',
+        category: 'weather',
+        severity: rain > 5 ? 'high' : 'medium',
+        time: new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })
+      });
+    }
+
+    if (windSpeed > 30) {
+      notifications.push({
+        id: `weather-wind-${Date.now()}`,
+        title: '💨 Vento Forte',
+        description: `Ventos de ${windSpeed} km/h.`,
+        location: 'Curitiba - Geral',
+        category: 'weather',
+        severity: windSpeed > 50 ? 'high' : 'medium',
+        time: new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })
+      });
+    }
+
+    notifications.push({
+      id: `weather-general-${Date.now()}`,
+      title: '☁️ Condições Atuais',
+      description: `${Math.round(temp)}°C, umidade ${current.relative_humidity_2m}%, vento ${Math.round(windSpeed)} km/h`,
+      location: 'Curitiba',
+      category: 'weather',
+      severity: 'low',
+      time: new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })
+    });
+
+    return notifications;
+
+  } catch (error) {
+    console.error('Erro ao buscar clima:', error);
+    return [];
+  }
+}
+
+function generateTrafficData() {
+  const notifications = [];
+  const streets = [
+    'Av. Cândido de Abreu', 'Rua XV de Novembro',
+    'Av. Marechal Floriano', 'Av. Sete de Setembro',
+    'Rua da Glória', 'Av. República Argentina'
+  ];
+
+  const incidents = [
+    { title: '🚗 Acidente na via', type: 'incident', severity: 'high' },
+    { title: '🚧 Obra na pista', type: 'roadwork', severity: 'medium' },
+    { title: '🚦 Congestionamento', type: 'traffic', severity: 'medium' },
+    { title: '⚠️ Bloqueio parcial', type: 'incident', severity: 'high' }
+  ];
+
+  const numIncidents = Math.floor(Math.random() * 3) + 2;
+
+  for (let i = 0; i < numIncidents; i++) {
+    const incident = incidents[Math.floor(Math.random() * incidents.length)];
+    const street = streets[Math.floor(Math.random() * streets.length)];
+
+    notifications.push({
+      id: `traffic-${Date.now()}-${i}`,
+      title: incident.title,
+      description: `Reportado na ${street}. Evite a região.`,
+      location: street,
+      category: incident.type,
+      severity: incident.severity,
+      time: new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })
+    });
+  }
+
+  return notifications;
+}
+
+async function loadNotifications() {
+  const loadingEl = document.getElementById('loading');
+  const container = document.getElementById('notifications-container');
+  
+  if (!loadingEl || !container) {
+    console.warn('Elementos do DOM não encontrados ainda');
+    return;
+  }
+  
+  loadingEl.classList.remove('hidden');
+  container.innerHTML = '';
+
+  try {
+    const weatherData = await fetchWeatherData();
+    const trafficData = generateTrafficData();
+
+    allNotifications = [...weatherData, ...trafficData];
+
+    loadingEl.classList.add('hidden');
+    renderNotifications();
+  } catch (error) {
+    console.error('Erro ao carregar notificações:', error);
+    if (loadingEl) loadingEl.classList.add('hidden');
+  }
+}
+
+function renderNotifications() {
+  const container = document.getElementById('notifications-container');
+  const noResults = document.getElementById('no-results');
+  const countEl = document.getElementById('notification-count');
+
+  if (!container) {
+    console.warn('Container de notificações não encontrado');
+    return;
+  }
+
+  const filtered = allNotifications.filter(notif => {
+    const matchCategory = currentCategoryFilter === 'all' || notif.category === currentCategoryFilter;
+    const matchSeverity = currentSeverityFilter === 'all' || notif.severity === currentSeverityFilter;
+    return matchCategory && matchSeverity;
+  });
+
+  if (filtered.length === 0) {
+    container.innerHTML = '';
+    if (noResults) noResults.classList.remove('hidden');
+    if (countEl) countEl.textContent = '0 alertas';
+    return;
+  }
+
+  if (noResults) noResults.classList.add('hidden');
+  if (countEl) countEl.textContent = `${filtered.length} alertas`;
+
+  const currentTheme = document.body.classList.contains('dark-theme') ? 'dark-theme' : 'light-theme';
+  
+  container.innerHTML = filtered.map(notif => {
+    const colors = {
+      high: 'bg-red-50 text-red-700 border-red-200',
+      medium: 'bg-orange-50 text-orange-700 border-orange-200',
+      low: 'bg-blue-50 text-blue-700 border-blue-200'
+    };
+
+    return `
+      <div class="notification-card bg-white rounded-lg shadow-sm border p-4 ${currentTheme}">
+        <div class="flex items-start justify-between">
+          <div>
+            <h3 class="font-semibold">${notif.title}</h3>
+            <p class="text-sm text-gray-600">${notif.description}</p>
+            <p class="text-xs text-gray-500 mt-2">${notif.location} • ${notif.time}</p>
+          </div>
+          <span class="px-2 py-1 text-xs rounded border ${colors[notif.severity]}">
+            ${notif.severity === 'high' ? 'ALTA' : notif.severity === 'medium' ? 'MÉDIA' : 'BAIXA'}
+          </span>
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+function filterByCategory(category, el) {
+  currentCategoryFilter = category;
+
+  document.querySelectorAll('.filter-btn').forEach(btn =>
+    btn.classList.remove('filter-active', 'bg-purple-600', 'text-white')
+  );
+
+  el.classList.add('filter-active');
+  renderNotifications();
+}
+
+function filterBySeverity(severity, el) {
+  currentSeverityFilter = severity;
+
+  document.querySelectorAll('.severity-btn').forEach(btn =>
+    btn.classList.remove('severity-active', 'bg-purple-600', 'text-white')
+  );
+
+  el.classList.add('severity-active');
+  renderNotifications();
+}
+
+function refreshData() {
+  loadNotifications();
+}
+
+(function() {
+  function init() {
+    try {
+      const loadingEl = document.getElementById('loading');
+      const container = document.getElementById('notifications-container');
+      
+      if (!loadingEl || !container) {
+        console.warn('Aguardando elementos do DOM...');
+        setTimeout(init, 100);
+        return;
+      }
+      
+      loadNotifications();
+      setInterval(loadNotifications, 5 * 60 * 1000); 
+    } catch (error) {
+      console.error('Erro na inicialização:', error);
+    }
+  }
+  
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();
+
+document.addEventListener("DOMContentLoaded", function () {
+    const savedTheme = localStorage.getItem("theme") || "light";
+    applyTheme(savedTheme);
+
+    function applyTheme(theme) {
+        document.body.classList.remove("light-theme", "dark-theme");
+        document.body.classList.add(theme + "-theme");
+
+        document.querySelectorAll(
+            "header, .filter-btn, .severity-btn, #notifications-container .notification-card, .main-content h1, .main-content h3, .main-content p, #notification-count, #name-input, #save-name-btn, #loading, #no-results, #filter-bar"
+        ).forEach(el => {
+            el.classList.remove("light-theme", "dark-theme");
+            el.classList.add(theme + "-theme");
+        });
+
+        const header = document.querySelector("header");
+        if (header) {
+            header.classList.remove("light-theme", "dark-theme");
+            header.classList.add(theme + "-theme");
+        }
+
+        const filterBar = document.getElementById("filter-bar");
+        if (filterBar) {
+            filterBar.classList.remove("light-theme", "dark-theme");
+            filterBar.classList.add(theme + "-theme");
+        }
+        
+        document.querySelectorAll(".bg-white.border-b").forEach(bar => {
+            if (bar.id !== "filter-bar" && bar !== header) {
+                bar.classList.remove("light-theme", "dark-theme");
+                bar.classList.add(theme + "-theme");
+            }
+        });
+
+        document.querySelectorAll(".filter-btn, .severity-btn").forEach(btn => {
+            btn.classList.remove("light-theme", "dark-theme");
+            btn.classList.add(theme + "-theme");
+        });
+
+        if (typeof renderNotifications === 'function') {
+            renderNotifications();
+        }
+    }
+});
+
+
+  </script>
+
 </body>
 </html>
+    

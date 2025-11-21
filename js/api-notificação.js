@@ -1,154 +1,289 @@
-const conversationDiv = document.getElementById('conversation');
-const apiURL = "https://catfact.ninja/fact";
-const MAX_MESSAGES = 7;
+console.log('api-notificação.js carregado - versão 2.0');
 
-// Função para carregar mensagens salvas no localStorage
-function loadConversation() {
-    const messages = JSON.parse(localStorage.getItem('conversation')) || [];
-    conversationDiv.innerHTML = ''; // Limpa o conteúdo
-    messages.forEach((message, index) => addMessageToDOM(message, index));
-}
+let allNotifications = [];
+let currentCategoryFilter = 'all';
+let currentSeverityFilter = 'all';
 
-// Função para salvar mensagens no localStorage com limite máximo
-function saveMessage(message) {
-    const messages = JSON.parse(localStorage.getItem('conversation')) || [];
-    messages.push(message);
-    if (messages.length > MAX_MESSAGES) {
-        messages.shift();
+async function fetchWeatherData() {
+  try {
+    const response = await fetch('https://api.open-meteo.com/v1/forecast?latitude=-25.4284&longitude=-49.2733&current=temperature_2m,relative_humidity_2m,apparent_temperature,precipitation,rain,weather_code,wind_speed_10m&timezone=America%2FSao_Paulo');
+    
+    if (!response.ok) {
+      throw new Error('Erro na resposta da API');
     }
-    localStorage.setItem('conversation', JSON.stringify(messages));
-}
-
-// Função para formatar o horário
-function formatTimestamp(date) {
-    const hours = String(date.getHours()).padStart(2, '0');
-    const minutes = String(date.getMinutes()).padStart(2, '0');
-    const seconds = String(date.getSeconds()).padStart(2, '0');
-    return `${hours}:${minutes}:${seconds}`;
-}
-
-// Adicionar mensagem ao DOM
-function addMessageToDOM({ text, sender, timestamp }, index) {
-    const cardDiv = document.createElement('div');
-    cardDiv.className = 'card';
-
-    const messageDiv = document.createElement('div');
-    messageDiv.className = 'message';
-    messageDiv.textContent = text;
-
-    const timestampDiv = document.createElement('div');
-    timestampDiv.className = 'timestamp';
-    timestampDiv.textContent = timestamp;
-
-    const deleteBtn = document.createElement('button');
-    deleteBtn.className = 'delete-btn';
-    deleteBtn.textContent = 'Excluir';
-    deleteBtn.dataset.index = index; // Configura o índice como atributo
-
-    cardDiv.appendChild(messageDiv);
-    cardDiv.appendChild(timestampDiv);
-    cardDiv.appendChild(deleteBtn);
-
-    conversationDiv.appendChild(cardDiv);
-
-    // Scroll automático apenas se estiver no final
-    const isAtBottom =
-        conversationDiv.scrollHeight - conversationDiv.scrollTop <= conversationDiv.clientHeight;
-    if (isAtBottom) {
-        conversationDiv.scrollTop = conversationDiv.scrollHeight;
+    
+    const data = await response.json();
+    
+    if (!data || !data.current) {
+      throw new Error('Dados inválidos da API');
     }
+
+    const notifications = [];
+    const current = data.current;
+    const temp = current.temperature_2m;
+    const rain = current.rain || 0;
+    const windSpeed = current.wind_speed_10m;
+
+    if (temp < 15) {
+      notifications.push({
+        id: `weather-temp-${Date.now()}`,
+        title: '🥶 Temperatura Baixa',
+        description: `Temperatura de ${temp}°C. Sensação ${current.apparent_temperature}°C.`,
+        location: 'Curitiba - Centro',
+        category: 'weather',
+        severity: temp < 10 ? 'high' : 'medium',
+        time: new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })
+      });
+    }
+
+    if (rain > 0) {
+      notifications.push({
+        id: `weather-rain-${Date.now()}`,
+        title: '🌧️ Chuva Detectada',
+        description: `Chuva de ${rain}mm em Curitiba.`,
+        location: 'Curitiba - Geral',
+        category: 'weather',
+        severity: rain > 5 ? 'high' : 'medium',
+        time: new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })
+      });
+    }
+
+    if (windSpeed > 30) {
+      notifications.push({
+        id: `weather-wind-${Date.now()}`,
+        title: '💨 Vento Forte',
+        description: `Ventos de ${windSpeed} km/h.`,
+        location: 'Curitiba - Geral',
+        category: 'weather',
+        severity: windSpeed > 50 ? 'high' : 'medium',
+        time: new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })
+      });
+    }
+
+    notifications.push({
+      id: `weather-general-${Date.now()}`,
+      title: '☁️ Condições Atuais',
+      description: `${Math.round(temp)}°C, umidade ${current.relative_humidity_2m}%, vento ${Math.round(windSpeed)} km/h`,
+      location: 'Curitiba',
+      category: 'weather',
+      severity: 'low',
+      time: new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })
+    });
+
+    return notifications;
+
+  } catch (error) {
+    console.error('Erro ao buscar clima:', error);
+    return [];
+  }
 }
 
-// Delegação de eventos para excluir mensagens
-conversationDiv.addEventListener('click', (event) => {
-    if (event.target.classList.contains('delete-btn')) {
-        const index = event.target.dataset.index;
-        deleteMessage(index);
-    }
-});
+function generateTrafficData() {
+  const notifications = [];
+  const streets = [
+    'Av. Cândido de Abreu', 'Rua XV de Novembro',
+    'Av. Marechal Floriano', 'Av. Sete de Setembro',
+    'Rua da Glória', 'Av. República Argentina'
+  ];
 
-// Função para buscar uma resposta aleatória da API
-async function getRandomMessage() {
-    try {
-        const response = await fetch(apiURL);
-        if (!response.ok) throw new Error("Erro ao obter dados da API.");
-        const data = await response.json();
-        return data.fact || "Erro ao receber a resposta.";
-    } catch (error) {
-        console.error("Erro:", error);
-        return "Erro ao conectar com a API.";
-    }
+  const incidents = [
+    { title: '🚗 Acidente na via', type: 'incident', severity: 'high' },
+    { title: '🚧 Obra na pista', type: 'roadwork', severity: 'medium' },
+    { title: '🚦 Congestionamento', type: 'traffic', severity: 'medium' },
+    { title: '⚠️ Bloqueio parcial', type: 'incident', severity: 'high' }
+  ];
+
+  const numIncidents = Math.floor(Math.random() * 3) + 2;
+
+  for (let i = 0; i < numIncidents; i++) {
+    const incident = incidents[Math.floor(Math.random() * incidents.length)];
+    const street = streets[Math.floor(Math.random() * streets.length)];
+
+    notifications.push({
+      id: `traffic-${Date.now()}-${i}`,
+      title: incident.title,
+      description: `Reportado na ${street}. Evite a região.`,
+      location: street,
+      category: incident.type,
+      severity: incident.severity,
+      time: new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })
+    });
+  }
+
+  return notifications;
 }
 
-// Função para enviar notificação
-async function sendNotification() {
-    const now = new Date();
+async function loadNotifications() {
+  const loadingEl = document.getElementById('loading');
+  const container = document.getElementById('notifications-container');
+  
+  if (!loadingEl || !container) {
+    console.warn('Elementos do DOM não encontrados ainda');
+    return;
+  }
+  
+  loadingEl.classList.remove('hidden');
+  container.innerHTML = '';
 
-    const botMessageText = await getRandomMessage();
-    const timestamp = formatTimestamp(now);
+  try {
+    const weatherData = await fetchWeatherData();
+    const trafficData = generateTrafficData();
 
-    const botMessage = {
-        text: botMessageText,
-        sender: "bot",
-        timestamp: timestamp
+    allNotifications = [...weatherData, ...trafficData];
+
+    loadingEl.classList.add('hidden');
+    renderNotifications();
+  } catch (error) {
+    console.error('Erro ao carregar notificações:', error);
+    if (loadingEl) loadingEl.classList.add('hidden');
+  }
+}
+
+function renderNotifications() {
+  const container = document.getElementById('notifications-container');
+  const noResults = document.getElementById('no-results');
+  const countEl = document.getElementById('notification-count');
+
+  if (!container) {
+    console.warn('Container de notificações não encontrado');
+    return;
+  }
+
+  const filtered = allNotifications.filter(notif => {
+    const matchCategory = currentCategoryFilter === 'all' || notif.category === currentCategoryFilter;
+    const matchSeverity = currentSeverityFilter === 'all' || notif.severity === currentSeverityFilter;
+    return matchCategory && matchSeverity;
+  });
+
+  if (filtered.length === 0) {
+    container.innerHTML = '';
+    if (noResults) noResults.classList.remove('hidden');
+    if (countEl) countEl.textContent = '0 alertas';
+    return;
+  }
+
+  if (noResults) noResults.classList.add('hidden');
+  if (countEl) countEl.textContent = `${filtered.length} alertas`;
+
+  const currentTheme = document.body.classList.contains('dark-theme') ? 'dark-theme' : 'light-theme';
+  
+  container.innerHTML = filtered.map(notif => {
+    const colors = {
+      high: 'bg-red-50 text-red-700 border-red-200',
+      medium: 'bg-orange-50 text-orange-700 border-orange-200',
+      low: 'bg-blue-50 text-blue-700 border-blue-200'
     };
 
-    addMessageToDOM(botMessage, Date.now());
-    saveMessage(botMessage);
+    return `
+      <div class="notification-card bg-white rounded-lg shadow-sm border p-4 ${currentTheme}">
+        <div class="flex items-start justify-between">
+          <div>
+            <h3 class="font-semibold">${notif.title}</h3>
+            <p class="text-sm text-gray-600">${notif.description}</p>
+            <p class="text-xs text-gray-500 mt-2">${notif.location} • ${notif.time}</p>
+          </div>
+          <span class="px-2 py-1 text-xs rounded border ${colors[notif.severity]}">
+            ${notif.severity === 'high' ? 'ALTA' : notif.severity === 'medium' ? 'MÉDIA' : 'BAIXA'}
+          </span>
+        </div>
+      </div>
+    `;
+  }).join('');
 }
 
-// Função para excluir uma mensagem individual
-function deleteMessage(index) {
-    const messages = JSON.parse(localStorage.getItem('conversation')) || [];
-    messages.splice(index, 1);
-    localStorage.setItem('conversation', JSON.stringify(messages));
-    loadConversation();
+function filterByCategory(category, el) {
+  currentCategoryFilter = category;
+
+  document.querySelectorAll('.filter-btn').forEach(btn =>
+    btn.classList.remove('filter-active', 'bg-purple-600', 'text-white')
+  );
+
+  el.classList.add('filter-active');
+  renderNotifications();
 }
 
-// Função para excluir todas as mensagens
-function deleteAllMessages() {
-    if (confirm("Tem certeza de que deseja excluir todas as mensagens?")) {
-        localStorage.removeItem('conversation');
-        loadConversation();
-        alert("Todas as mensagens foram excluídas!");
+function filterBySeverity(severity, el) {
+  currentSeverityFilter = severity;
+
+  document.querySelectorAll('.severity-btn').forEach(btn =>
+    btn.classList.remove('severity-active', 'bg-purple-600', 'text-white')
+  );
+
+  el.classList.add('severity-active');
+  renderNotifications();
+}
+
+function refreshData() {
+  loadNotifications();
+}
+
+(function() {
+  function init() {
+    try {
+      const loadingEl = document.getElementById('loading');
+      const container = document.getElementById('notifications-container');
+      
+      if (!loadingEl || !container) {
+        console.warn('Aguardando elementos do DOM...');
+        setTimeout(init, 100);
+        return;
+      }
+      
+      loadNotifications();
+      setInterval(loadNotifications, 5 * 60 * 1000); 
+    } catch (error) {
+      console.error('Erro na inicialização:', error);
     }
-}
+  }
+  
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();
 
-// Inicializa as mensagens salvas
-loadConversation();
-
-// Configura a busca de mensagens da API a cada 3 minutos
-setInterval(sendNotification, 180000); // 3 minutos em milissegundos
-
-// Envia uma mensagem inicial ao carregar a página
-sendNotification();
-
-// Sistema de Temas Light/Dark
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
     const savedTheme = localStorage.getItem("theme") || "light";
+    applyTheme(savedTheme);
 
-    // Aplica o tema salvo ou o padrão ao carregar a página
-    document.body.classList.add(savedTheme + "-theme");
-    updateThemeClasses(savedTheme);
+    function applyTheme(theme) {
+        document.body.classList.remove("light-theme", "dark-theme");
+        document.body.classList.add(theme + "-theme");
+
+        document.querySelectorAll(
+            "header, .filter-btn, .severity-btn, #notifications-container .notification-card, .main-content h1, .main-content h3, .main-content p, #notification-count, #name-input, #save-name-btn, #loading, #no-results, #filter-bar"
+        ).forEach(el => {
+            el.classList.remove("light-theme", "dark-theme");
+            el.classList.add(theme + "-theme");
+        });
+
+        const header = document.querySelector("header");
+        if (header) {
+            header.classList.remove("light-theme", "dark-theme");
+            header.classList.add(theme + "-theme");
+        }
+
+        const filterBar = document.getElementById("filter-bar");
+        if (filterBar) {
+            filterBar.classList.remove("light-theme", "dark-theme");
+            filterBar.classList.add(theme + "-theme");
+        }
+        
+        document.querySelectorAll(".bg-white.border-b").forEach(bar => {
+            if (bar.id !== "filter-bar" && bar !== header) {
+                bar.classList.remove("light-theme", "dark-theme");
+                bar.classList.add(theme + "-theme");
+            }
+        });
+
+        document.querySelectorAll(".filter-btn, .severity-btn").forEach(btn => {
+            btn.classList.remove("light-theme", "dark-theme");
+            btn.classList.add(theme + "-theme");
+        });
+
+        if (typeof renderNotifications === 'function') {
+            renderNotifications();
+        }
+    }
 });
-
-// Função para alternar o tema
-function toggleTheme() {
-    const currentTheme = document.body.classList.contains("light-theme") ? "light" : "dark";
-    const newTheme = currentTheme === "light" ? "dark" : "light";
-
-    // Atualiza o tema no body e nos elementos
-    document.body.classList.remove(currentTheme + "-theme");
-    document.body.classList.add(newTheme + "-theme");
-    updateThemeClasses(newTheme);
-
-    // Salva o novo tema no localStorage para persistir entre páginas
-    localStorage.setItem("theme", newTheme);
-}
-
-function updateThemeClasses(theme) {
-    document.querySelectorAll(".conversation-container, .controls, .card, .message, .timestamp, .control-btn").forEach(el => {
-        el.classList.remove("light-theme", "dark-theme");
-        el.classList.add(theme + "-theme");
-    });
-}

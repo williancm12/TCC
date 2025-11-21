@@ -53,25 +53,6 @@
         "categoria": "Linha Direta (Ligeirinho)"
     },
     {
-        "numero": "607",
-        "nome": "COLOMBO/CIC",
-        "origem": "Term.Maracanã, Colombo, Brasil",
-        "destino": "Term.CIC, Curitiba, Brasil",
-        "tarifa_dinheiro": 6.00,
-        "tarifa_cartao": 5.50,
-        "pontos_base": [
-            "Term.Maracanã",
-            "Cabral",
-            "R.Barca",
-            "CIC",
-            "Pç.Tiradentes",
-            "R.Barbosa"
-        ],
-        "municipios_atendidos": ["Colombo"],
-        "operadora": "Santo Ângelo",
-        "categoria": "Linha Direta (Ligeirinho)"
-    },
-    {
         "numero": "A07",
         "nome": "TAMANDARÉ/CABRAL",
         "origem": "Term.Cabral, Curitiba,",

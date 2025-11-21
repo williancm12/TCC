@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" type="image/x-icon" href="./Image/Gemini_Generated_Image_hz8gyqhz8gyqhz8g.png">
     <link rel="stylesheet" href="CSS/cadastro-completo.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <title>Cadastro Completo</title>
 </head>
 <body>
@@ -14,230 +15,319 @@
             <p>Preencha todas as informações para criar sua conta</p>
         </div>
 
-
-
-        <div class="progress-bar">
-            <div class="step active" data-step="1">
-                <div class="step-number">1</div>
-                <div class="step-label">Dados Pessoais</div>
+        <div class="progress-indicator">
+            <div class="progress-text">
+                <span id="currentSectionNumber">1</span> de <span id="totalSections">3</span>
             </div>
-            <div class="step" data-step="2">
-                <div class="step-number">2</div>
-                <div class="step-label">Endereço</div>
-            </div>
-            <div class="step" data-step="3">
-                <div class="step-number">3</div>
-                <div class="step-label">Rosto</div>
-            </div>
+            <div class="progress-bar-fill" id="progressBarFill"></div>
         </div>
 
         <form id="cadastroForm" class="form-container">
-            <!-- Seção 1: Dados Pessoais -->
-            <div class="form-section active" id="section-1">
+            <div class="form-section active" id="section-dados-pessoais" data-section="1">
                 <h2 class="section-title">Dados Pessoais</h2>
                 
-                <e">Data de nascimento é obrigatória</div>
+                <div class="form-content-multi">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="nome">Nome Completo <span class="required">*</span></label>
+                            <input type="text" id="nome" name="nome" class="field-input" required autofocus>
+                            <div class="error-message">Nome é obrigatório</div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="cpf">CPF <span class="required">*</span></label>
+                            <input type="text" id="cpf" name="cpf" class="field-input cpf-mask" required>
+                            <div class="error-message">CPF é obrigatório</div>
+                        </div>
+                        <div class="form-group">
+                            <label for="rg">RG <span class="required">*</span></label>
+                            <input type="text" id="rg" name="rg" class="field-input rg-mask" required>
+                            <div class="error-message">RG é obrigatório</div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="dataNasc">Data de Nascimento <span class="required">*</span></label>
+                            <input type="text" id="dataNasc" name="dataNasc" class="field-input date-mask" required>
+                            <div class="error-message">Data de nascimento é obrigatória</div>
+                        </div>
+                        <div class="form-group">
+                            <label for="sexo">Sexo <span class="required">*</span></label>
+                            <select id="sexo" name="sexo" class="field-input" required>
+                                <option value="">Selecione...</option>
+                                <option value="M">Masculino</option>
+                                <option value="F">Feminino</option>
+                                <option value="O">Outro</option>
+                            </select>
+                            <div class="error-message">Sexo é obrigatório</div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="deficiencia">Deficiência</label>
+                            <input type="text" id="deficiencia" name="deficiencia" class="field-input" placeholder="Se aplicável">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="celular">Celular <span class="required">*</span></label>
+                            <input type="text" id="celular" name="celular" class="field-input phone-mask" required>
+                            <div class="error-message">Celular é obrigatório</div>
+                        </div>
+                        <div class="form-group">
+                            <label for="telefone">Telefone</label>
+                            <input type="text" id="telefone" name="telefone" class="field-input phone-mask">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="email">E-mail <span class="required">*</span></label>
+                            <input type="email" id="email" name="email" class="field-input" required>
+                            <div class="error-message">E-mail é obrigatório</div>
+                        </div>
+                        <div class="form-group">
+                            <label for="senha">Senha <span class="required">*</span></label>
+                            <input type="password" id="senha" name="senha" class="field-input" required>
+                            <div class="error-message">Senha é obrigatória</div>
+                        </div>
                     </div>
                 </div>
 
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="sexo">Sexo <span class="required">*</span></label>
-                        <select id="sexo" name="sexo" required>
-                            <option value="">Selecione...</option>
-                            <option value="M">Masculino</option>
-                            <option value="F">Feminino</option>
-                            <option value="O">Outro</option>
-                        </select>
-                        <div class="error-message">Sexo é obrigatório</div>
-                    </div>
-                    <div class="form-group">
-                        <label for="deficiencia">Deficiência</label>
-                        <input type="text" id="deficiencia" name="deficiencia" placeholder="Se aplicável">
-                    </div>
-                </div>
-
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="celular">Celular <span class="required">*</span></label>
-                        <input type="text" id="celular" name="celular" class="phone-mask" required>
-                        <div class="error-message">Celular é obrigatório</div>
-                    </div>
-                    <div class="form-group">
-                        <label for="telefone">Telefone</label>
-                        <input type="text" id="telefone" name="telefone" class="phone-mask">
-                    </div>
-                </div>
-
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="email">E-mail <span class="required">*</span></label>
-                        <input type="email" id="email" name="email" required>
-                        <div class="error-message">E-mail é obrigatório</div>
-                    </div>
-                    <div class="form-group">
-                        <label for="senha">Senha <span class="required">*</span></label>
-                        <input type="password" id="senha" name="senha" required>
-                        <div class="error-message">Senha é obrigatória</div>
-                    </div>
-                </div>
-
-                <div class="button-group three-buttons">
+                <div class="button-group">
                     <a href="inicio-mapa.html" class="btn btn-secondary">
                         <i class="fa-solid fa-arrow-left" style="margin-right: 8px;"></i>
                         Voltar ao Mapa
                     </a>
-                    <button type="button" class="btn btn-primary" onclick="nextSection()">Próximo</button>
+                    <button type="button" class="btn btn-primary" id="btnContinuar">
+                        Continuar
+                        <i class="fa-solid fa-arrow-right" style="margin-left: 8px;"></i>
+                    </button>
                 </div>
             </div>
 
-            <!-- Seção 2: Endereço -->
-            <div class="form-section" id="section-2">
+            <!-- Tela 2: Dados Bancários -->
+            <div class="form-section" id="section-dados-bancarios" data-section="2">
+                <h2 class="section-title">Dados Bancários</h2>
+                
+                <div class="form-content-multi">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="nomeBanco">Nome do Banco <span class="required">*</span></label>
+                            <input type="text" id="nomeBanco" name="nomeBanco" class="field-input" required>
+                            <div class="error-message">Nome do banco é obrigatório</div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="agencia">Agência <span class="required">*</span></label>
+                            <input type="text" id="agencia" name="agencia" class="field-input" required>
+                            <div class="error-message">Agência é obrigatória</div>
+                        </div>
+                        <div class="form-group">
+                            <label for="numeroConta">Número da Conta <span class="required">*</span></label>
+                            <input type="text" id="numeroConta" name="numeroConta" class="field-input" required>
+                            <div class="error-message">Número da conta é obrigatório</div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="tipoConta">Número da Conta <span class="required">*</span></label>
+                            <input type="text" id="tipoConta" name="tipoConta" class="field-input" required>
+                            <div class="error-message">Tipo de conta é obrigatório</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="button-group">
+                    <button type="button" class="btn btn-secondary" id="btnVoltarBancario">
+                        <i class="fa-solid fa-arrow-left" style="margin-right: 8px;"></i>
+                        Anterior
+                    </button>
+                    <button type="button" class="btn btn-primary" id="btnContinuarBancario">
+                        Continuar
+                        <i class="fa-solid fa-arrow-right" style="margin-left: 8px;"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Tela 3: Endereço -->
+            <div class="form-section" id="section-endereco" data-section="3">
                 <h2 class="section-title">Endereço Residencial</h2>
                 
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="cep">CEP <span class="required">*</span></label>
-                        <input type="text" id="cep" name="cep" class="cep-mask" maxlength="8" required>
-                        <div class="error-message">CEP é obrigatório</div>
-                    </div>
-                    <div class="form-group">
-                        <label for="numero">Número <span class="required">*</span></label>
-                        <input type="text" id="numero" name="numero" required>
-                        <div class="error-message">Número é obrigatório</div>
-                    </div>
-                </div>
-
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="rua">Rua <span class="required">*</span></label>
-                        <input type="text" id="rua" name="rua" required>
-                        <div class="error-message">Rua é obrigatória</div>
-                    </div>
-                    <div class="form-group">
-                        <label for="complemento">Complemento</label>
-                        <input type="text" id="complemento" name="complemento" placeholder="Apartamento, bloco, etc.">
-                    </div>
-                </div>
-
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="bairro">Bairro <span class="required">*</span></label>
-                        <input type="text" id="bairro" name="bairro" required>
-                        <div class="error-message">Bairro é obrigatório</div>
-                    </div>
-                    <div class="form-group">
-                        <label for="cidade">Cidade <span class="required">*</span></label>
-                        <input type="text" id="cidade" name="cidade" required>
-                        <div class="error-message">Cidade é obrigatória</div>
-                    </div>
-                </div>
-
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="estado">Estado <span class="required">*</span></label>
-                        <select id="estado" name="estado" required>
-                            <option value="">Selecione...</option>
-                            <option value="AC">Acre</option>
-                            <option value="AL">Alagoas</option>
-                            <option value="AP">Amapá</option>
-                            <option value="AM">Amazonas</option>
-                            <option value="BA">Bahia</option>
-                            <option value="CE">Ceará</option>
-                            <option value="DF">Distrito Federal</option>
-                            <option value="ES">Espírito Santo</option>
-                            <option value="GO">Goiás</option>
-                            <option value="MA">Maranhão</option>
-                            <option value="MT">Mato Grosso</option>
-                            <option value="MS">Mato Grosso do Sul</option>
-                            <option value="MG">Minas Gerais</option>
-                            <option value="PA">Pará</option>
-                            <option value="PB">Paraíba</option>
-                            <option value="PR">Paraná</option>
-                            <option value="PE">Pernambuco</option>
-                            <option value="PI">Piauí</option>
-                            <option value="RJ">Rio de Janeiro</option>
-                            <option value="RN">Rio Grande do Norte</option>
-                            <option value="RS">Rio Grande do Sul</option>
-                            <option value="RO">Rondônia</option>
-                            <option value="RR">Roraima</option>
-                            <option value="SC">Santa Catarina</option>
-                            <option value="SP">São Paulo</option>
-                            <option value="SE">Sergipe</option>
-                            <option value="TO">Tocantins</option>
-                        </select>
-                        <div class="error-message">Estado é obrigatório</div>
-                    </div>
-                    <div class="form-group">
-                        <label for="pais">País</label>
-                        <input type="text" id="pais" name="pais" value="Brasil" readonly>
-                    </div>
-                </div>
-
-                <div class="button-group">
-                    <button type="button" class="btn btn-secondary" onclick="prevSection()">Anterior</button>
-                    <button type="button" class="btn btn-primary" onclick="nextSection()">Próximo</button>
-                </div>
-            </div>
-
-            <!-- Seção 3: Rosto -->
-            <div class="form-section" id="section-3">
-                <h2 class="section-title">Reconhecimento Facial</h2>
-                
-                <div class="form-content">
-                    <p>Para finalizar seu cadastro, precisamos fazer o reconhecimento facial. Clique no botão abaixo para acessar a página de captura de rosto.</p>
-                    
-                    <div class="face-capture-info">
-                        <div class="infodiv class="form-row">
-                    <div class="form-group">
-                        <label for="nome">Nome Completo <span class="required">*</span></label>
-                        <input type="text" id="nome" name="nome" required>
-                        <div class="error-message">Nome é obrigatório</div>
-                    </div>
-                    <div class="form-group">
-                        <label for="cpf">CPF <span class="required">*</span></label>
-                        <input type="text" id="cpf" name="cpf" class="cpf-mask" required>
-                        <div class="error-message">CPF é obrigatório</div>
-                    </div>
-                </div>
-
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="rg">RG <span class="required">*</span></label>
-                        <input type="text" id="rg" name="rg" class="rg-mask" required>
-                        <div class="error-message">RG é obrigatório</div>
-                    </div>
-                    <div class="form-group">
-                        <label for="dataNasc">Data de Nascimento <span class="required">*</span></label>
-                        <input type="text" id="dataNasc" name="dataNasc" class="date-mask" required>
-                        <div class="error-messag-item">
-                            <i class="fa-solid fa-camera"></i>
-                            <span>Posicione seu rosto na câmera</span>
+                <div class="form-content-multi">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="cep">CEP <span class="required">*</span></label>
+                            <input type="text" id="cep" name="cep" class="field-input cep-mask" maxlength="8" required>
+                            <div class="error-message">CEP é obrigatório</div>
                         </div>
-                        <div class="info-item">
-                            <i class="fa-solid fa-lightbulb"></i>
-                            <span>Mantenha boa iluminação</span>
+                        <div class="form-group">
+                            <label for="numero">Número <span class="required">*</span></label>
+                            <input type="text" id="numero" name="numero" class="field-input" required>
+                            <div class="error-message">Número é obrigatório</div>
                         </div>
-                        <div class="info-item">
-                            <i class="fa-solid fa-eye"></i>
-                            <span>Olhe diretamente para a câmera</span>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="rua">Rua <span class="required">*</span></label>
+                            <input type="text" id="rua" name="rua" class="field-input" required>
+                            <div class="error-message">Rua é obrigatória</div>
+                        </div>
+                        <div class="form-group">
+                            <label for="complemento">Complemento</label>
+                            <input type="text" id="complemento" name="complemento" class="field-input" placeholder="Apartamento, bloco, etc.">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="bairro">Bairro <span class="required">*</span></label>
+                            <input type="text" id="bairro" name="bairro" class="field-input" required>
+                            <div class="error-message">Bairro é obrigatório</div>
+                        </div>
+                        <div class="form-group">
+                            <label for="cidade">Cidade <span class="required">*</span></label>
+                            <input type="text" id="cidade" name="cidade" class="field-input" required>
+                            <div class="error-message">Cidade é obrigatória</div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="estado">Estado <span class="required">*</span></label>
+                            <select id="estado" name="estado" class="field-input" required>
+                                <option value="">Selecione...</option>
+                                <option value="AC">Acre</option>
+                                <option value="AL">Alagoas</option>
+                                <option value="AP">Amapá</option>
+                                <option value="AM">Amazonas</option>
+                                <option value="BA">Bahia</option>
+                                <option value="CE">Ceará</option>
+                                <option value="DF">Distrito Federal</option>
+                                <option value="ES">Espírito Santo</option>
+                                <option value="GO">Goiás</option>
+                                <option value="MA">Maranhão</option>
+                                <option value="MT">Mato Grosso</option>
+                                <option value="MS">Mato Grosso do Sul</option>
+                                <option value="MG">Minas Gerais</option>
+                                <option value="PA">Pará</option>
+                                <option value="PB">Paraíba</option>
+                                <option value="PR">Paraná</option>
+                                <option value="PE">Pernambuco</option>
+                                <option value="PI">Piauí</option>
+                                <option value="RJ">Rio de Janeiro</option>
+                                <option value="RN">Rio Grande do Norte</option>
+                                <option value="RS">Rio Grande do Sul</option>
+                                <option value="RO">Rondônia</option>
+                                <option value="RR">Roraima</option>
+                                <option value="SC">Santa Catarina</option>
+                                <option value="SP">São Paulo</option>
+                                <option value="SE">Sergipe</option>
+                                <option value="TO">Tocantins</option>
+                            </select>
+                            <div class="error-message">Estado é obrigatório</div>
+                        </div>
+                        <div class="form-group">
+                            <label for="pais">País</label>
+                            <input type="text" id="pais" name="pais" class="field-input" value="Brasil" readonly>
                         </div>
                     </div>
                 </div>
 
                 <div class="button-group">
-                    <button type="button" class="btn btn-secondary" onclick="prevSection()">Anterior</button>
-                    <a href="rosto.html" class="btn btn-success">
-                        <i class="fa-solid fa-camera" style="margin-right: 8px;"></i>
-                        Ir para Captura de Rosto
-                    </a>
+                    <button type="button" class="btn btn-secondary" id="btnVoltarEndereco">
+                        <i class="fa-solid fa-arrow-left" style="margin-right: 8px;"></i>
+                        Anterior
+                    </button>
+                    <button type="button" class="btn btn-primary" id="btnFinalizar">
+                        Finalizar Cadastro
+                    </button>
                 </div>
             </div>
         </form>
     </div>
 
+    <!-- Tela de Instruções para Captura Facial -->
+    <div id="instructionsScreen" class="instructions-overlay" style="display: none;">
+        <div class="instructions-container">
+            <div class="instructions-header">
+                <h2>Instruções para Captura Facial</h2>
+                <p>Antes de prosseguir, leia as instruções abaixo</p>
+            </div>
+            
+            <div class="instructions-content">
+                <div class="instruction-item">
+                    <div class="instruction-icon">
+                        <i class="fa-solid fa-lightbulb"></i>
+                    </div>
+                    <div class="instruction-text">
+                        <h3>Iluminação</h3>
+                        <p>Certifique-se de estar em um ambiente bem iluminado. Evite sombras no rosto e luzes muito fortes atrás de você.</p>
+                    </div>
+                </div>
+                
+                <div class="instruction-item">
+                    <div class="instruction-icon">
+                        <i class="fa-solid fa-user"></i>
+                    </div>
+                    <div class="instruction-text">
+                        <h3>Posição</h3>
+                        <p>Fique de frente para a câmera, com o rosto centralizado. Mantenha uma distância de aproximadamente 50cm da câmera.</p>
+                    </div>
+                </div>
+                
+                <div class="instruction-item">
+                    <div class="instruction-icon">
+                        <i class="fa-solid fa-eye"></i>
+                    </div>
+                    <div class="instruction-text">
+                        <h3>Olhar</h3>
+                        <p>Olhe diretamente para a câmera. Mantenha os olhos abertos e evite usar óculos escuros ou acessórios que cubram o rosto.</p>
+                    </div>
+                </div>
+                
+                <div class="instruction-item">
+                    <div class="instruction-icon">
+                        <i class="fa-solid fa-face-smile"></i>
+                    </div>
+                    <div class="instruction-text">
+                        <h3>Expressão</h3>
+                        <p>Mantenha uma expressão neutra e natural. Não faça caretas ou sorrisos exagerados.</p>
+                    </div>
+                </div>
+                
+                <div class="instruction-item">
+                    <div class="instruction-icon">
+                        <i class="fa-solid fa-ban"></i>
+                    </div>
+                    <div class="instruction-text">
+                        <h3>Evite</h3>
+                        <p>Não use bonés, chapéus ou qualquer acessório que cubra parte do rosto. Remova óculos de sol se estiver usando.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="instructions-footer">
+                <button type="button" class="btn btn-primary btn-large" id="btnContinuarRosto">
+                    Entendi, Continuar
+                    <i class="fa-solid fa-arrow-right" style="margin-left: 8px;"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.11/jquery.mask.min.js"></script>
-    <script src="JS/cadastro-completo.js"></script>
+    <script src="js/cadastro-completo.js"></script>
+    <script src="js/cadastro2.js"></script>
 </body>
 </html>
