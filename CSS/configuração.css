@@ -26,7 +26,7 @@ body {
 .profile-picture {
     width: 100px;
     height: 100px;
-    border-radius: 50%;
+    border-radius: 100%;
     object-fit: cover;
 }
 
@@ -69,6 +69,11 @@ body {
 .main-content h1 {
     font-size: 2em;
     margin-bottom: 20px;
+}
+
+.config-option h2 {
+    margin-top: 0;
+    color: #000000;
 }
 
 #search {
@@ -123,6 +128,10 @@ body.light-theme {
     color: #000000; 
 }
 
+.config-option h2.dark-theme {
+    color: #000000;
+}
+
 /* escuro */
 body.dark-theme {
     background-color: #000000; 
@@ -138,8 +147,11 @@ body.dark-theme {
     color: #b77ce1; 
 }
 
-.main-content h1.dark-theme, .main-content h3.dark-theme, .main-content p.dark-theme {
-    color: #b77ce1; 
+.main-content h3.dark-theme, .main-content p.dark-theme {
+    color: #000000; 
+}
+.main-content h1.sidebar.dark-theme {
+    color: #6a1b9a; 
 }
 
 #save-name-btn {
