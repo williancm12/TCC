@@ -1,110 +1,69 @@
-document.querySelector('.profile-picture').addEventListener('click', function() {
-    alert("Clique para alterar a foto de perfil.");
-});
+(() => {
+    function initUserInfo() {
+        const savedName = localStorage.getItem("userName");
+        const savedImage = localStorage.getItem("profileImage");
 
+        const userNameDisplay = document.getElementById("user-name");
+        const nameInput = document.getElementById("name-input");
+        const profileImage = document.getElementById("profile-img");
 
-// Função para abrir novas páginas
-function openPage(pageUrl) {
-    window.location.href = pageUrl;
-}
+        if (savedName) {
+            if (userNameDisplay) userNameDisplay.innerText = savedName;
+            if (nameInput) nameInput.value = savedName;
+        }
 
-// Tema 
-
-document.addEventListener("DOMContentLoaded", function() {
-    const themeToggleButton = document.getElementById("theme-toggle");
-    const savedTheme = localStorage.getItem("theme") || "light";
-
-    // Aplica o tema salvo ou o padrão ao carregar a página
-    document.body.classList.add(savedTheme + "-theme");
-    updateThemeClasses(savedTheme);
-
-    // Alterna o tema ao clicar no botão
-    themeToggleButton.addEventListener("click", function() {
-        const currentTheme = document.body.classList.contains("light-theme") ? "light" : "dark";
-        const newTheme = currentTheme === "light" ? "dark" : "light";
-
-        // Atualiza o tema no body e nos elementos
-        document.body.classList.remove(currentTheme + "-theme");
-        document.body.classList.add(newTheme + "-theme");
-        updateThemeClasses(newTheme);
-
-        // Salva o novo tema no localStorage para persistir entre páginas
-        localStorage.setItem("theme", newTheme);
-    });
-
-    function updateThemeClasses(theme) {
-        // Aplica o tema em todos os elementos da página atual
-        document.querySelectorAll(".sidebar, .sidebar-buttons button, .main-content h1, .main-content h3, .main-content p, input, .config-option").forEach(el => {
-            el.classList.remove("light-theme", "dark-theme");
-            el.classList.add(theme + "-theme");
-        });
-        
-        // Também aplica no body para garantir que o tema seja aplicado globalmente
-        document.body.classList.remove("light-theme", "dark-theme");
-        document.body.classList.add(theme + "-theme");
+        if (savedImage && profileImage) {
+            profileImage.src = savedImage;
+        }
     }
-});
 
+    function ensureInit() {
+        if (document.readyState === "loading") {
+            document.addEventListener("DOMContentLoaded", initUserInfo, { once: true });
+        } else {
+            initUserInfo();
+        }
+    }
 
-       // Função para exibir a imagem de perfil temporária e salvar no localStorage
-       function previewImage(event) {
+    ensureInit();
+
+    window.openPage = function(pageUrl) {
+        window.location.href = pageUrl;
+    };
+
+    window.previewImage = function(event) {
+        if (!event || !event.target || !event.target.files || !event.target.files[0]) {
+            return;
+        }
+
         const reader = new FileReader();
-        reader.onload = function(){
-            const output = document.getElementById('profile-img');
-            const imageData = reader.result;
+        reader.onload = function() {
+            const output = document.getElementById("profile-img");
+            if (!output) return;
 
-            // Atualiza a imagem de perzfil e salva no localStorage
+            const imageData = reader.result;
             output.src = imageData;
-            localStorage.setItem('profileImage', imageData);
+            localStorage.setItem("profileImage", imageData);
         };
         reader.readAsDataURL(event.target.files[0]);
-    }
+    };
 
-    // Carregar a imagem de perfil salva no localStorage ao carregar a página
-    window.onload = function() {
-        const savedImage = localStorage.getItem('profileImage');
-        if (savedImage) {
-            document.getElementById('profile-img').src = savedImage;
+    window.saveName = function() {
+        const nameInput = document.getElementById("name-input");
+        const userNameDisplay = document.getElementById("user-name");
+
+        if (!nameInput) return;
+
+        const name = nameInput.value.trim();
+        if (!name) {
+            alert("Digite um nome valido.");
+            return;
         }
-    };
 
-    // Função para salvar o nome do colaborador 
-
-    function openPage(url) {
-      window.location.href = url;
-    }
-
-    function previewImage(event) {
-      const reader = new FileReader();
-      reader.onload = function () {
-        const output = document.getElementById("profile-img");
-        const imageData = reader.result;
-        output.src = imageData;
-        localStorage.setItem("profileImage", imageData);
-      };
-      reader.readAsDataURL(event.target.files[0]);
-    }
-
-    function saveName() {
-      const name = document.getElementById("name-input").value.trim();
-      if (name) {
         localStorage.setItem("userName", name);
-        document.getElementById("user-name").innerText = name;
+        if (userNameDisplay) {
+            userNameDisplay.innerText = name;
+        }
         alert("Nome salvo com sucesso!");
-      }
-    }
-
-    window.onload = function () {
-      const savedName = localStorage.getItem("userName");
-      const savedImage = localStorage.getItem("profileImage");
-
-      if (savedName) {
-        document.getElementById("user-name").innerText = savedName;
-        document.getElementById("name-input").value = savedName;
-      }
-
-      if (savedImage) {
-        document.getElementById("profile-img").src = savedImage;
-      }
     };
-  
+})();

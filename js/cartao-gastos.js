@@ -1,4 +1,3 @@
-// Sistema de Gerenciamento de Cartões e Gastos
 class CartaoGastos {
     constructor() {
         console.log('Iniciando CartaoGastos...');
@@ -137,7 +136,7 @@ class CartaoGastos {
         if (!nome || nome.length < 3) {
             this.mostrarMensagem('Nome deve ter pelo menos 3 caracteres', 'error');
             return false;
-        }
+        }//
 
         if (!numero || numero.length !== 16) {
             this.mostrarMensagem('Número do cartão deve ter 16 dígitos', 'error');
@@ -225,6 +224,57 @@ class CartaoGastos {
         
         const planoTitulo = cardInner.querySelector('.plan-title')?.textContent || 'Plano';
         
+        // Função auxiliar para extrair preço de texto
+        const extrairPreco = (texto) => {
+            if (!texto) return null;
+            
+            // Remove espaços extras
+            texto = texto.trim();
+            console.log('Texto recebido para extração:', texto);
+            
+            // Procura por padrões como: R$ 20,00 ou R$20,00
+            // Formato brasileiro: número com vírgula como separador decimal
+            // Regex mais específica: captura apenas números com vírgula e dois dígitos decimais
+            // Exemplos válidos: "R$ 20,00", "R$20,00", "R$ 100,00"
+            const padrao = /R\$\s*(\d{1,3}(?:\.\d{3})*,\d{2}|\d+,\d{2})/i;
+            let match = texto.match(padrao);
+            
+            // Se não encontrou com vírgula, tenta com ponto (formato alternativo)
+            if (!match) {
+                const padraoPonto = /R\$\s*(\d{1,3}(?:\.\d{3})*\.\d{2}|\d+\.\d{2})/i;
+                match = texto.match(padraoPonto);
+            }
+            
+            // Se ainda não encontrou, tenta apenas número inteiro
+            if (!match) {
+                const padraoInteiro = /R\$\s*(\d+)/i;
+                match = texto.match(padraoInteiro);
+            }
+            
+            if (match && match[1]) {
+                let valor = match[1];
+                console.log('Valor capturado pela regex:', valor);
+                
+                // Remove pontos (separadores de milhar) e substitui vírgula por ponto
+                // Primeiro remove todos os pontos, depois substitui vírgula por ponto
+                valor = valor.replace(/\./g, '').replace(',', '.');
+                console.log('Valor após processamento:', valor);
+                
+                const preco = parseFloat(valor);
+                console.log('Preço parseFloat:', preco);
+                
+                if (!isNaN(preco) && preco > 0 && preco <= 1000) {
+                    console.log('Preço extraído com sucesso:', preco);
+                    return preco;
+                } else {
+                    console.warn('Preço inválido após parseFloat ou fora do range:', preco);
+                }
+            } else {
+                console.warn('Nenhum padrão encontrado no texto:', texto);
+            }
+            return null;
+        };
+        
         // Pegar o preço real do plano selecionado
         const precoElement = cardInner.querySelector('.plan-price');
         let preco = 0;
@@ -236,34 +286,48 @@ class CartaoGastos {
             const precoTexto = precoElement.textContent.trim();
             console.log('Texto do preço:', precoTexto);
             
-            // Remove "R$", espaços e substitui vírgula por ponto
-            // Primeiro remove R$ e espaços, depois remove pontos (separadores de milhar) e substitui vírgula por ponto
-            const precoNumerico = precoTexto
-                .replace(/R\$\s?/i, '')  // Remove "R$" e espaços
-                .replace(/\./g, '')       // Remove pontos (separadores de milhar)
-                .replace(',', '.');       // Substitui vírgula por ponto
+            preco = extrairPreco(precoTexto);
+            console.log('Preço extraído:', preco);
             
-            console.log('Preço numérico extraído:', precoNumerico);
+            // Se não conseguir extrair do elemento .plan-price, tentar do título
+            if (!preco || preco <= 0) {
+                console.warn('Não foi possível extrair o preço do elemento .plan-price, tentando extrair do título');
+                const tituloTexto = planoTitulo || '';
+                console.log('Texto do título:', tituloTexto);
+                preco = extrairPreco(tituloTexto);
+                console.log('Preço extraído do título:', preco);
+            }
             
-            preco = parseFloat(precoNumerico);
-            console.log('Preço convertido:', preco);
-            
-            // Se não conseguir converter, usar preço aleatório como fallback
-            if (isNaN(preco) || preco <= 0) {
-                console.warn('Não foi possível extrair o preço do plano, usando preço aleatório');
-                preco = this.gerarPrecoAleatorio();
+            // Se ainda não conseguiu, mostrar erro
+            if (!preco || preco <= 0) {
+                console.error('Erro: Não foi possível determinar o preço do plano');
+                console.error('Elemento de preço:', precoElement);
+                console.error('Texto do preço:', precoTexto);
+                console.error('Título do plano:', planoTitulo);
+                this.mostrarMensagem('Erro ao processar o preço do plano. Tente novamente.', 'error');
+                return;
             }
         } else {
-            console.warn('Elemento de preço não encontrado, usando preço aleatório');
-            preco = this.gerarPrecoAleatorio();
+            console.error('Elemento de preço não encontrado');
+            this.mostrarMensagem('Erro ao encontrar o preço do plano. Tente novamente.', 'error');
+            return;
         }
         
-        console.log('Preço final da compra:', preco);
+        console.log('Preço final da compra ANTES do setTimeout:', preco);
+        console.log('Tipo do preço:', typeof preco);
+        console.log('Texto do plano original:', precoElement ? precoElement.textContent : 'N/A');
+        
+        // Guardar o valor em uma constante para evitar modificações
+        const valorFinal = preco;
         
         // Simular processamento de pagamento
         this.mostrarMensagem('Processando pagamento...', 'info');
         
         setTimeout(() => {
+            // Verificar se o valor não foi modificado
+            console.log('Preço dentro do setTimeout:', valorFinal);
+            console.log('Preço ainda é o mesmo?', valorFinal === preco);
+            
             // Usar o primeiro cartão ativo
             const cartaoAtivo = cartoesAtivos[0];
             
@@ -271,14 +335,21 @@ class CartaoGastos {
                 id: Date.now(),
                 cartaoId: cartaoAtivo.id,
                 descricao: `Compra - ${planoTitulo}`,
-                valor: preco,
+                valor: valorFinal, // Usar o valor guardado
                 data: new Date().toISOString(),
                 status: 'aprovado'
             };
 
             this.gastos.push(gasto);
             this.salvarGastos();
-            this.mostrarMensagem(`Compra aprovada! Valor: R$ ${preco.toFixed(2)}`, 'success');
+            
+            // Garantir que o preço está correto antes de exibir
+            const valorFormatado = typeof valorFinal === 'number' && !isNaN(valorFinal) ? valorFinal.toFixed(2) : '0.00';
+            console.log('Valor que será exibido na notificação:', valorFormatado);
+            console.log('Valor final usado:', valorFinal);
+            console.log('Valor formatado:', valorFormatado);
+            
+            this.mostrarMensagem(`Compra aprovada! Valor: R$ ${valorFormatado}`, 'success');
             this.atualizarInterface();
         }, 2000);
     }

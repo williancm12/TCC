@@ -15,8 +15,7 @@ async function getPerfilUser(params) {
             method: "GET",
             headers: {
                 "Accept": "application/json",
-                "Content-Type": "application/json",
-                'Authorization': `Bearer ${token}`,
+                "Content-Type": "application/json"
             }
         });
 
@@ -24,8 +23,9 @@ async function getPerfilUser(params) {
             const data = await response.json();
             console.log("Informações do usuário", data);
 
-            exibirPerfil(data);
-            exibirPerfilInicio(data);
+           exibirPerfil(data);
+           exibirPerfilInicio(data);
+           exibirImagemPerfil(data);
         }
     } catch (err) {
         console.log("Erro ao pegar informações do perfil logado")
@@ -35,6 +35,10 @@ async function getPerfilUser(params) {
 async function exibirPerfil(usuario) {
     const perfilDiv = document.getElementById("perfil");
     const nomeDiv = document.getElementById("user-name");
+    const imgBase64 = usuario.faces[0]?.image;
+    const imageSrc = imgBase64 
+        ? (imgBase64.startsWith('data:image') ? imgBase64 : `data:image/jpeg;base64,${imgBase64}`)
+        : "";
 
     nomeDiv.innerHTML = `<h3>${usuario.nome}</h3>`;
 
@@ -64,6 +68,19 @@ async function exibirPerfilInicio(usuario) {
     emailDiv.innerHTML = `<p>${usuario.email}</p>`;
 }
 
+async function exibirImagemPerfil(usuario) {
+    const imgPerfil = document.getElementById("imgPerfilContainer");
+    const imgBase64 = usuario.faces[0]?.image;
+    const imageSrc = imgBase64 
+        ? (imgBase64.startsWith('data:image') ? imgBase64 : `data:image/jpeg;base64,${imgBase64}`)
+        : "";
 
-document.addEventListener("DOMContentLoaded", exibirPerfil);
+    imgPerfil.innerHTML = `
+        <img src="${imageSrc}" alt="Foto de perfil" class="profile-picture" />
+    `;
+
+}
+
+document.addEventListener("DOMContentLoaded", getPerfilUser);
 document.addEventListener("DOMContentLoaded", exibirPerfilInicio);
+document.addEventListener("DOMContentLoaded", exibirImagemPerfil);
