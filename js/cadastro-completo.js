@@ -370,32 +370,6 @@ async function submitForm() {
     }
 }
 
-function showInstructionsScreen() {
-    const instructionsScreen = document.getElementById('instructionsScreen');
-    if (instructionsScreen) {
-        instructionsScreen.style.display = 'flex';
-        document.body.style.overflow = 'hidden';
-
-        setTimeout(() => {
-            instructionsScreen.classList.add('show');
-        }, 10);
-    }
-}
-
-function hideInstructionsAndRedirect() {
-    const instructionsScreen = document.getElementById('instructionsScreen');
-    if (instructionsScreen) {
-        instructionsScreen.classList.remove('show');
-        setTimeout(() => {
-            instructionsScreen.style.display = 'none';
-            document.body.style.overflow = 'auto';
-            window.location.href = "rosto.html";
-        }, 300);
-    } else {
-        window.location.href = "rosto.html";
-    }
-}
-
 async function buscarUsuarios() {
     const token = localStorage.getItem("authToken");
     const API_URL = "https://localhost:7006/api/Usuario";

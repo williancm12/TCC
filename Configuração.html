@@ -15,7 +15,6 @@
     </div>
 
     <div class="sidebar-buttons">
-      <button onclick="document.getElementById('img-input').click()">Alterar Imagem de Perfil</button>
       <button onclick="openPage('Política de Privacidade.html')">Política de Privacidade</button>
       <button id="theme-toggle">Mudar Tema</button>
       <a href="https://wa.me/5541995554948" target="_blank"><button>Ajuda</button></a>
@@ -45,6 +44,74 @@
       <p>Solicite um relatório com suas informações e configurações da conta.</p>
     </div>
   </div>
+  
+   <div id="instructionsScreen" class="instructions-overlay" style="display: none;">
+        <div class="instructions-container">
+            <div class="instructions-header">
+                <h2>Instruções para Captura Facial</h2>
+                <p>Antes de prosseguir, leia as instruções abaixo</p>
+            </div>
+            
+            <div class="instructions-content">
+                <div class="instruction-item">
+                    <div class="instruction-icon">
+                        <i class="fa-solid fa-lightbulb"></i>
+                    </div>
+                    <div class="instruction-text">
+                        <h3>Iluminação</h3>
+                        <p>Certifique-se de estar em um ambiente bem iluminado. Evite sombras no rosto e luzes muito fortes atrás de você.</p>
+                    </div>
+                </div>
+                
+                <div class="instruction-item">
+                    <div class="instruction-icon">
+                        <i class="fa-solid fa-user"></i>
+                    </div>
+                    <div class="instruction-text">
+                        <h3>Posição</h3>
+                        <p>Fique de frente para a câmera, com o rosto centralizado. Mantenha uma distância de aproximadamente 50cm da câmera.</p>
+                    </div>
+                </div>
+                
+                <div class="instruction-item">
+                    <div class="instruction-icon">
+                        <i class="fa-solid fa-eye"></i>
+                    </div>
+                    <div class="instruction-text">
+                        <h3>Olhar</h3>
+                        <p>Olhe diretamente para a câmera. Mantenha os olhos abertos e evite usar óculos escuros ou acessórios que cubram o rosto.</p>
+                    </div>
+                </div>
+                
+                <div class="instruction-item">
+                    <div class="instruction-icon">
+                        <i class="fa-solid fa-face-smile"></i>
+                    </div>
+                    <div class="instruction-text">
+                        <h3>Expressão</h3>
+                        <p>Mantenha uma expressão neutra e natural. Não faça caretas ou sorrisos exagerados.</p>
+                    </div>
+                </div>
+                
+                <div class="instruction-item">
+                    <div class="instruction-icon">
+                        <i class="fa-solid fa-ban"></i>
+                    </div>
+                    <div class="instruction-text">
+                        <h3>Evite</h3>
+                        <p>Não use bonés, chapéus ou qualquer acessório que cubra parte do rosto. Remova óculos de sol se estiver usando.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="instructions-footer">
+                <button type="button" class="btn btn-primary btn-large" id="btnContinuarRosto">
+                    Entendi, Continuar
+                    <i class="fa-solid fa-arrow-right" style="margin-left: 8px;"></i>
+                </button>
+            </div>
+        </div>
+    </div>
 
   <input type="file" id="img-input" accept="image/*" onchange="previewImage(event)" style="display: none" />
 
