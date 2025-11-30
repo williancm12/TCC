@@ -16,50 +16,55 @@ function rosto() {
   canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
   canvas.toBlob(async (blob) => {
     const idUsuario = localStorage.getItem("idUsuario");
+    const idUsuarioNumber = parseInt(idUsuario);
 
-    const formData = {
-      Nome: document.getElementById("name").value,
-      Imagem: `${blob}captura.png`,
-      IdUsuario: idUsuario,
-    }
+    const formData = new FormData();
+    formData.append('Nome', name);
+    formData.append('Imagem', blob, 'captura.png');
+    formData.append('IdUsuario', idUsuarioNumber);
+
+    console.log('Enviando dados para API...');
 
     try {
-      console.log('Enviando dados para API...');
-
       const response = await fetch(`https://localhost:7006/api/Captura/capturar-e-salvar`, {
         method: "POST",
-        body: JSON.stringify(formData)
+        body: formData
       })
 
-      console.log('responseposta da API:', response.status, response.statusText);
+      console.log('resposta da API:', response.status, response.statusText);
 
       if (response.ok) {
-        const data = await response.json();
-        statusText.innerText = data.message || "Imagem enviada com sucesso!";
-        console.log('Sucesso! Mostrando botão continuar...');
+        const responseText = await response.text();
+        console.log('Resposta:', responseText);
+        
+        let message;
+        try {
+          const data = JSON.parse(responseText);
+          message = data.message || "Imagem enviada com sucesso!";
+        } catch {
+          message = responseText || "Imagem enviada com sucesso!";
+        }
+        
+        statusText.innerText = message;
+        console.log('Sucesso! Redirecionando para o início...');
 
-        // Mostrar botão continuar após sucesso
-        document.getElementById('continueButton').style.display = 'block';
-        document.getElementById('btnCadastrar').style.display = 'none';
+        setTimeout(() => {
+            window.location.href = "/ProjetoWillian/inicio-mapa.html";
+        }, 1500);
+
+
       } else {
-        statusText.innerText = "Imagem capturada!";
-        console.log('API retornou erro, mas mostrando botão para teste...');
-
-        document.getElementById('continueButton').style.display = 'block';
-        document.getElementById('btnCadastrar').style.display = 'none';
+        statusText.innerText = "Erro ao enviar imagem";
+        console.log('API retornou erro');
       }
     } catch (error) {
       console.log('Erro na requisição:', error);
-      statusText.innerText = "Imagem capturada!";
-
-      document.getElementById('continueButton').style.display = 'block';
-      document.getElementById('btnCadastrar').style.display = 'none';
+      statusText.innerText = "Erro na requisição";
     }
   }, 'image/png');
 }
 
 function testarBotao() {
-  console.log('Testando exibição do botão...');
   document.getElementById('continueButton').style.display = 'block';
   document.getElementById('btnCadastrar').style.display = 'none';
   document.getElementById('status').innerText = 'Botão de teste ativado!';

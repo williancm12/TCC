@@ -26,6 +26,7 @@
 
         let map, directionsService, directionsRenderer, geocoder;
         let linhasOnibus = [];
+        let userMarker, userCircle;
 
         document.addEventListener("DOMContentLoaded", () => {
             console.log("DOM carregado, inicializando...");
@@ -117,7 +118,15 @@
                             lng: position.coords.longitude
                         };
 
-                        const userMarker = new google.maps.Marker({
+                        // Remover marcadores anteriores se existirem
+                        if (userMarker) {
+                            userMarker.setMap(null);
+                        }
+                        if (userCircle) {
+                            userCircle.setMap(null);
+                        }
+
+                        userMarker = new google.maps.Marker({
                             position: userLocation,
                             map: map,
                             icon: {
@@ -126,15 +135,15 @@
                             }
                         });
 
-                        const userCircle = new google.maps.Circle({
+                        userCircle = new google.maps.Circle({
                             center: userLocation,
-                            radius: position.coords.accuracy,
+                            radius: 50,
                             map: map,
-                            fillColor: "#4285F4",
-                            fillOpacity: 0.2,
-                            strokeColor: "#4285F4",
-                            strokeOpacity: 0.6,
-                            strokeWeight: 2
+                            fillColor: "#dde7f6ff",
+                            fillOpacity: 0.1,
+                            strokeColor: "#aac5edff",
+                            strokeOpacity: 0.3,
+                            strokeWeight: 1.5
                         });
 
                         map.setCenter(userLocation);

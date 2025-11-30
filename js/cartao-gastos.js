@@ -428,11 +428,42 @@ class CartaoGastos {
     atualizarInterface() {
         console.log('Atualizando interface...');
         try {
+            // Recarregar gastos do localStorage para garantir que está atualizado
+            this.gastos = JSON.parse(localStorage.getItem('gastos')) || [];
+            this.mostrarTotalRecargas();
             this.mostrarCartoesVinculados();
             this.mostrarHistoricoGastos();
             console.log('Interface atualizada com sucesso');
         } catch (error) {
             console.error('Erro ao atualizar interface:', error);
+        }
+    }
+
+    mostrarTotalRecargas() {
+        console.log('Calculando total de recargas...');
+        
+        // Recarregar gastos do localStorage para garantir que está atualizado
+        const gastosSalvos = JSON.parse(localStorage.getItem('gastos')) || [];
+        
+        // Calcular a soma de todos os valores das recargas
+        const total = gastosSalvos.reduce((soma, gasto) => {
+            const valor = typeof gasto.valor === 'number' ? gasto.valor : parseFloat(gasto.valor) || 0;
+            return soma + valor;
+        }, 0);
+        
+        // Formatar o valor em reais (R$)
+        const valorFormatado = total.toLocaleString('pt-BR', {
+            style: 'currency',
+            currency: 'BRL'
+        });
+        
+        // Atualizar o elemento na página
+        const elementoTotal = document.getElementById('valor-total-recargas');
+        if (elementoTotal) {
+            elementoTotal.textContent = valorFormatado;
+            console.log('Total de recargas atualizado:', valorFormatado);
+        } else {
+            console.log('Elemento de total de recargas não encontrado na página');
         }
     }
 

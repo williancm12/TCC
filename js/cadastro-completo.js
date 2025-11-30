@@ -362,7 +362,7 @@ async function submitForm() {
         }
 
         setTimeout(() => {
-            showInstructionsScreen();
+            window.location.href = "/ProjetoWillian/login.html";
         }, 1500);
 
     } catch (error) {
